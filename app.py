@@ -28,15 +28,62 @@ app.secret_key = SESSION_KEY
 
 @app.route('/')
 def index():
-    return '<h1>Article API</h1>'
+    return '<h1>Home</h1>'
 
 
-@app.route('/article')
-def recipes():
-    return {
-        'title': 'Cleaning Microwave',
-        'materials': 'vinegar, sponge'
-    }
+@app.route('/login')
+def login():
+    return '<h1>Login</h1>'
+
+
+@app.route('/logout')
+def logout():
+    return '<h1>Logout</h1>'
+
+
+@app.route('/register')
+def register():
+    return '<h1>Register</h1>'
+
+
+@app.route('/my-profile')
+def my_profile():
+    return '<h1>My Profile</h1>'
+
+
+@app.route('/about')
+def about():
+    return '<h1>About</h1>'
+
+
+@app.route('/instructions')
+def instructions():
+    return '<h1>Instructions</h1>'
+
+
+@app.route('/list-articles')
+def list_articles():
+    return '<h1>Articles</h1>'
+
+
+@app.route('/my-articles')
+def my_articles():
+    return '<h1>My Articles</h1>'
+
+
+@app.route('/contribute-articles')
+def contribute_articles():
+    return '<h1>Contribute Articles</h1>'
+
+
+@app.route('/manage-cleaning-locations')
+def manage_cleaning_locations():
+    return '<h1>Cleaning Locations</h1>'
+
+
+@app.route('/manage-users')
+def manage_users():
+    return '<h1>Users</h1>'
 
 
 # "magic code" -- boilerplate

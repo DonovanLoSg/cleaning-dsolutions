@@ -210,9 +210,9 @@ Logo on every page, clicking on it will bring the visitor to the Home Page. [Boo
 
 #### Main Navigation
 
-Main Navigation is a fixed position menu at the top of every web page. They are hyperlinked tTo their respective pages. [Bootstrap Component - Navbar]
+Main Navigation is a fixed position menu at the top of every web page. They are hyperlinked to their respective pages. [Bootstrap Component - Navbar]
 
-<img src="/readme/main-navbar.png" style="margin: 0; width: 100%" alt="Navigation Menu displaying different menu when users logged in as a member or administraoor">
+<img src="/readme/navbar.png" style="margin: 0; width: 100%" alt="Navigation Menu displaying different menu when users logged in as a member or administrator">
 
 #### Collapsible Hamburger Mobile Menu
 
