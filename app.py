@@ -86,6 +86,12 @@ def manage_users():
     return '<h1>Users</h1>'
 
 
+# inbuilt function which handles exception like file not found
+@app.errorhandler(404)
+def not_found(e):
+    return '<h1>File Not Found </h1>'
+
+
 # "magic code" -- boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
