@@ -20,7 +20,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [Users](#users)
     - [Users' stories](#users-stories)
     - [User’s goal](#users-goal)
-
+    - [Use Case Diagram](#use-case-diagram)
 
     
 
@@ -69,3 +69,5 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - Administrators will login to assign users to be administrators
     - Administrators will login to manage the list of cleaning locations
 
+### Use case diagram
+<img src="/readme/use-case-diagram.png" style="margin: 0; width: 100%" alt="Use Case Diagram">
