@@ -18,8 +18,11 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - [Defining the project (Strategy)](#defining-the-project-strategy)
     - [Site owner's goal](#site-owners-goal)
     - [Users](#users)
-    - [User’s stories](#users-stories)
+    - [Users' stories](#users-stories)
+    - [User’s goal](#users-goal)
 
+
+    
 
 ## Defining the Project (Strategy)
 
@@ -34,7 +37,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Contributors – they are users who are interested to validate the article contents, leave comments to the articles or contribute their own insights, tips and hacks. They will have to register as members.
 - Administrators – they are the super user who are given authority to manage the users.
 
-### User’s stories
+### Users' stories
 - As a general user,
     - I will like to locate a relevant article in the system, so that I can have the solutions to my cleaning problems.
 
@@ -47,4 +50,22 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - I will like to access the user tables, so that I can mange the users and resetting password.
     - I will like to access the articles, so that I can manage or delete undesirable articles.
 
-#
+### Users' goals
+- General Users’ goals 
+    - User will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags. 
+- Contributors’ (Members') goals
+    - Contributors will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags.
+    - Contributors will login to access a secure area to allow them to validate and comments on articles. 
+    - Contributors will login to access a secure area to view the articles they contributed. 
+    - Contributors will login to access a secure area to allow them to create, edit and delete their own articles. 
+    - Contributors will login to access their own profile to change personal information and password
+- Administrator’s goal 
+    - Administrators will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags.
+    - Administrators will login to access a secure area to allow them to validate and comments on articles. 
+    - Administrators will login to access a secure area to view the articles they contributed. 
+    - Administrators will login to access a secure area to allow them to create, edit and delete their own articles. 
+    - Administrators will login to access a secure area to allow them to manage or delete articles 
+    - Administrators will login to access their own profile to change personal information and reset password 
+    - Administrators will login to assign users to be administrators
+    - Administrators will login to manage the list of cleaning locations
+
