@@ -26,7 +26,11 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Public Access](#public-access)
         - [Member Access](#member-access)
         - [Administrators’ Access](#administrator-access)
-    
+    - [Content Requirement](content-requirement)
+        - [Static Content](static-content)
+        - [Dynamic Content](dynamic-content)
+
+
 
 ## Defining the Project (Strategy)
 
@@ -132,3 +136,32 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Allow administrator to reset user password.
 - Allow administrator to assign admin rights.
 - Allow administrator to manage the list of cleaning location.
+
+### Content Requirement
+
+#### Static Content
+
+- Content for an “About” page to introduce this application.
+- Content for step by step instructions for the users and members
+    - Searching for information
+    - Register for a member account
+    - Logging In
+    - Contribute articles
+    - Edit / Delete articles
+    - Adding Comments
+    - Validating the content
+    - Changing nickname
+    - Resetting password
+- Content for stepy by step instructions for administrator
+    - Search for user profiles
+    - Modifying/Deleting user profiles
+    - Assigning admin rights
+    - Modifying/Deleting articles 
+
+#### Dynamic Content
+
+- Records of articles comprising of article id, article title, cleaning location, article content, cleaning items, cleaning supplies, tags, creator, date created, date modified, count of the three different type of validated results.
+- Comments attached to the articles record (maximum one per user per article)
+- Validation (i.e. working, somewhat working, not working) (maximum one per user per article)
+- Records of users comprising of user id, nickname, email address, password and a flag indicating whether he has administration rights.
+- List of cleaning locations
