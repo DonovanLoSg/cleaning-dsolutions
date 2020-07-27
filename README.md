@@ -21,7 +21,11 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [Users' stories](#users-stories)
     - [User’s goal](#users-goal)
     - [Use Case Diagram](#use-case-diagram)
-
+- [Defining the Project (Scope)](#defining-the-project-scope)
+    - [Functional Specification](#functional-specification)
+        - [Public Access](#public-access)
+        - [Member Access](#member-access)
+        - [Administrators’ Access](#administrator-access)
     
 
 ## Defining the Project (Strategy)
@@ -71,3 +75,60 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 ### Use case diagram
 <img src="/readme/use-case-diagram.png" style="margin: 0; width: 100%" alt="Use Case Diagram">
+
+## Defining the Project (Scope)
+
+### Functional Specification
+
+#### Public Access
+- Get up to 5 articles from the database and display it on the homepage, allow user to click on one of these 5 default article titles to view the article.
+- Display a search panel to allow users to search using different methods: search by article titles, search by cleaning location or search by tags.
+- When a search is executed, it will return the result in a list containing article titles and cleaning locations.
+- Allow user to select one of the articles by clicking on the article titles from the search results to view the article.
+- Display the article containing article titles, cleaning location, article content, cleaning items, cleaning supplies and tags.
+- List the comments for individual articles
+- Display the count of validating vote.
+- Include an option to display all the articles.
+- Include a link to the user registration page which accept nickname, email address, password and password retype. The email address must be valid and unique in the system, the password must be at least eight characters and contain at least one letter and one number, the password retype must be same as the password.
+- Allow members and administrators to log in through a login page accepting nickname and password. If the validation is successful, redirect the user to administrators’ access area if they are administrators, else they will be redirected to a members’ access area. If the validation is unsuccessful, they will be alerted with a message and allowed to retry again.
+
+#### Member Access
+- Display a list of all articles the member contributed.
+- Allow user to select one of the articles by clicking on the article titles from the list to view the article.
+- Allow member to select one of the articles by clicking on the corresponding delete button.
+- Allow member to delete the article by clicking on the delete button on the article itself.
+- Allow member to edit the article by clicking on the edit button on the article itself.
+- Allow member to add a comment on the article page.
+- Allow member to edit the comment he left on the article page
+- Allow member to validate the article content by voting whether it works, somewhat works, or doesn’t work.
+- Allow member to change their validating votes.
+- Allow member to edit articles they contributed.
+- Allow member to delete articles they contributed.
+- Include an article creation page accepting article titles, cleaning location, article content, cleaning items, cleaning supplies and tags.
+- Allow member to view their own profile comprising of nickname, email address and password.
+- Allow member to update their nickname or reset their password.
+
+#### Administrator Access
+- Display a search panel to allow administrator to search using different methods: search by article titles, search by cleaning location or search by tags.
+- When a search is executed, it will return the result in a list containing article titles and cleaning locations.
+- Allow administrator to select one of article by clicking on the article titles from the search results to view the article.
+- Allow administrator to delete an article by clicking on the corresponding delete button.
+- Allow administrator to delete an article by clicking on the delete button on the article itself.
+- Allow administrator to edit an article by clicking on the edit button on the article itself.
+- Allow administrator to add a comment on the article page.
+- Allow member to edit the comment he left on the article page.
+- Allow administrator to validate the article content by voting whether it works, somewhat works, or doesn’t work.
+- Allow administrator to change their validating votes.
+- Allow administrator to edit any article.
+- Allow administrator to delete any article.
+- Include an article creation page accepting article titles, cleaning location, article content, cleaning items, cleaning supplies and tags.
+- Allow administrator to view their own profile comprising of nickname, email address and password.
+- Allow member to update their nickname or reset their password.
+- Display a list of all the users.
+- Allow administrator to search for a user.
+- Display the selected user profile.
+- Allow administrator to edit the user profile (modify nickname).
+- Allow administrator to delete user profile.
+- Allow administrator to reset user password.
+- Allow administrator to assign admin rights.
+- Allow administrator to manage the list of cleaning location.
