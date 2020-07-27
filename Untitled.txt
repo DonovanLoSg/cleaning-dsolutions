@@ -1,0 +1,3 @@
+mongo "mongodb+srv://cluster0.gu6vi.mongodb.net/" --username root
+
+UvB7MDhuYug0thvE
