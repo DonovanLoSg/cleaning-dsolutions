@@ -19,7 +19,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [Site owner's goal](#site-owners-goal)
     - [Users](#users)
     - [Users' stories](#users-stories)
-    - [User’s goal](#users-goal)
+    - [User’s goals](#users-goals)
     - [Use Case Diagram](#use-case-diagram)
 - [Defining the Project (Scope)](#defining-the-project-scope)
     - [Functional Specification](#functional-specification)
@@ -34,10 +34,13 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [ER diagram](#er-diagram)
    - [Interaction Design](#interaction-design)
         - [User Flow Diagram for General Users](#user-flow-diagram-for-general-users)
-        - [User Flow Diagram for Members](#user-flow-diagram-for-general-members)
-        - [User Flow Diagram for Administrators](#user-flow-diagram-for-general-administrators)
+        - [User Flow Diagram for Members](#user-flow-diagram-for-members)
+        - [User Flow Diagram for Administrators](#user-flow-diagram-for-administrators)
 - [Developing Page Structure and Organise Interactions (Skeleton)](#developing-page-structure-and-organise-interaction-skeleton)
     - [Navigation Design](#navigation-design)
+        - [Logo](#logo)
+        - [Main Navigation](#main-navigation)
+        - [Collapsible Hamburger Mobile Menu](#collapsible-hamburger-mobile-menu)
 
 
 ## Defining the Project (Strategy)
@@ -197,7 +200,9 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 <img src="/readme/user-flow-diagram-admin.png" style="margin: 0; width: 100%" alt="Administrators' Flow Diagram">
 
-### Navigation Deisgn
+## Developing Page Structure and Organise Interactions (Skeleton)
+
+### Navigation Design
 
 #### Logo
 
