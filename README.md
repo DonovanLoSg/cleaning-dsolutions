@@ -32,11 +32,17 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - [Developing the Site Structure and Organize Information (Structure)](#developing-the-site-structure-and-organize-information-structure)
     - [Information Architecture](#information-architecture)
         - [ER diagram](#er-diagram)
+   - [Interaction Design](#interaction-design)
+        - [User Flow Diagram for General Users](#user-flow-diagram-for-general-users)
+        - [User Flow Diagram for Members](#user-flow-diagram-for-general-members)
+        - [User Flow Diagram for Administrators](#user-flow-diagram-for-general-administrators)
+
 
 
 ## Defining the Project (Strategy)
 
 ### Site owner's goal
+
 
 - Create an online cleaners’ library.
 - Find solutions to my own cleaning issues, and possibility earns some income through google advertisement placement.
@@ -175,3 +181,18 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 #### ER diagram
 
 <img src="/readme/er-diagram.png" style="margin: 0; width: 100%" alt="ER Diagram">
+
+### Interaction Design
+
+#### User Flow Diagram for General Users
+
+<img src="/readme/user-flow-diagram-user.png" style="margin: 0; width: 100%" alt="Gemeral Users' Flow Diagram">
+
+#### User Flow Diagram for Members
+
+<img src="/readme/user-flow-diagram-members.png" style="margin: 0; width: 100%" alt="Members' Flow Diagram">
+
+#### User Flow Diagram for Administrators
+
+<img src="/readme/user-flow-diagram-admin.png" style="margin: 0; width: 100%" alt="Administrators' Flow Diagram">
+
