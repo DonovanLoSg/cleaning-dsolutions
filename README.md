@@ -36,7 +36,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [User Flow Diagram for General Users](#user-flow-diagram-for-general-users)
         - [User Flow Diagram for Members](#user-flow-diagram-for-general-members)
         - [User Flow Diagram for Administrators](#user-flow-diagram-for-general-administrators)
-
+- [Developing Page Structure and Organise Interactions (Skeleton)](#developing-page-structure-and-organise-interaction-skeleton)
+    - [Navigation Design](#navigation-design)
 
 
 ## Defining the Project (Strategy)
@@ -196,3 +197,18 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 <img src="/readme/user-flow-diagram-admin.png" style="margin: 0; width: 100%" alt="Administrators' Flow Diagram">
 
+### Navigation Deisgn
+
+#### Logo
+
+Logo on every page, clicking on it will bring the visitor to the Home Page. [Bootstrap Component - Navbar]
+
+#### Main Navigation
+
+Main Navigation is a fixed position menu at the top of every web page. They are hyperlinked tTo their respective pages. [Bootstrap Component - Navbar]
+
+<img src="/readme/main-navbar.png" style="margin: 0; width: 100%" alt="Navigation Menu displaying different menu when users logged in as a member or administraoor">
+
+#### Collapsible Hamburger Mobile Menu
+
+The top navigation will be minimised into a hamburger menu when displayed in mobile screens or other small screens. Clicking on it will display the familiar 3 choices. [Bootstrap Component - Navbar]
