@@ -15,7 +15,7 @@ MONGO_URI = os.environ.get('MONGO_URI')
 client = pymongo.MongoClient(MONGO_URI)
 
 # define my db_name
-DB_NAME = "cleaning-dsolutions"
+DB_NAME = os.environ.get('DB_NAME')
 
 # read in the SESSION_KEY variable from the operating system environment
 SESSION_KEY = os.environ.get('SESSION_KEY')
@@ -24,6 +24,20 @@ SESSION_KEY = os.environ.get('SESSION_KEY')
 app.secret_key = SESSION_KEY
 
 # START WRITING YOUR CODE
+
+
+@app.route('/')
+def index():
+    return '<h1>Article API</h1>'
+
+
+@app.route('/article')
+def recipes():
+    return {
+        'title': 'Cleaning Microwave',
+        'materials': 'vinegar, sponge'
+    }
+
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
