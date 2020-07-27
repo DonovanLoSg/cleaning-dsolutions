@@ -26,10 +26,12 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Public Access](#public-access)
         - [Member Access](#member-access)
         - [Administrators’ Access](#administrator-access)
-    - [Content Requirement](content-requirement)
-        - [Static Content](static-content)
-        - [Dynamic Content](dynamic-content)
-
+    - [Content Requirement](#content-requirement)
+        - [Static Content](#static-content)
+        - [Dynamic Content](#dynamic-content)
+- [Developing the Site Structure and Organize Information (Structure)](#developing-the-site-structure-and-organize-information-structure)
+    - [Information Architecture](#information-architecture)
+        - [ER diagram](#er-diagram)
 
 
 ## Defining the Project (Strategy)
@@ -165,3 +167,11 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Validation (i.e. working, somewhat working, not working) (maximum one per user per article)
 - Records of users comprising of user id, nickname, email address, password and a flag indicating whether he has administration rights.
 - List of cleaning locations
+
+## Developing the Site Structure and Organize Information (Structure)
+
+### Information Architecture
+
+#### ER diagram
+
+<img src="/readme/er-diagram.png" style="margin: 0; width: 100%" alt="ER Diagram">
