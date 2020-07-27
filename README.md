@@ -110,9 +110,9 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 #### Member Access
 - Display a list of all articles the member contributed.
-- Allow user to select one of the articles by clicking on the article titles from the list to view the article.
+- Allow member to select one of the articles by clicking on the article titles from the list to view the article.
 - Allow member to select one of the articles by clicking on the corresponding delete button.
-- Allow member to delete the article by clicking on the delete button on the article itself.
+- Allow member to delete the article by clicking on the delete confirmation button on the article itself.
 - Allow member to edit the article by clicking on the edit button on the article itself.
 - Allow member to add a comment on the article page.
 - Allow member to edit the comment he left on the article page
@@ -132,14 +132,14 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Allow administrator to delete an article by clicking on the delete button on the article itself.
 - Allow administrator to edit an article by clicking on the edit button on the article itself.
 - Allow administrator to add a comment on the article page.
-- Allow member to edit the comment he left on the article page.
+- Allow administrator to edit the comment he left on the article page.
 - Allow administrator to validate the article content by voting whether it works, somewhat works, or doesn’t work.
 - Allow administrator to change their validating votes.
 - Allow administrator to edit any article.
 - Allow administrator to delete any article.
 - Include an article creation page accepting article titles, cleaning location, article content, cleaning items, cleaning supplies and tags.
 - Allow administrator to view their own profile comprising of nickname, email address and password.
-- Allow member to update their nickname or reset their password.
+- Allow administrator to update their nickname or reset their password.
 - Display a list of all the users.
 - Allow administrator to search for a user.
 - Display the selected user profile.
