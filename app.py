@@ -110,9 +110,11 @@ def home():
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'POST':  # recieved as form submitted
-        return '<h1>Login Porcess</h1>'
+        return render_template("/auth/login_process.template.html")
     else:
-        return '<h1>Login Form</h1>'
+        # This template shows a login form, only called if the request.method was not 'POST'.
+        return render_template("/auth/login.template.html")
+
     #     email = request.form['email']
     #     password = request.form['password']
     #     try:
@@ -125,13 +127,11 @@ def login_user():
     #         # Send user to an error page if something happened during login.
     #         return '<h1>Login Error</h1>'
 
-    # return render_template("auth/login")  # This template shows a login form, only called if the request.method was not 'POST'.
-
 
 @login_manager.unauthorized_handler
 def unauthorized():
     # do stuff
-    return '<h1>Unauthorised</h1>'
+    return render_template("/unauthorized.template.html")
 
 
 # A instruction to log the user out and return to the home page
@@ -150,7 +150,7 @@ def logout():
 
 @app.route('/auth/register')
 def register():
-    return '<h1>Register</h1>'
+    return render_template("/auth/register.template.html")
 
 
 # Allow member to view their own profile comprising of
@@ -161,20 +161,20 @@ def register():
 # comprising of nickname, email address and password.
 # Allow administrator to update their nickname
 # or reset their password.
-@app.route('/my-profile')
+@app.route('/users/my-profile')
 @flask_login.login_required
 def my_profile():
-    return '<h1>My Profile</h1>'
+    return render_template("/user/my-profile.template.html")
 
 
 @app.route('/about')
 def about():
-    return '<h1>About</h1>'
+    return render_template("/about.template.html")
 
 
 @app.route('/instructions')
 def instructions():
-    return '<h1>Instructions</h1>'
+    return render_template("/instructions.template.html")
 
 
 # Allow user to select one of the articles by clicking
@@ -196,7 +196,7 @@ def instructions():
 # Allow administrator to delete any article.
 @app.route('/articles/list')
 def list_articles():
-    return '<h1>Articles</h1>'
+    return render_template("/articles/article-list.template.html")
 
 
 # Display the article containing article titles,
@@ -223,8 +223,8 @@ def list_articles():
 # Allow administrator to change their validating votes.
 # Allow administrator to edit any article.
 @app.route('/articles/show/<id>')
-def show_article():
-    return '<h1>Article #</h1>'
+def show_article(id):
+    return render_template("/articles/article.template.html", id=id)
 
 
 # Display a list of all articles the member contributed.
@@ -238,10 +238,10 @@ def show_article():
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
-@app.route('/articles/list/my')
+@app.route('/articles/my-list')
 @flask_login.login_required
 def my_articles():
-    return '<h1>My Articles</h1>'
+    return render_template("/articles/my-list.template.html")
 
 # Include an article creation page accepting article titles,
 # cleaning location, article content, cleaning items,
@@ -253,14 +253,14 @@ def my_articles():
 @app.route('/articles/contribute')
 @flask_login.login_required
 def contribute_articles():
-    return '<h1>Contribute Articles</h1>'
+    return render_template("/articles/contribute.template.html")
 
 
 # Allow administrator to manage the list of cleaning location.
-@app.route('/cleaning-location/manage')
+@app.route('/cleaning-locations/manage')
 @flask_login.login_required
 def manage_cleaning_locations():
-    return '<h1>Cleaning Locations</h1>'
+    return render_template("/cleaning-locations/manage.template.html")
 
 
 # Display a list of all the users.
@@ -273,13 +273,13 @@ def manage_cleaning_locations():
 @app.route('/users/manage')
 @flask_login.login_required
 def manage_users():
-    return '<h1>Users</h1>'
+    return render_template("/users/manage.template.html")
 
 
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    return '<h1>File Not Found </h1>'
+    return render_template('/file-not-found.template.htmlpyth')
 
 
 # "magic code" -- boilerplate
