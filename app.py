@@ -279,7 +279,7 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    return render_template('/file-not-found.template.htmlpyth')
+    return render_template('/file-not-found.template.html')
 
 
 # "magic code" -- boilerplate

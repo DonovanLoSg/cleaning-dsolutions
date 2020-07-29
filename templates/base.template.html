@@ -1,6 +1,34 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Nav</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/myStyle.css') }}"> -->
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    
+    <title>Cleaning d'Solutions - Solutions to griminess and messiness. </title>
+    
+    <meta name="description" content="Crowdsourced information, guides, recipes, tips and hacks on cleaning.">
+    
+    <title>{% block title %}{% endblock %}</title>
+    
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/myStyle.css') }}">  
+
+    <script src="{{ url_for('static', filename='js/lib/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+
+</head> 
+
+
 <!-- <nav>
   <h1>Flaskr</h1>
   <ul>

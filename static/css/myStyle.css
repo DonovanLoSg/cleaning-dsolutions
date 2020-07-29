@@ -1,3 +1,8 @@
 body {
+    font-family: 'Oswald', sans-serif;
     background: lightyellow
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
 }
