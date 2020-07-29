@@ -47,171 +47,156 @@
     <!-- ========================================================== 
 PAGE HEADER
 ========================================================== -->
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Branding -->
-        <a class="navbar-brand" href="{{ url_for('home') }}">
-          <img
-            src="http://resume.donovanlo.sg/images/donovanlogo150x131.png"
-            height="50"
-            class="d-inline-block align-middle"
-            alt="Logo"
-          />
-          <span class="font-weight-bold"
-            >Cleaning d'Solutions&nbsp;&nbsp;&nbsp;</span
-          >
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-between"
-          id="navbarNavDropdown"
-        >
-          <div>
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('home') }}"
-                  >Home <span class="sr-only">(current)</span></a
-                >
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarArticleDropdownMenuLink"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Articles
-                </a>
-                <div
-                  class="dropdown-menu"
-                  aria-labelledby="navbarArticleDropdownMenuLink"
-                >
-                  <a class="dropdown-item" href="{{ url_for('my_articles') }}"
-                    >My Articles</a
-                  >
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('contribute_articles') }}"
-                    >Contribute Articles</a
-                  >
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarAdminDropdownMenuLink"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Admin
-                </a>
-                <div
-                  class="dropdown-menu"
-                  aria-labelledby="navbarAdminDropdownMenuLink"
-                >
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('manage_cleaning_locations') }}"
-                    >Cleaning Locations</a
-                  >
-                  <a class="dropdown-item" href="{{ url_for('manage_users') }}"
-                    >Users</a
-                  >
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('instructions') }}"
-                  >Instructions</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('about') }}">About</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('login_user') }}">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('register') }}"
-                  >Register</a
-                >
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarProfileDropdownMenuLink"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Username
-                </a>
-
-                <div
-                  class="dropdown-menu"
-                  aria-labelledby="navbarProfileDropdownMenuLink"
-                >
-                  <a class="dropdown-item" href="{{ url_for('my_profile') }}"
-                    >My Profile</a
-                  >
-                  <a class="dropdown-item" href="{{ url_for('logout') }}"
-                    >Logout</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </div>
+    <div class="container-fluid bg-light">
+      <header>
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Branding -->
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+              <img
+                src="http://resume.donovanlo.sg/images/donovanlogo150x131.png"
+                height="50"
+                class="d-inline-block align-middle"
+                alt="Logo"
+              />
+              <span class="font-weight-bold"
+                >Cleaning d'Solutions&nbsp;&nbsp;&nbsp;</span
+              >
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-between"
+              id="navbarNavDropdown"
+            >
+              <div>
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('home') }}"
+                      >Home <span class="sr-only">(current)</span></a
+                    >
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarArticleDropdownMenuLink"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Articles
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="navbarArticleDropdownMenuLink"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('my_articles') }}"
+                        >My Articles</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('contribute_articles') }}"
+                        >Contribute Articles</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarAdminDropdownMenuLink"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Admin
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="navbarAdminDropdownMenuLink"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('manage_cleaning_locations') }}"
+                        >Cleaning Locations</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('manage_users') }}"
+                        >Users</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('instructions') }}"
+                      >Instructions</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login_user') }}"
+                      >Login</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}"
+                      >Register</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('my_profile') }}"
+                      >username</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
         </div>
-      </nav>
-
-      {% block header %}{% endblock %} {% for message in get_flashed_messages()
-      %}
-      <div class="flash">{{ message }}</div>
-      {% endfor %}
-    </header>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </header>
+    </div>
     <!-- ==========================================================
 MAIN
 ========================================================== -->
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+    <div class="container-fluid ">
+        <main>
+            <div class="container">
+                {% block header %}{% endblock %} {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
     <!-- ==========================================================
 PAGE FOOTER
 ========================================================== -->
     <footer></footer>
 
-    <!-- <nav>
-  <h1>Flaskr</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>></li>
-      <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-    {% else %}
-      <li><a href="{{ url_for('register') }}">Register</a></li>
-      <li><a href="{{ url_for('login_user') }}">Log In</a></li>
-    {% endif %}
-  </ul>
-</nav> -->
   </body>
 </html>
