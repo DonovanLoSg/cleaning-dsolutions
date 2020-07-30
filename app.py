@@ -42,12 +42,11 @@ class User(flask_login.UserMixin):
 
 # user loader for the Flask-Login login manager
 @login_manager.user_loader
-def user_loader(email):
+def load_user(email):
     # find the user from the database by its email
     user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
         'email': email
     })
-    print(user_data)
     if user_data:
         # create a new user object
         current_user = User()
@@ -108,9 +107,39 @@ def home():
 
 
 @app.route('/auth/login', methods=['GET', 'POST'])
-def login_user():
+def login():
     if request.method == 'POST':  # recieved as form submitted
-        return render_template("/auth/login_process.template.html")
+        form = request.form
+        current_user = load_user(form.get('input-email'))
+
+        if load_user(form.get('input-email')) is None:
+            # no such email exist in database
+            flash("User not found", category='danger')
+            return render_template("/auth/login.template.html", form=form)
+        else:
+            # email found in database, check password
+            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+                'email': form.get('input-email'),
+                'password': form.get('input-password')}
+            )
+            if user_data is None:
+                # password incorrect
+                flash('Password incorrect.', 'error')
+                return render_template("/auth/login.template.html", form=form)
+            else:
+                # password correct
+                flask_login.login_user(current_user)
+                flash('Logged in successfully.', 'success')
+                return render_template("/home.template.html")
+        # login_user(user)
+        # flask.flash('Logged in successfully.')
+        # next= flask.request.args.get('next')
+        # # is_safe_url should check if the url is safe for redirects.
+        # # See http://flask.pocoo.org/snippets/62/ for an example.
+        # if not is_safe_url(next):
+        #     return flask.abort(400)
+        # return flask.redirect(next or flask.url_for('index'))
+        
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
@@ -128,14 +157,14 @@ def login_user():
     #         return '<h1>Login Error</h1>'
 
 
-@login_manager.unauthorized_handler
+@ login_manager.unauthorized_handler
 def unauthorized():
     # do stuff
     return render_template("/unauthorized.template.html")
 
 
 # A instruction to log the user out and return to the home page
-@app.route('/auth/logout')
+@ app.route('/auth/logout')
 def logout():
     flask_login.logout_user()
     return redirect(url_for('home'))
@@ -148,7 +177,7 @@ def logout():
 # must be same as the password.
 
 
-@app.route('/auth/register')
+@ app.route('/auth/register')
 def register():
     return render_template("/auth/register.template.html")
 
@@ -161,18 +190,18 @@ def register():
 # comprising of nickname, email address and password.
 # Allow administrator to update their nickname
 # or reset their password.
-@app.route('/users/my-profile')
-@flask_login.login_required
+@ app.route('/users/my-profile')
+@ flask_login.login_required
 def my_profile():
     return render_template("/user/my-profile.template.html")
 
 
-@app.route('/about')
+@ app.route('/about')
 def about():
     return render_template("/about.template.html")
 
 
-@app.route('/instructions')
+@ app.route('/instructions')
 def instructions():
     return render_template("/instructions.template.html")
 
@@ -194,7 +223,7 @@ def instructions():
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
-@app.route('/articles/list')
+@ app.route('/articles/list')
 def list_articles():
     return render_template("/articles/article-list.template.html")
 
@@ -222,7 +251,7 @@ def list_articles():
 #  whether it works, somewhat works, or doesn’t work.
 # Allow administrator to change their validating votes.
 # Allow administrator to edit any article.
-@app.route('/articles/show/<id>')
+@ app.route('/articles/show/<id>')
 def show_article(id):
     return render_template("/articles/article.template.html", id=id)
 
@@ -238,8 +267,8 @@ def show_article(id):
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
-@app.route('/articles/my-list')
-@flask_login.login_required
+@ app.route('/articles/my-list')
+@ flask_login.login_required
 def my_articles():
     return render_template("/articles/my-list.template.html")
 
@@ -250,15 +279,15 @@ def my_articles():
 #  cleaning location, article content, cleaning items, cleaning supplies and tags.
 
 
-@app.route('/articles/contribute')
-@flask_login.login_required
+@ app.route('/articles/contribute')
+@ flask_login.login_required
 def contribute_articles():
     return render_template("/articles/contribute.template.html")
 
 
 # Allow administrator to manage the list of cleaning location.
-@app.route('/cleaning-locations/manage')
-@flask_login.login_required
+@ app.route('/cleaning-locations/manage')
+@ flask_login.login_required
 def manage_cleaning_locations():
     return render_template("/cleaning-locations/manage.template.html")
 
@@ -270,14 +299,14 @@ def manage_cleaning_locations():
 # Allow administrator to delete user profile.
 # Allow administrator to reset user password.
 # Allow administrator to assign admin rights.
-@app.route('/users/manage')
-@flask_login.login_required
+@ app.route('/users/manage')
+@ flask_login.login_required
 def manage_users():
     return render_template("/users/manage.template.html")
 
 
 # inbuilt function which handles exception like file not found
-@app.errorhandler(404)
+@ app.errorhandler(404)
 def not_found(e):
     return render_template('/file-not-found.template.html')
 

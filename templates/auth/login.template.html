@@ -1,4 +1,5 @@
 <!doctype html>
+
 {% extends 'base.template.html' %}
 
 {% block header %}
@@ -6,15 +7,17 @@
 {% endblock %}
 
 {% block content %}
-<form>
+
+
+<form method="POST" name="form" target="_self">
   <div class="form-group">
     <label for="input-email">Email address</label>
-    <input type="email" class="form-control" id="input-email" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="input-email" name="input-email" aria-describedby="emailHelp" placeholder="enter your email" {% if form %} value="{{form.get('input-email')}}"{% endif %} required>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="input-password">Password</label>
-    <input type="password" class="form-control" id="input-password">
+    <input type="password" name="input-password" class="form-control" id="input-password" placeholder="enter your password" {% if form %} value="{{form.get('input-password')}}"{% endif %} required>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
