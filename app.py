@@ -50,7 +50,7 @@ def load_user(email):
     if user_data:
         # create a new user object
         current_user = User()
-        current_user.id = user_data['email']
+        current_user.email = user_data['email']
         current_user.nickname = user_data['nickname']
         current_user.admin = user_data['admin']
         return current_user
@@ -124,7 +124,7 @@ def login():
                 )
                 if user_data is None:
                     # password incorrect
-                    flash('Password incorrect.', 'error')
+                    flash('Password incorrect.', 'danger')
                     return render_template("/auth/login.template.html", form=form)
                 else:
                     # password correct
@@ -135,7 +135,8 @@ def login():
                     session['admin'] = current_user.admin
                     return render_template("/home.template.html")
         except Exception as e:
-            return '<h1>Error</h1>'+e
+            flash('An unknown error has occurs. Please try login again.','danger')
+            return render_template("/auth/login.template.html")
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
