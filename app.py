@@ -111,51 +111,34 @@ def login():
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
         current_user = load_user(form.get('input-email'))
-
-        if load_user(form.get('input-email')) is None:
-            # no such email exist in database
-            flash("User not found", category='danger')
-            return render_template("/auth/login.template.html", form=form)
-        else:
-            # email found in database, check password
-            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-                'email': form.get('input-email'),
-                'password': form.get('input-password')}
-            )
-            if user_data is None:
-                # password incorrect
-                flash('Password incorrect.', 'error')
+        try:
+            if load_user(form.get('input-email')) is None:
+                # no such email exist in database
+                flash("User not found", category='danger')
                 return render_template("/auth/login.template.html", form=form)
             else:
-                # password correct
-                flask_login.login_user(current_user)
-                flash('Logged in successfully.', 'success')
-                return render_template("/home.template.html")
-        # login_user(user)
-        # flask.flash('Logged in successfully.')
-        # next= flask.request.args.get('next')
-        # # is_safe_url should check if the url is safe for redirects.
-        # # See http://flask.pocoo.org/snippets/62/ for an example.
-        # if not is_safe_url(next):
-        #     return flask.abort(400)
-        # return flask.redirect(next or flask.url_for('index'))
-        
+                # email found in database, check password
+                user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+                    'email': form.get('input-email'),
+                    'password': form.get('input-password')}
+                )
+                if user_data is None:
+                    # password incorrect
+                    flash('Password incorrect.', 'error')
+                    return render_template("/auth/login.template.html", form=form)
+                else:
+                    # password correct
+                    flask_login.login_user(current_user)
+                    flash(current_user.nickname+' logged in successfully.', 'success')
+                    session['email'] = current_user.email
+                    session['nickname'] = current_user.nickname
+                    session['admin'] = current_user.admin
+                    return render_template("/home.template.html")
+        except Exception as e:
+            return '<h1>Error</h1>'+e
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
-
-    #     email = request.form['email']
-    #     password = request.form['password']
-    #     try:
-    #         # Check if the user is valid, this would go through a database.
-    #         if User.is_login_valid(email, password):
-    #             session['email'] = email
-    #             # When we redirect them, we already have data saved in the session
-    #             return '<h1>Login</h1>'
-    #     except Exception as e:
-    #         # Send user to an error page if something happened during login.
-    #         return '<h1>Login Error</h1>'
-
 
 @ login_manager.unauthorized_handler
 def unauthorized():
@@ -166,6 +149,12 @@ def unauthorized():
 # A instruction to log the user out and return to the home page
 @ app.route('/auth/logout')
 def logout():
+    current_user = flask_login.current_user
+    flash(current_user.nickname+' logged out successfully.', 'success')
+    flask_login.current_user = User
+    del request.session['email']
+    del request.session['nickname']
+    del request.session['admin']
     flask_login.logout_user()
     return redirect(url_for('home'))
 
