@@ -168,24 +168,30 @@ def logout():
 def register():
     if request.method == 'POST':
         form = request.form
-        # check whether email is unique
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-            'email': form.get('input-email')
-        })
-        if user_data:
-            # Email address found in the database
-            flash("This email address has been used for registration. Please use other email address", category='danger')
+        # check whether the passwords are the same
+        if not(form.get('input-password') == form.get('input-verify')):
+            flash("The passwords do not match. Please retry.",
+                  category='danger')
             return render_template("/auth/register.template.html", form=form)
         else:
-            user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
-                'email': form.get('input-email'),
-                'nickname': form.get('input-nickname'),
-                'password': form.get('input-password'),
-                'admin': False}
-            )
-            flash("User registration successful. Please proceed to login.",
-                  category='success')
-            return render_template("/auth/login.template.html")
+            # check whether email is unique
+            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+                'email': form.get('input-email')
+            })
+            if user_data:
+                # Email address found in the database
+                flash("This email address has been used for registration. Please use other email address", category='danger')
+                return render_template("/auth/register.template.html", form=form)
+            else:
+                user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
+                    'email': form.get('input-email'),
+                    'nickname': form.get('input-nickname'),
+                    'password': form.get('input-password'),
+                    'admin': False}
+                )
+                flash("User registration successful. Please proceed to login.",
+                    category='success')
+                return render_template("/auth/login.template.html")
     else:
         # register form
         return render_template("/auth/register.template.html")

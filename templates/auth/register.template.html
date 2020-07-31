@@ -61,6 +61,26 @@
       digits.
     </small>
   </div>
+  <div class="form-group">
+    <label for="input-pwd1" class="mr-sm-2">Verify:</label>
+    <input
+      type="password"
+      class="form-control mb-2 mr-sm-2"
+      pattern="^[A-Za-z\d]{8,20}$"
+      placeholder="Enter password again"
+      id="input-verify"
+      name="input-verify"
+      aria-describedby="passwordHelpBlock"
+      required
+      {% if form %}
+      value="{{form.get('input-verify')}}"
+      {% endif %}
+    />
+    <small id="passwordHelpBlock" class="form-text text-muted">
+      Your password must be 8-20 characters long, contain only alphabets and
+      digits.
+    </small>
+  </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
