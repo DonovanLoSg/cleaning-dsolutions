@@ -172,8 +172,22 @@ def logout():
 @app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        return '<h1>Register</h1>'
+        form = request.form
+        # check whether email is unique
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+            'email': form.get('input-email')
+        })
+        if user_data:
+            # Email address found in the database
+            flash("This email address has been used for registration. Please use other email address", category='danger')
+            return render_template("/auth/register.template.html", form=form)
+            return ('email address already exist')
+        else:
+            # proceed to creating user
+            return ('unique email address')
+
     else:
+        # register form
         return render_template("/auth/register.template.html")
 
 
@@ -248,7 +262,7 @@ def list_articles():
 # Allow administrator to edit any article.
 @ app.route('/articles/show/<id>')
 def show_article(id):
-    return render_template("/articles/article.template.html", id=id)
+    return render_template("/articles/article.template.html", id = id)
 
 
 # Display a list of all articles the member contributed.
@@ -308,6 +322,6 @@ def not_found(e):
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+    app.run(host = os.environ.get('IP'),
+            port = int(os.environ.get('PORT')),
+            debug = True)
