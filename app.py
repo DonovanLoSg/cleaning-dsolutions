@@ -205,10 +205,27 @@ def register():
 # comprising of nickname, email address and password.
 # Allow administrator to update their nickname
 # or reset their password.
-@ app.route('/users/my-profile')
+
+@app.route('/users/my-profile', methods=['GET', 'POST'])
 @ flask_login.login_required
 def my_profile():
-    return render_template("/user/my-profile.template.html")
+    if request.method == 'POST':
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return render_template("/users/update-my-profile.template.html")
+    else:
+        return render_template("/users/my-profile.template.html")
 
 
 @ app.route('/about')

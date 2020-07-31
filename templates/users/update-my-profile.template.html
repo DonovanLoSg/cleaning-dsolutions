@@ -4,7 +4,7 @@
 
 
 {% block header %}
-  <h1>{% block title %}My Profile{% endblock %}</h1>
+  <h1>{% block title %}Update My Profile{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
       {% else %}
         value="{{session.email}}"
       {%endif%}
-      readonly
+      required
     />
     <small id="emailHelp" class="form-text text-muted"
       >We'll never share your email with anyone else.</small
