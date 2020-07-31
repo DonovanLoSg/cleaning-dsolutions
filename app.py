@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import pymongo
 from dotenv import load_dotenv
 from bson import ObjectId
@@ -25,7 +25,7 @@ USER_COLLECTION_NAME = os.environ.get('USER_COLLECTION_NAME')
 SESSION_KEY = os.environ.get('SESSION_KEY')
 
 # set the session key
-app.secret_key = SESSION_KEY
+app.secret_key = os.environ.get('SESSION_KEY')
 
 # --- User Authentication: Start  ----------------------------
 # create a login manager
@@ -34,8 +34,6 @@ login_manager.init_app(app)
 
 # User object
 # This user object basically represents one user
-
-
 class User(flask_login.UserMixin):
     pass
 
@@ -50,6 +48,7 @@ def load_user(email):
     if user_data:
         # create a new user object
         current_user = User()
+        current_user.id = user_data['email']
         current_user.email = user_data['email']
         current_user.nickname = user_data['nickname']
         current_user.admin = user_data['admin']
@@ -111,33 +110,29 @@ def login():
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
         current_user = load_user(form.get('input-email'))
-        try:
-            if load_user(form.get('input-email')) is None:
-                # no such email exist in database
-                flash("User not found", category='danger')
+        if load_user(form.get('input-email')) is None:
+            # no such email exist in database
+            flash("User not found", category='danger')
+            return render_template("/auth/login.template.html", form=form)
+        else:
+            # email found in database, check password
+            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+                'email': form.get('input-email'),
+                'password': form.get('input-password')}
+            )
+            if user_data is None:
+                # password incorrect
+                flash('Password incorrect.', 'danger')
                 return render_template("/auth/login.template.html", form=form)
             else:
-                # email found in database, check password
-                user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-                    'email': form.get('input-email'),
-                    'password': form.get('input-password')}
-                )
-                if user_data is None:
-                    # password incorrect
-                    flash('Password incorrect.', 'danger')
-                    return render_template("/auth/login.template.html", form=form)
-                else:
-                    # password correct
-                    flask_login.login_user(current_user)
-                    flash(current_user.nickname +
-                          ' logged in successfully.', 'success')
-                    session['email'] = current_user.email
-                    session['nickname'] = current_user.nickname
-                    session['admin'] = current_user.admin
-                    return render_template("/home.template.html")
-        except Exception as e:
-            flash('An unknown error has occurs. Please try login again.', 'danger')
-            return redirect(url_for("login"))
+                # password correct
+                flask_login.login_user(current_user)
+                flash(current_user.nickname +
+                      ' logged in successfully.', 'success')
+                session['email'] = current_user.email
+                session['nickname'] = current_user.nickname
+                session['admin'] = current_user.admin
+                return redirect(url_for('home'))
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
@@ -155,9 +150,9 @@ def logout():
     current_user = flask_login.current_user
     flash(current_user.nickname+' logged out successfully.', 'success')
     flask_login.current_user = User
-    del request.session['email']
-    del request.session['nickname']
-    del request.session['admin']
+    session.pop('email', None)
+    session.pop('nickname', None)
+    session.pop('admin', None)
     flask_login.logout_user()
     return redirect(url_for('home'))
 
@@ -183,12 +178,13 @@ def register():
             return render_template("/auth/register.template.html", form=form)
         else:
             user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
-                    'email': form.get('input-email'),
-                    'nickname': form.get('input-nickname'),
-                    'password': form.get('input-password'),
-                    'admin': False}
-                )
-            flash("User registration successful. Please proceed to login.", category='success')
+                'email': form.get('input-email'),
+                'nickname': form.get('input-nickname'),
+                'password': form.get('input-password'),
+                'admin': False}
+            )
+            flash("User registration successful. Please proceed to login.",
+                  category='success')
             return render_template("/auth/login.template.html")
     else:
         # register form
@@ -266,7 +262,7 @@ def list_articles():
 # Allow administrator to edit any article.
 @ app.route('/articles/show/<id>')
 def show_article(id):
-    return render_template("/articles/article.template.html", id = id)
+    return render_template("/articles/article.template.html", id=id)
 
 
 # Display a list of all articles the member contributed.
@@ -326,6 +322,6 @@ def not_found(e):
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
-    app.run(host = os.environ.get('IP'),
-            port = int(os.environ.get('PORT')),
-            debug = True)
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT')),
+            debug=True)
