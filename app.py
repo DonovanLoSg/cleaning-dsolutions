@@ -137,7 +137,7 @@ def login():
                     return render_template("/home.template.html")
         except Exception as e:
             flash('An unknown error has occurs. Please try login again.', 'danger')
-            return render_template("/auth/login.template.html")
+            return redirect(url_for("login"))
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
@@ -181,11 +181,15 @@ def register():
             # Email address found in the database
             flash("This email address has been used for registration. Please use other email address", category='danger')
             return render_template("/auth/register.template.html", form=form)
-            return ('email address already exist')
         else:
-            # proceed to creating user
-            return ('unique email address')
-
+            user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
+                    'email': form.get('input-email'),
+                    'nickname': form.get('input-nickname'),
+                    'password': form.get('input-password'),
+                    'admin': False}
+                )
+            flash("User registration successful. Please proceed to login.", category='success')
+            return render_template("/auth/login.template.html")
     else:
         # register form
         return render_template("/auth/register.template.html")
