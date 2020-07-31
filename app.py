@@ -129,26 +129,28 @@ def login():
                 else:
                     # password correct
                     flask_login.login_user(current_user)
-                    flash(current_user.nickname+' logged in successfully.', 'success')
+                    flash(current_user.nickname +
+                          ' logged in successfully.', 'success')
                     session['email'] = current_user.email
                     session['nickname'] = current_user.nickname
                     session['admin'] = current_user.admin
                     return render_template("/home.template.html")
         except Exception as e:
-            flash('An unknown error has occurs. Please try login again.','danger')
+            flash('An unknown error has occurs. Please try login again.', 'danger')
             return render_template("/auth/login.template.html")
     else:
         # This template shows a login form, only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
 
-@ login_manager.unauthorized_handler
+
+@login_manager.unauthorized_handler
 def unauthorized():
     # do stuff
     return render_template("/unauthorized.template.html")
 
 
 # A instruction to log the user out and return to the home page
-@ app.route('/auth/logout')
+@app.route('/auth/logout')
 def logout():
     current_user = flask_login.current_user
     flash(current_user.nickname+' logged out successfully.', 'success')
@@ -167,9 +169,12 @@ def logout():
 # must be same as the password.
 
 
-@ app.route('/auth/register')
+@app.route('/auth/register', methods=['GET', 'POST'])
 def register():
-    return render_template("/auth/register.template.html")
+    if request.method == 'POST':
+        return '<h1>Register</h1>'
+    else:
+        return render_template("/auth/register.template.html")
 
 
 # Allow member to view their own profile comprising of
