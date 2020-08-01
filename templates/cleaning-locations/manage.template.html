@@ -18,21 +18,21 @@
         </tr>
     </thead>
     <tbody>
-        {%for item in locations%}
+        {%for location in location_data%}
         <tr>
-            <td scope="row">{{item.location}}</td>
+            <td scope="row">{{location.location}}</td>
             <td>
                 <form method="post" name="form" target="_self">
                     <button type="submit" class="btn btn-primary">Edit</button>
                     <input type="hidden" name="action" value="edit">
-                    <input type="hidden" name="item" value="{{item._id}}">
+                    <input type="hidden" name="id" value="{{location._id}}">
                 </form>
             </td>
             <td>
                 <form method="post" name="form" target="_self">
                     <button type="submit" class="btn btn-danger">Delete</button>
                     <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="item" value="{{item._id}}">
+                    <input type="hidden" name="id" value="{{location._id}}">
                 </form>
             </td>
         </tr>
