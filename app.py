@@ -327,8 +327,10 @@ def manage_cleaning_locations():
         form = request.form
         location_data = client[DB_NAME]['cleaning_locations'].find_one(
             {'_id': ObjectId(form.get('id'))})
+        # render a form to allow editing of the selectedd cleaning location
         if form.get('action') == "edit":
             return render_template("/cleaning-locations/edit.template.html", location_data=location_data)
+        # update the database with the changes to the selected cleaning location
         if form.get('action') == "edit-process":
             myquery = {'_id': ObjectId(form.get('id'))}
             updatevalues = {'$set': {'location': form.get('input-location')}}
@@ -336,18 +338,23 @@ def manage_cleaning_locations():
                 myquery, updatevalues)
             flash('Location successfully updated', category='success')
             return redirect("/cleaning-locations/manage")
+        # display the record mark for deletion to ask for confirmation
         if form.get('action') == "delete":
             return render_template("/cleaning-locations/delete.template.html", location_data=location_data)
+        # remove the selected clearning location from the database
         if form.get('action') == "delete-process":
             myquery = {'_id': ObjectId(form.get('id'))}
             client[DB_NAME]['cleaning_locations'].delete_one(myquery)
             flash('Location successfully deleted', category='success')
             return redirect("/cleaning-locations/manage")
+        # Insert the new cleaning location into the database
         if form.get('action') == "add":
-            client[DB_NAME]['cleaning_locations'].insert_one({'location': form.get('input-new-location')})
+            client[DB_NAME]['cleaning_locations'].insert_one(
+                {'location': form.get('input-new-location')})
             flash("New cleaning location added.")
             return redirect("/cleaning-locations/manage")
     else:
+        # display the add cleaning location form and list out the cleaning locations in the databasse
         location_data = client[DB_NAME]['cleaning_locations'].find().sort(
             'location', pymongo.ASCENDING)
         return render_template("/cleaning-locations/manage.template.html", location_data=location_data)

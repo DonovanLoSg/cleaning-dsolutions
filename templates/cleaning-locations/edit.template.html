@@ -6,17 +6,12 @@
 {% endblock %}
 
 {% block content %}
+<!-- display record flag to allow amendment -->
 <form method="post" name="form" target="_self">
   <div class="form-group">
     <label for="input-location">Location</label>
-    <input
-      type="text"
-      class="form-control"
-      id="input-location"
-      name="input-location"
-      value="{{location_data.location}}"
-      required
-    />
+    <input type="text" class="form-control" id="input-location" name="input-location"
+      value="{{location_data.location}}" required />
   </div>
   <input type="hidden" name="action" value="edit-process">
   <input type="hidden" name="id" value="{{location_data._id}}">

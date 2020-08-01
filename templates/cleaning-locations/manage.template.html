@@ -6,23 +6,16 @@
 {% endblock %}
 
 {% block content %}
-
-
-
+<!-- display a form to allow user to add a new cleaning location -->
 <form method="post" name="form" target="_self">
    <label for="input-new-location" class="mr-sm-2">Location:</label>
-    <input
-      type="text"
-      class="form-control mb-2 mr-sm-2"
-      placeholder="Enter location"
-      id="input-new-location"
-      name="input-new-location"
-      required
-    />
+    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter location"
+      id="input-new-location" name="input-new-location" required />
     <input type="hidden" name="action" value="add">
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+<!-- display the list of cleaning locstion from the database sorted in ascending order -->
+<!-- include edit and delete button for the respective actions -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -54,6 +47,4 @@
         {% endfor %}
     </tbody>
 </table>
-</form>
-
 {% endblock %}
