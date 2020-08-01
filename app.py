@@ -101,6 +101,8 @@ def home():
 # accept email address and password
 # successful verification will be shown a login successful message and redirect to home
 # unsuccessful verificaiton will be shown relevant error message and ask to retry
+
+
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # recieved as form submitted
@@ -156,6 +158,8 @@ def logout():
 # Registration form
 # Allow an user to register for an account
 # Redirect to login page after successful registration
+
+
 @app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -202,9 +206,10 @@ def my_profile():
             # no change in password, direct update nickname
             myquery = {'email': form.get('input-email')}
             updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
-            client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+            client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                myquery, updatevalues)
             flash('"Profile successfully updated', category='success')
-            return render_template("/users/my-profile.template.html")
+            return render_template("/users/my-profile.template.html", form=form)
         else:
             # changes to passowrd, to check both passwods to be the same
             # if both password are not the same
@@ -215,10 +220,12 @@ def my_profile():
                 return render_template("/users/my-profile.template.html", form=form)
             else:
                 myquery = {'email': form.get('input-email')}
-                updatevalues = {'$set': {'nickname': form.get('input-nickname'),'password': form.get('input-password')}}
-                client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+                updatevalues = {'$set': {'nickname': form.get(
+                    'input-nickname'), 'password': form.get('input-password')}}
+                client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                    myquery, updatevalues)
                 flash('"Profile successfully updated', category='success')
-                return render_template("/users/my-profile.template.html")
+                return render_template("/users/my-profile.template.html", form=form)
     else:
         return render_template("/users/my-profile.template.html")
 
