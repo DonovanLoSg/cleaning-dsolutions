@@ -5,6 +5,7 @@ from bson import ObjectId
 import os
 import datetime
 import flask_login
+from math import ceil
 # from passlib.hash import pbkdf2_sha256
 
 
@@ -370,14 +371,16 @@ def manage_cleaning_locations():
 @ app.route('/users/manage', methods=['GET', 'POST'])
 @ flask_login.login_required
 def manage_users():
-    # form = request.form
+    form = request.form
     if request.method == 'POST':
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+            {'_id': ObjectId(form.get('id'))})
         if form.get('action') == "add":
-            return render_template("/users/manage.template.html", user_data=user_data)
+            return render_template("/users/manage.template.html", user_data=user_data, form=form)
         if form.get('action') == "edit":
-            return render_template("/users/edit.template.html", user_data=user_data)
+            return render_template("/users/edit.template.html", user_data=user_data, form=form)
         if form.get('action') == "delete":
-            return render_template("/users/delete.template.html", user_data=user_data)
+            return render_template("/users/delete.template.html", user_data=user_data, form=form)
         return "<h1>Post</h1>"
     else:
         # list out the users in the databasse
@@ -397,22 +400,22 @@ def manage_users():
             orderby = pymongo.DESCENDING
             ordericon = '( ▼ )'
         if 'pagenum' in args:
-            pagenum = args['pagenum']
+            pagenum = int(args['pagenum'])
         else:
-            pagenum = 1
+            pagenum = int(1)
         if 'numperpage' in args:
-            numperpage = args['numperpage']
+            numperpage = int(args['numperpage'])
         else:
-            numperpage = 5
-        skippage = (pagenum-1)*numperpage
-
-        sortObject = {}
-        sortObject[sortby] = 1
-
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort([(sortby, orderby)])
-        #.sort(sortby, orderby).skip(skippage).limit(20)
-
-        return render_template('users/manage.template.html',user_data=user_data, sortby=sortby, sortorder=sortorder, pagenum=pagenum, ordericon=ordericon, numperpage=numperpage)
+            numperpage = 1
+        totaldata = client[DB_NAME][USER_COLLECTION_NAME].count_documents({})
+        totalpages = ceil(totaldata / numperpage)
+        if pagenum >= totalpages:
+            pagenum = totalpages
+        if pagenum < 1:
+            pagenum = 1
+        skipnum = (pagenum-1)*numperpage
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find().skip(skipnum).limit(numperpage).sort([(sortby, orderby)])
+        return render_template('users/manage.template.html',user_data=user_data, sortby=sortby, sortorder=sortorder, pagenum=pagenum, ordericon=ordericon, numperpage=numperpage, totalpages=totalpages)
 
 
 # inbuilt function which handles exception like file not found

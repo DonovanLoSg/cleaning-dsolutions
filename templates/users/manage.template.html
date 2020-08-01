@@ -7,7 +7,7 @@
 
 {% block content %}
 
-{{sortby}} \ {{sortorder}} \ {{pagenum}} \ {{user_data}}
+{{sortby}} \ {{sortorder}} \ {{pagenum}} \ {{user_data}} \ {{totaldata}}
 
 
 <table class="table table-bordered">
@@ -16,45 +16,45 @@
             <th scope="col">
                 {% if sortby == 'nickname' %}
                     {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=nickname&sortorder=desc">Nickname {{ordericon}}</a>
+                        <a href="/users/manage?sortby=nickname&sortorder=desc&pagenum={{pagenum}}">Nickname {{ordericon}}</a>
                     {% else %}
-                        <a href="/users/manage?sortby=nickname&sortorder=asc">Nickname {{ordericon}}</a>
+                        <a href="/users/manage?sortby=nickname&sortorder=asc&pagenum={{pagenum}}">Nickname {{ordericon}}</a>
                     {% endif %}
                 {% else %}
                     {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=nickname&sortorder=asc">Nickname</a>
+                        <a href="/users/manage?sortby=nickname&sortorder=asc&pagenum={{pagenum}}">Nickname</a>
                     {% else %}
-                        <a href="/users/manage?sortby=nickname&sortorder=desc">Nickname</a>
+                        <a href="/users/manage?sortby=nickname&sortorder=desc&pagenum={{pagenum}}">Nickname</a>
                     {% endif %}
                 {% endif %}
             </th> 
             <th scope="col">
                 {% if sortby == 'email' %}
                     {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=email&sortorder=desc">Email Address {{ordericon}}</a>
+                        <a href="/users/manage?sortby=email&sortorder=desc&pagenum={{pagenum}}">Email Address {{ordericon}}</a>
                     {% else %}
-                        <a href="/users/manage?sortby=email&sortorder=asc">Email Address {{ordericon}}</a>
+                        <a href="/users/manage?sortby=email&sortorder=asc&pagenum={{pagenum}}">Email Address {{ordericon}}</a>
                     {% endif %}
                 {% else %}
                     {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=email&sortorder=asc">Email Address</a>
+                        <a href="/users/manage?sortby=email&sortorder=asc&pagenum={{pagenum}}">Email Address</a>
                     {% else %}
-                        <a href="/users/manage?sortby=email&sortorder=desc">Email Address</a>
+                        <a href="/users/manage?sortby=email&sortorder=desc&pagenum={{pagenum}}">Email Address</a>
                     {% endif %}
                 {% endif %}
             </th>
             <th scope="col">
                 {% if sortby == 'admin' %}
                     {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=admin&sortorder=desc">Admin? {{ordericon}}</a>
+                        <a href="/users/manage?sortby=admin&sortorder=desc&pagenum={{pagenum}}">Admin? {{ordericon}}</a>
                     {% else %}
-                        <a href="/users/manage?sortby=admin&sortorder=asc">Admin? {{ordericon}}</a>
+                        <a href="/users/manage?sortby=admin&sortorder=asc&pagenum={{pagenum}}">Admin? {{ordericon}}</a>
                     {% endif %}
                 {% else %}
                   {% if sortorder == 'asc' %}
-                        <a href="/users/manage?sortby=admin&sortorder=asc">Admin?</a>
+                        <a href="/users/manage?sortby=admin&sortorder=asc&pagenum={{pagenum}}">Admin?</a>
                     {% else %}
-                        <a href="/users/manage?sortby=admin&sortorder=desc">Admin?</a>
+                        <a href="/users/manage?sortby=admin&sortorder=desc&pagenum={{pagenum}}">Admin?</a>
                     {% endif %}
                 {% endif %}
             </th>
@@ -71,14 +71,14 @@
             <td scope="row">{% if user.admin %}Yes{% else %}No{% endif %}</td>
             <td>
                 <form method="post" name="form" target="_self">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn btn-primary" disabled>Edit</button>
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="{{user._id}}">
                 </form>
             </td>
             <td>
                 <form method="post" name="form" target="_self">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger" disabled>Delete</button>
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="id" value="{{user._id}}">
                 </form>
@@ -87,4 +87,20 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="d-flex justify-content-center">
+{%for i in range(pagenum-4, pagenum+5)%} 
+    {% if i>0 and i<=totalpages %}
+        {% if i==(pagenum-4) %}
+            <a href="/users/manage?sortby={{sortby}}&sortorder={{sortorder}}&pagenum={{i-7}}"><button type="button" class="btn btn-success"><<</button></a>
+        {% elif i==(pagenum+4) %}
+            <a href="/users/manage?sortby={{sortby}}&sortorder={{sortorder}}&pagenum={{i+7}}"><button type="button" class="btn btn-success">>></button></a>
+        {% elif i==pagenum %}
+            <button type="button" class="btn btn-success">{{i}}</button>
+        {% else %}
+            <a href="/users/manage?sortby={{sortby}}&sortorder={{sortorder}}&pagenum={{i}}"><button type="button" class="btn btn-secondary">{{i}}</button></a>
+        {% endif %}
+    {% endif %}
+{%endfor%} 
+</div>
 {% endblock %}
