@@ -6,11 +6,22 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Register">
-  </form>
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Nickname</th>
+            <th>Email</th>
+            <th>Admin?</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in user_data %}
+        <tr>
+            <td>{{user.nickname}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.admin}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

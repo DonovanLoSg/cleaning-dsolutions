@@ -367,10 +367,13 @@ def manage_cleaning_locations():
 # Allow administrator to delete user profile.
 # Allow administrator to reset user password.
 # Allow administrator to assign admin rights.
-@ app.route('/users/manage')
+@ app.route('/users/manage', methods=['GET', 'POST'])
 @ flask_login.login_required
 def manage_users():
-    return render_template("/users/manage.template.html")
+    # display the add cleaning location form and list out the cleaning locations in the databasse
+    user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort('nickname', pymongo.ASCENDING)
+
+    return render_template("/users/manage.template.html",user_data=user_data)
 
 
 # inbuilt function which handles exception like file not found

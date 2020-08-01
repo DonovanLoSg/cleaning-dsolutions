@@ -34,6 +34,7 @@
       type="text/css"
       href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"
     />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <link
       rel="stylesheet"
       type="text/css"
@@ -65,9 +66,13 @@
       href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}"
     />
 
+  
+
     <script src="{{ url_for('static', filename='js/lib/bootstrap/jquery-3.5.1.slim.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap/popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   </head>
 
   <body>
