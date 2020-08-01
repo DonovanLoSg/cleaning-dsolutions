@@ -9,15 +9,25 @@
 
 
 
+<form method="post" name="form" target="_self">
+   <label for="input-new-location" class="mr-sm-2">Location:</label>
+    <input
+      type="text"
+      class="form-control mb-2 mr-sm-2"
+      placeholder="Enter location"
+      id="input-new-location"
+      name="input-new-location"
+      required
+    />
+    <input type="hidden" name="action" value="add">
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 <table class="table table-bordered">
     <thead>
         <tr>
             <th scope="col">Locations</th> 
             <th>
-                <form method="post" name="form" target="_self">
-                    <button type="submit" class="btn btn-primary">Add</button>
-                    <input type="hidden" name="action" value="add">
-                </form>
             </th>
             <th></th>
         </tr>

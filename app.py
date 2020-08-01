@@ -343,6 +343,10 @@ def manage_cleaning_locations():
             client[DB_NAME]['cleaning_locations'].delete_one(myquery)
             flash('Location successfully deleted', category='success')
             return redirect("/cleaning-locations/manage")
+        if form.get('action') == "add":
+            client[DB_NAME]['cleaning_locations'].insert_one({'location': form.get('input-new-location')})
+            flash("New cleaning location added.")
+            return redirect("/cleaning-locations/manage")
     else:
         location_data = client[DB_NAME]['cleaning_locations'].find().sort(
             'location', pymongo.ASCENDING)
