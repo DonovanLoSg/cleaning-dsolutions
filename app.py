@@ -337,12 +337,12 @@ def manage_cleaning_locations():
             flash('Location successfully updated', category='success')
             return redirect("/cleaning-locations/manage")
         if form.get('action') == "delete":
-            # form = request.form
-            # location_data = client[DB_NAME]['cleaning_locations'].find_one(
-            #     {'_id': ObjectId(form.get('item'))})
-            return render_template("/cleaning-locations/delete.template.html", form=form, item=location_data)
+            return render_template("/cleaning-locations/delete.template.html", location_data=location_data)
         if form.get('action') == "delete-process":
-            return "Delete Process"
+            myquery = {'_id': ObjectId(form.get('id'))}
+            client[DB_NAME]['cleaning_locations'].delete_one(myquery)
+            flash('Location successfully deleted', category='success')
+            return redirect("/cleaning-locations/manage")
     else:
         location_data = client[DB_NAME]['cleaning_locations'].find().sort(
             'location', pymongo.ASCENDING)
