@@ -6,5 +6,39 @@
 {% endblock %}
 
 {% block content %}
-xxx
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Locations</th> 
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for item in locations%}
+        <tr>
+            <td scope="row">{{item.location}}</td>
+            <td>
+                <form method="post" name="form" target="_self">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="item" value="{{item._id}}">
+                </form>
+            </td>
+            <td>
+                <form method="post" name="form" target="_self">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="item" value="{{item._id}}">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>
+
 {% endblock %}

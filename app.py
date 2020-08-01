@@ -101,6 +101,8 @@ def home():
 # accept email address and password
 # successful verification will be shown a login successful message and redirect to home
 # unsuccessful verificaiton will be shown relevant error message and ask to retry
+
+
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # recieved as form submitted
@@ -156,6 +158,8 @@ def logout():
 # Registration form
 # Allow an user to register for an account
 # Redirect to login page after successful registration
+
+
 @app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -202,7 +206,8 @@ def my_profile():
             # no change in password, direct update nickname
             myquery = {'email': form.get('input-email')}
             updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
-            client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+            client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                myquery, updatevalues)
             flash('"Profile successfully updated', category='success')
             return render_template("/users/my-profile.template.html")
         else:
@@ -215,8 +220,10 @@ def my_profile():
                 return render_template("/users/my-profile.template.html", form=form)
             else:
                 myquery = {'email': form.get('input-email')}
-                updatevalues = {'$set': {'nickname': form.get('input-nickname'),'password': form.get('input-password')}}
-                client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+                updatevalues = {'$set': {'nickname': form.get(
+                    'input-nickname'), 'password': form.get('input-password')}}
+                client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                    myquery, updatevalues)
                 flash('"Profile successfully updated', category='success')
                 return render_template("/users/my-profile.template.html")
     else:
@@ -313,11 +320,25 @@ def contribute_articles():
 
 
 # Allow administrator to manage the list of cleaning location.
-@ app.route('/cleaning-locations/manage')
+@ app.route('/cleaning-locations/manage', methods=['GET', 'POST'])
 @ flask_login.login_required
 def manage_cleaning_locations():
-
-    return render_template("/cleaning-locations/manage.template.html")
+    if request.method == 'POST':
+        form = request.form
+        location_data = client[DB_NAME]['cleaning_locations'].find_one(
+                {'_id': ObjectId(form.get('item'))})
+        if form.get('action') == "edit":
+            return render_template("/cleaning-locations/edit.template.html", form=form, item=location_data)
+        if form.get('action') == "edit-process":
+            return "Edit Process"
+        if form.get('action') == "delete":
+            return render_template("/cleaning-locations/delete.template.html", form=form, item=location_data)
+        if form.get('action') == "delete-process":
+            return "Delete Process"
+    else:
+        location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+            'location', pymongo.ASCENDING)
+        return render_template("/cleaning-locations/manage.template.html", locations=location_data)
 
 
 # Display a list of all the users.
