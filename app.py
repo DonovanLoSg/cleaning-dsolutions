@@ -391,20 +391,28 @@ def manage_users():
         else:
             sortorder = 'asc'
         if sortorder == 'asc':
-            orderby = 'pymongo.ASCENDING'
+            orderby = pymongo.ASCENDING
             ordericon = '( ▲ )'
         else:
-            orderby = 'pyhmongo.DESCENDING'
+            orderby = pymongo.DESCENDING
             ordericon = '( ▼ )'
         if 'pagenum' in args:
             pagenum = args['pagenum']
         else:
             pagenum = 1
-        skippage = (pagenum-1)*20
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find()
+        if 'numperpage' in args:
+            numperpage = args['numperpage']
+        else:
+            numperpage = 5
+        skippage = (pagenum-1)*numperpage
+
+        sortObject = {}
+        sortObject[sortby] = 1
+
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort([(sortby, orderby)])
         #.sort(sortby, orderby).skip(skippage).limit(20)
 
-        return render_template('users/manage.template.html',user_data=user_data, sortby=sortby, sortorder=sortorder, pagenum=pagenum, ordericon=ordericon)
+        return render_template('users/manage.template.html',user_data=user_data, sortby=sortby, sortorder=sortorder, pagenum=pagenum, ordericon=ordericon, numperpage=numperpage)
 
 
 # inbuilt function which handles exception like file not found
