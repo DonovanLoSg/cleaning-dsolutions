@@ -208,7 +208,7 @@ def my_profile():
             updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
             client[DB_NAME][USER_COLLECTION_NAME].update_one(
                 myquery, updatevalues)
-            flash('"Profile successfully updated', category='success')
+            flash("Profile successfully updated", category='success')
             return render_template("/users/my-profile.template.html", form=form)
         else:
             # changes to passowrd, to check both passwods to be the same
@@ -224,7 +224,7 @@ def my_profile():
                     'input-nickname'), 'password': form.get('input-password')}}
                 client[DB_NAME][USER_COLLECTION_NAME].update_one(
                     myquery, updatevalues)
-                flash('"Profile successfully updated', category='success')
+                flash("Profile successfully updated", category='success')
                 return render_template("/users/my-profile.template.html", form=form)
     else:
         return render_template("/users/my-profile.template.html")
