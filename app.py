@@ -34,6 +34,8 @@ login_manager.init_app(app)
 
 # User object
 # This user object basically represents one user
+
+
 class User(flask_login.UserMixin):
     pass
 
@@ -48,6 +50,7 @@ def load_user(email):
     if user_data:
         # create a new user object
         current_user = User()
+        current_user._id = str(user_data['_id'])
         current_user.id = user_data['email']
         current_user.email = user_data['email']
         current_user.nickname = user_data['nickname']
@@ -94,17 +97,10 @@ def index():
 def home():
     return render_template("home.template.html")
 
-# Allow members and administrators to log in
-# through a login page accepting nickname and password.
-# If the validation is successful,
-# redirect the user to administrators’ access area
-# if they are administrators,
-# else they will be redirected to a members’ access area.
-# If the validation is unsuccessful,
-# they will be alerted with a message and allowed to retry again.
-#
-
-
+# Login Page
+# accept email address and password
+# successful verification will be shown a login successful message and redirect to home
+# unsuccessful verificaiton will be shown relevant error message and ask to retry
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # recieved as form submitted
@@ -129,6 +125,7 @@ def login():
                 flask_login.login_user(current_user)
                 flash(current_user.nickname +
                       ' logged in successfully.', 'success')
+                session['id'] = current_user.id
                 session['email'] = current_user.email
                 session['nickname'] = current_user.nickname
                 session['admin'] = current_user.admin
@@ -156,14 +153,9 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('home'))
 
-# Include a link to the user registration page which accept
-# nickname, email address, password and password retype.
-# The email address must be valid and unique in the system,
-# the password must be at least eight characters and contain
-# at least one letter and one number, the password retype
-# must be same as the password.
-
-
+# Registration form
+# Allow an user to register for an account
+# Redirect to login page after successful registration
 @app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -180,7 +172,8 @@ def register():
             })
             if user_data:
                 # Email address found in the database
-                flash("This email address has been used for registration. Please use other email address", category='danger')
+                flash(
+                    "This email address has been used for registration. Please use other email address", category='danger')
                 return render_template("/auth/register.template.html", form=form)
             else:
                 user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
@@ -190,40 +183,42 @@ def register():
                     'admin': False}
                 )
                 flash("User registration successful. Please proceed to login.",
-                    category='success')
+                      category='success')
                 return render_template("/auth/login.template.html")
     else:
         # register form
         return render_template("/auth/register.template.html")
 
 
-# Allow member to view their own profile comprising of
-# nickname, email address and password.
-# Allow member to update their nickname
-# or reset their password.
-# Allow administrator to view their own profile
-# comprising of nickname, email address and password.
-# Allow administrator to update their nickname
-# or reset their password.
-
+# Allow the user to view their own profile
+# and update their nickanme and password
 @app.route('/users/my-profile', methods=['GET', 'POST'])
 @ flask_login.login_required
 def my_profile():
     if request.method == 'POST':
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return render_template("/users/update-my-profile.template.html")
+        form = request.form
+        print(form)
+        if form.get('input-password') == "":
+            # no change in password, direct update nickname
+            myquery = {'email': form.get('input-email')}
+            updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
+            client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+            flash('"Profile successfully updated', category='success')
+            return render_template("/users/my-profile.template.html")
+        else:
+            # changes to passowrd, to check both passwods to be the same
+            # if both password are not the same
+            if not(form.get('input-password') == form.get('input-verify')):
+                # if the two passwords are not the same
+                flash("The passwords do not match. Please retry.",
+                      category='danger')
+                return render_template("/users/my-profile.template.html", form=form)
+            else:
+                myquery = {'email': form.get('input-email')}
+                updatevalues = {'$set': {'nickname': form.get('input-nickname'),'password': form.get('input-password')}}
+                client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+                flash('"Profile successfully updated', category='success')
+                return render_template("/users/my-profile.template.html")
     else:
         return render_template("/users/my-profile.template.html")
 
@@ -321,6 +316,7 @@ def contribute_articles():
 @ app.route('/cleaning-locations/manage')
 @ flask_login.login_required
 def manage_cleaning_locations():
+
     return render_template("/cleaning-locations/manage.template.html")
 
 
