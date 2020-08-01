@@ -326,7 +326,7 @@ def manage_cleaning_locations():
     if request.method == 'POST':
         form = request.form
         location_data = client[DB_NAME]['cleaning_locations'].find_one(
-                {'_id': ObjectId(form.get('item'))})
+            {'_id': ObjectId(form.get('item'))})
         if form.get('action') == "edit":
             return render_template("/cleaning-locations/edit.template.html", form=form, item=location_data)
         if form.get('action') == "edit-process":
