@@ -367,10 +367,44 @@ def manage_cleaning_locations():
 # Allow administrator to delete user profile.
 # Allow administrator to reset user password.
 # Allow administrator to assign admin rights.
-@ app.route('/users/manage')
+@ app.route('/users/manage', methods=['GET', 'POST'])
 @ flask_login.login_required
 def manage_users():
-    return render_template("/users/manage.template.html")
+    # form = request.form
+    if request.method == 'POST':
+        if form.get('action') == "add":
+            return render_template("/users/manage.template.html", user_data=user_data)
+        if form.get('action') == "edit":
+            return render_template("/users/edit.template.html", user_data=user_data)
+        if form.get('action') == "delete":
+            return render_template("/users/delete.template.html", user_data=user_data)
+        return "<h1>Post</h1>"
+    else:
+        # list out the users in the databasse
+        args = request.args
+        if 'sortby' in args:
+            sortby = args['sortby']
+        else:
+            sortby = 'nickname'
+        if 'sortorder' in args:
+            sortorder = args['sortorder']
+        else:
+            sortorder = 'asc'
+        if sortorder == 'asc':
+            orderby = 'pymongo.ASCENDING'
+            ordericon = '( ▲ )'
+        else:
+            orderby = 'pyhmongo.DESCENDING'
+            ordericon = '( ▼ )'
+        if 'pagenum' in args:
+            pagenum = args['pagenum']
+        else:
+            pagenum = 1
+        skippage = (pagenum-1)*20
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find()
+        #.sort(sortby, orderby).skip(skippage).limit(20)
+
+        return render_template('users/manage.template.html',user_data=user_data, sortby=sortby, sortorder=sortorder, pagenum=pagenum, ordericon=ordericon)
 
 
 # inbuilt function which handles exception like file not found
