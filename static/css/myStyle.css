@@ -10,10 +10,17 @@ body {
 }
 
 h1 {
+    display: block;
     font-family: 'Roboto', sans-serif;
     line-height: 6rem;
     margin-bottom: 2rem;
+    position: static;
 };
+
+h2 {
+    display: block;
+    position: static;
+}
 
 button {
     display: inline-block;
@@ -31,6 +38,8 @@ button {
 }
 
 .black-border {
+ 
+    margin: auto;
+    border: 1px solid grey;
 
-    border: 2px solid black;
 }

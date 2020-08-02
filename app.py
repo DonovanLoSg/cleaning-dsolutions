@@ -86,9 +86,12 @@ def index():
 # click on list to view article
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template("home.template.html")
+    if request.method == 'POST':  # recieved as form submitted
+        return render_template("home.template.html", form=form)
+    else:
+        return render_template("home.template.html")
 
 # --------------------------------------------------
 # Login
