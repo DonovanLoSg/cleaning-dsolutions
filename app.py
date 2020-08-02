@@ -370,10 +370,19 @@ def manage_cleaning_locations():
 @ app.route('/users/manage', methods=['GET', 'POST'])
 @ flask_login.login_required
 def manage_users():
-    # display the add cleaning location form and list out the cleaning locations in the databasse
-    user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort('nickname', pymongo.ASCENDING)
+    if request.method == 'POST':
+        form = request.form
+        if form.get('action')=='edit':
+            return "Edit"
+        if form.get('action')=='delete':
+            return "Delete"
 
-    return render_template("/users/manage.template.html",user_data=user_data)
+    else:
+
+        # display the add cleaning location form and list out the cleaning locations in the databasse
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort('nickname', pymongo.ASCENDING)
+
+        return render_template("/users/manage.template.html",user_data=user_data)
 
 
 # inbuilt function which handles exception like file not found
