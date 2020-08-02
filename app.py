@@ -73,25 +73,15 @@ def verify_password(user_input, encrypted_password):
 # --- User Authentication: End ---------------------------------
 
 # START ROUTING
-
-
-# Get up to 5 articles from the database
-#   and display it on the homepage,
-#   allow user to click on one of these 5 default article titles
-#   to view the article.
-# Display a search panel to allow users to search
-#  using different methods: search by article titles,
-# search by cleaning location or search by tags.
-# When a search is executed, it will return the result
-# in a list containing article titles and cleaning locations.
-# Include an option to display all the articles.
-# Display a search panel to allow administrator to search
-# using different methods: search by article titles,
-# search by cleaning location or search by tags.
 @app.route('/')
 def index():
     return redirect(url_for("home"))
 
+# a list random 5 articles
+# list all
+# search panel: search by article title, cleaning location and tags
+# search result return in a list of title, cleaning location
+# click on list to view article
 
 @app.route('/home')
 def home():

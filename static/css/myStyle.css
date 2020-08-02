@@ -1,9 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,600&family=Roboto&display=swap');
 
+html {
+    font-size: 100%;
+}
+
 body {
     font-family:font-family: 'Crimson Text', serifs-serif;
 }
 
 h1 {
     font-family: 'Roboto', sans-serif;
+    line-height: 6 rem;
 };
+
+button {
+    display: inline-block;
+    padding: 10px;
+ 
+}
+
+.datatable_wrap {
+    margin: 50px 0;
+}

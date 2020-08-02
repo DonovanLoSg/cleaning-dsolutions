@@ -4,7 +4,7 @@
 {% endblock %} {% block content %}
 <!-- display a form to allow user to add a new cleaning location -->
 <form method="post" name="form" target="_self">
-  <label for="input-new-location" class="mr-sm-2">Location:</label>
+  <label for="input-new-location" class="mr-sm-2">Add New Location:</label>
   <input
     type="text"
     class="form-control mb-2 mr-sm-2"
@@ -16,36 +16,40 @@
   <input type="hidden" name="action" value="add" />
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<p></p>
+<p></p>
 <!-- display the list of cleaning locstion from the database sorted in ascending order -->
 <!-- include edit and delete button for the respective actions -->
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Locations</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {%for location in location_data%}
-    <tr>
-      <td scope="row">{{location.location}}</td>
-      <td>
-        <form method="post" name="form" target="_self">
-          <button type="submit" class="btn btn-primary">Edit</button>
-          <input type="hidden" name="action" value="edit" />
-          <input type="hidden" name="id" value="{{location._id}}" />
-        </form>
-      </td>
-      <td>
-        <form method="post" name="form" target="_self">
-          <button type="submit" class="btn btn-danger">Delete</button>
-          <input type="hidden" name="action" value="delete" />
-          <input type="hidden" name="id" value="{{location._id}}" />
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container datatable_wrap">
+  <table id="table_id" class="display" data-page-length="10">
+    <thead>
+      <tr>
+        <th scope="col">Locations</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for location in location_data%}
+      <tr>
+        <td scope="row">{{location.location}}</td>
+        <td>
+          <form method="post" name="form" target="_self">
+            <button type="submit" class="btn btn-primary">Edit</button>
+            <input type="hidden" name="action" value="edit" />
+            <input type="hidden" name="id" value="{{location._id}}" />
+          </form>
+        </td>
+        <td>
+          <form method="post" name="form" target="_self">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <input type="hidden" name="action" value="delete" />
+            <input type="hidden" name="id" value="{{location._id}}" />
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
