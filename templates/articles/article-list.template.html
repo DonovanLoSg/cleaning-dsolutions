@@ -6,5 +6,31 @@
 {% endblock %}
 
 {% block content %}
-xxx
+
+<table id="table_id" class="display article-title" data-page-length="10">
+    <thead>
+        <tr>
+            <td>
+                <strong>Article Title</strong>
+            </td>
+            <td>
+                <strong>Cleaning Location</strong>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {%for article in articles%}
+        <tr>
+            <td>
+                {{article.article_title}}
+            </td>
+            <td>
+                {{article.cleaning_location}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
 {% endblock %}

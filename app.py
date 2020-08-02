@@ -73,6 +73,8 @@ def verify_password(user_input, encrypted_password):
 # --- User Authentication: End ---------------------------------
 
 # START ROUTING
+
+
 @app.route('/')
 def index():
     return redirect(url_for("home"))
@@ -82,6 +84,7 @@ def index():
 # search panel: search by article title, cleaning location and tags
 # search result return in a list of title, cleaning location
 # click on list to view article
+
 
 @app.route('/home')
 def home():
@@ -269,6 +272,14 @@ def list_articles():
     return render_template("/articles/article-list.template.html")
 
 
+@ app.route('/articles/list-all')
+def all_articles():
+    myProjections = {"_id": 0, "article_title": 1, "cleaning_location": 1}
+    articles = client[DB_NAME]['articles'].find(
+        {}, myProjections).sort('date_modified', pymongo.DESCENDING)
+    return render_template("/articles/article-list.template.html",
+                           articles=articles)
+
 # Display the article containing article titles,
 # cleaning location, article content, cleaning items,
 # cleaning supplies and tags.
@@ -292,6 +303,8 @@ def list_articles():
 #  whether it works, somewhat works, or doesn’t work.
 # Allow administrator to change their validating votes.
 # Allow administrator to edit any article.
+
+
 @ app.route('/articles/show/<id>')
 def show_article(id):
     return render_template("/articles/article.template.html", id=id)
