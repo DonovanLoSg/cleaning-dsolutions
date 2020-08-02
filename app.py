@@ -147,7 +147,7 @@ def unauthorized():
 @app.route('/auth/logout')
 def logout():
     current_user = flask_login.current_user
-    flash(current_user.nickname+' logged out successfully.', 'success')
+    flash(session['nickname']+' logged out successfully.', 'success')
     flask_login.current_user = User
     session.pop('email', None)
     session.pop('nickname', None)
@@ -406,6 +406,11 @@ def manage_users():
                     return render_template("/users/edit.template.html", form=form, user_data=user_data)
         elif form.get('action') == 'delete':
             return render_template("/users/delete.template.html", form=form, user_data=user_data)
+        elif form.get('action') == "delete-process":
+            myquery = {'_id': ObjectId(form.get('id'))}
+            client[DB_NAME][USER_COLLECTION_NAME].delete_one(myquery)
+            flash('User successfully deleted', category='success')
+            return redirect("/users/manage")
         else:
             return redirect(url_for('error_encountered'))
     else:
