@@ -13,9 +13,9 @@
       name="input-email"
       aria-describedby="emailHelp"
       placeholder="enter your email"
-      {% if form %} 
+      {% if form %}
         value="{{form.get('input-email')}}"
-      {%endif%}
+      {% endif %}
       required
     />
     <small id="emailHelp" class="form-text text-muted"
@@ -24,8 +24,8 @@
   </div>
   <div class="form-group">
     <label for="input-nickname">Nickname</label>
-    <input 
-      type="nickname" 
+    <input
+      type="nickname"
       class="form-control"
       id="input-nickname"
       name="input-nickname"
@@ -50,10 +50,10 @@
       id="input-password"
       name="input-password"
       aria-describedby="passwordHelpBlock"
-      required
       {% if form %}
-      value="{{form.get('input-password')}}"
+        value="{{form.get('input-password')}}"
       {% endif %}
+      required 
     />
     <small id="passwordHelpBlock" class="form-text text-muted">
       Your password must be 8-20 characters long, contain only alphabets and
@@ -71,9 +71,10 @@
       name="input-verify"
       aria-describedby="verifypasswordHelpBlock2"
       required
-      {% if form %}
+      {% if form %} 
         value="{{form.get('input-verify')}}"
-      {% endif %} />
+      {% endif }
+    />
     <small id="verifypasswordHelpBlock" class="form-text text-muted">
       Your password must be 8-20 characters long, contain only alphabets and
       digits.
