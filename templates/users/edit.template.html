@@ -2,11 +2,7 @@
 {% extends 'base.template.html' %} {% block header %}
 <h1>{% block title %}User Details{% endblock %}</h1>
 {% endblock %} {% block content %}
-<!-- {{form}} <br>
-{{user_data}}<br>
-{{form.get('action')}}<br>
-{{form.get('id')}}<br>
-{{form.get('source')}}<br> -->
+
 <form method="post" name="form" target="_self">
   <input type="hidden" name="action" value="edit-process" />
   <input type="hidden" name="source" value="edit-user-details" />
@@ -37,6 +33,26 @@
     <small id="nicknameHelp" class="form-text text-muted"
       >This will be the name displayed on the site.</small
     >
+  </div>
+  <div class="form-group">
+    <label for="input-admin">Admin?</label>
+    {% if form.get('source') == 'user-listing' %} 
+        {% if user_data.admin %}
+            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
+            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
+        {% else %}
+            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
+            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
+        {% endif %}
+    {% elif form.get('source') == 'edit-user-details'%}
+        {% if form.get('input-admin')=='isAdmin' %}
+            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
+            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
+        {% else %}
+            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
+            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
+        {% endif %}
+    {% endif %} 
   </div>
   <div class="form-group">
     <label for="input-password" class="mr-sm-2">New Password:</label>
@@ -77,3 +93,4 @@
     <button type="submit" class="btn btn-primary">Back to list</button>
 </form>
 {% endblock %}
+

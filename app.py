@@ -331,7 +331,7 @@ def manage_cleaning_locations():
         if form.get('action') == "edit":
             return render_template("/cleaning-locations/edit.template.html", location_data=location_data)
         # update the database with the changes to the selected cleaning location
-        if form.get('action') == "edit-process":
+        elif form.get('action') == "edit-process":
             myquery = {'_id': ObjectId(form.get('id'))}
             updatevalues = {'$set': {'location': form.get('input-location')}}
             client[DB_NAME]['cleaning_locations'].update_one(
@@ -339,20 +339,22 @@ def manage_cleaning_locations():
             flash('Location successfully updated', category='success')
             return redirect("/cleaning-locations/manage")
         # display the record mark for deletion to ask for confirmation
-        if form.get('action') == "delete":
+        elif form.get('action') == "delete":
             return render_template("/cleaning-locations/delete.template.html", location_data=location_data)
         # remove the selected clearning location from the database
-        if form.get('action') == "delete-process":
+        elif form.get('action') == "delete-process":
             myquery = {'_id': ObjectId(form.get('id'))}
             client[DB_NAME]['cleaning_locations'].delete_one(myquery)
             flash('Location successfully deleted', category='success')
             return redirect("/cleaning-locations/manage")
         # Insert the new cleaning location into the database
-        if form.get('action') == "add":
+        elif form.get('action') == "add":
             client[DB_NAME]['cleaning_locations'].insert_one(
                 {'location': form.get('input-new-location')})
             flash("New cleaning location added.")
             return redirect("/cleaning-locations/manage")
+        else:
+            return redirect(url_for('error_encountered'))
     else:
         # display the add cleaning location form and list out the cleaning locations in the databasse
         location_data = client[DB_NAME]['cleaning_locations'].find().sort(
@@ -376,16 +378,36 @@ def manage_users():
             {'_id': ObjectId(form.get('id'))})
         if form.get('action') == 'edit':
             return render_template("/users/edit.template.html", form=form, user_data=user_data)
-        if form.get('action') == 'edit-process':
+        elif form.get('action') == 'edit-process':
             if form.get('input-password') == "":
-            # no change in password, direct update nickname and/or admin
+                if form.get('input-admin') == 'isAdmin':
+                    adminrights = True
+                else:
+                    adminrights = False
+                # no change in password, direct update nickname and/or admin
                 myquery = {'_id': ObjectId(form.get('id'))}
-                updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
+                updatevalues = {'$set': {'nickname': form.get('input-nickname'), 'admin':adminrights}}
                 client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
                 flash("User details successfully updated", category='success')
                 return render_template("/users/edit.template.html", form=form, user_data=user_data)
-
-
+            else:
+                if not(form.get('input-password') == form.get('input-verify')):
+                    flash("The passwords do not match. Please retry.", category='danger')
+                    return render_template("/users/edit.template.html", form=form, user_data=user_data)
+                else:
+                    myquery = {'_id': ObjectId(form.get('id'))}
+                    if form.get('input-admin') == 'isAdmin':
+                        adminrights = True
+                    else:
+                        adminrights = False
+                    updatevalues = {'$set': {'nickname': form.get('input-nickname'),'password': form.get('input-password'),'admin':adminrights}}
+                    client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+                    flash("Profile successfully updated", category='success')
+                    return render_template("/users/edit.template.html", form=form, user_data=user_data)
+        elif form.get('action') == 'delete':
+            return render_template("/users/delete.template.html", form=form, user_data=user_data)
+        else:
+            return redirect(url_for('error_encountered'))
     else:
 
         # display the add cleaning location form and list out the cleaning locations in the databasse
@@ -399,6 +421,9 @@ def manage_users():
 def not_found(e):
     return render_template('/file-not-found.template.html')
 
+@ app.route('/error-encountered')
+def error_encountered():
+    return render_template('/error-encountered.template.html')
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
