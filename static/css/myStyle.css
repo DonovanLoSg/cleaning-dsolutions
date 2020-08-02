@@ -29,3 +29,8 @@ button {
     font-family: 'Lora', serif;
     font-style: italic;
 }
+
+.black-border {
+
+    border: 2px solid black;
+}

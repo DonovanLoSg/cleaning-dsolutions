@@ -1,0 +1,18 @@
+<h2>Search Form</h2>
+<form method="post" name="form" target="_self">
+  <div class="form-group">
+    <label for="search-title">Article Title</label>
+    <input
+      type="email"
+      class="form-control"
+      id="search-title"
+      name="search-title"
+      placeholder="search in title"
+      {% if form.search-title %} 
+        value="{{form.get('search-title')}}"
+      {%endif%}
+      readonly
+    />
+
+
+</form>

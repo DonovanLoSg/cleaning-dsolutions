@@ -72,10 +72,7 @@
   </head>
 
   <body>
-  <div>
-  {{session}}
-  </div>
-
+ 
     {% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
         {% for message in messages %}
