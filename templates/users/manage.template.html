@@ -6,12 +6,14 @@
 {% endblock %}
 
 {% block content %}
-<table id="table_id" class="display">
+<table id="table_id" class="display" data-page-length='5'>
     <thead>
         <tr>
             <th>Nickname</th>
             <th>Email</th>
             <th>Admin?</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +21,21 @@
         <tr>
             <td>{{user.nickname}}</td>
             <td>{{user.email}}</td>
-            <td>{{user.admin}}</td>
+            <td>{% if user.admin %}Yes{% else %}No{% endif %}</td>
+            <td>
+                <form method="post" name="form" target="_self">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="id" value="{{user._id}}">
+                </form>
+            </td>
+            <td>
+                <form method="post" name="form" target="_self">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="id" value="{{user._id}}">
+                </form>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
