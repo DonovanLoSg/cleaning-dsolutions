@@ -372,10 +372,12 @@ def manage_cleaning_locations():
 def manage_users():
     if request.method == 'POST':
         form = request.form
-        if form.get('action')=='edit':
-            return "Edit"
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+            {'_id': ObjectId(form.get('id'))})
+        if form.get('action') == "edit":
+            return render_template("/users/edit.template.html", user_data=user_data)
         if form.get('action')=='delete':
-            return "Delete"
+            return render_template("/users/delete.template.html", user_data=user_data)
 
     else:
 
