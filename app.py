@@ -42,16 +42,16 @@ class User(flask_login.UserMixin):
 
 # user loader for the Flask-Login login manager
 @login_manager.user_loader
-def load_user(email):
+def load_user(_id):
     # find the user from the database by its email
     user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-        'email': email
+        '_id': ObjectId('5f1e6d81eab745c4e0b7fbd8')
     })
     if user_data:
         # create a new user object
         current_user = User()
+        current_user.id = str(user_data['_id'])
         current_user._id = str(user_data['_id'])
-        current_user.id = user_data['email']
         current_user.email = user_data['email']
         current_user.nickname = user_data['nickname']
         current_user.admin = user_data['admin']
@@ -105,38 +105,40 @@ def home():
 def login():
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
-        current_user = load_user(form.get('input-email'))
-        if load_user(form.get('input-email')) is None:
-            # no such email exist in database
-            flash("User not found", category='danger')
-            return render_template("/auth/login.template.html", form=form)
-        else:
-            # email found in database, check password
-            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-                'email': form.get('input-email'),
-                'password': form.get('input-password')}
-            )
-            if user_data is None:
+        inputemail = form.get('input-email')
+        inputpassword = form.get('input-password')
+        # check email against database
+        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+            {'email': inputemail})
+        if user_data:
+            # check email and password against database
+            if user_data['password'] == inputpassword:
+                # password correct
+                tempid = str(user_data['_id'])
+                current_user = load_user(tempid)
+                flask_login.login_user(current_user)
+                session._id = current_user._id
+                session.nickname = current_user.nickname
+                session.admin = current_user.admin
+                flash(current_user.nickname +
+                      ' logged in successfully.', 'success')
+                return redirect(url_for('home'))
+            else:
                 # password incorrect
                 flash('Password incorrect.', 'danger')
                 return render_template("/auth/login.template.html", form=form)
-            else:
-                # password correct
-                flask_login.login_user(current_user)
-                flash(current_user.nickname +
-                      ' logged in successfully.', 'success')
-                session['id'] = current_user.id
-                session['email'] = current_user.email
-                session['nickname'] = current_user.nickname
-                session['admin'] = current_user.admin
-                return redirect(url_for('home'))
+        else:
+            # no such email exist in database
+            flash("User not found", category='danger')
+            return render_template("/auth/login.template.html", form=form)
+
     else:
         # This template shows a login form,
         # only called if the request.method was not 'POST'.
         return render_template("/auth/login.template.html")
 
 
-@login_manager.unauthorized_handler
+@ login_manager.unauthorized_handler
 def unauthorized():
     # do stuff
     return render_template("/unauthorized.template.html")
@@ -146,14 +148,12 @@ def unauthorized():
 # Logout
 # --------------------------------------------------
 # A instruction to log the user out and return to the home page
-@app.route('/auth/logout')
+@ app.route('/auth/logout')
 def logout():
-    current_user = flask_login.current_user
-    flash(session['nickname']+' logged out successfully.', 'success')
-    flask_login.current_user = User
-    session.pop('email', None)
-    session.pop('nickname', None)
-    session.pop('admin', None)
+    flash('User has successfully logged out.', category='danger')
+    # session.pop('_id')
+    # session.pop('nickname')
+    # session.pop('admin')
     flask_login.logout_user()
     return redirect(url_for('home'))
 
@@ -162,7 +162,7 @@ def logout():
 # Redirect to login page after successful registration
 
 
-@app.route('/auth/register', methods=['GET', 'POST'])
+@ app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         form = request.form
@@ -203,7 +203,7 @@ def register():
 # --------------------------------------------------
 # Allow the user to view their own profile
 # and update their nickanme and password
-@app.route('/users/my-profile', methods=['GET', 'POST'])
+@ app.route('/users/my-profile', methods=['GET', 'POST'])
 @ flask_login.login_required
 def my_profile():
     if request.method == 'POST':
@@ -237,7 +237,7 @@ def my_profile():
                 return render_template("/users/my-profile.template.html",
                                        form=form)
     else:
-        return render_template("/users/my-profile.template.html")
+        return render_template("/users/my-profile.template.html", current_user=flask_login.current_user)
 
 
 @ app.route('/about')
@@ -278,7 +278,7 @@ def all_articles():
     articles = client[DB_NAME]['articles'].find(
         {}, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
-                           articles=articles)
+                           articles=articles, listtype='all')
 
 # Display the article containing article titles,
 # cleaning location, article content, cleaning items,
@@ -324,7 +324,12 @@ def show_article(id):
 @ app.route('/articles/my-list')
 @ flask_login.login_required
 def my_articles():
-    return render_template("/articles/my-list.template.html")
+    myQuery = {'created_by': ObjectId(session['_user_id'])}
+    myProjections = {"_id": 0, "article_title": 1, "cleaning_location": 1}
+    articles = client[DB_NAME]['articles'].find(
+        myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
+    return render_template("/articles/article-list.template.html",
+                           articles=articles, listtype='my')
 
 # Include an article creation page accepting article titles,
 # cleaning location, article content, cleaning items,

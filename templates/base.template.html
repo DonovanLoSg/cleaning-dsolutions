@@ -72,6 +72,9 @@
   </head>
 
   <body>
+  <div>
+  {{session}}
+  </div>
 
     {% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
@@ -163,7 +166,7 @@ PAGE HEADER
                       >
                     </div>
                   </li>
-                   {% if current_user.admin %}
+                   {% if session.admin %}
                   <li class="nav-item dropdown">
                     <a
                       class="nav-link dropdown-toggle"

@@ -22,7 +22,7 @@
       {% if form %} 
         value="{{form.get('input-email')}}"
       {% else %}
-        value="{{session.email}}"
+        value="{{current_user.email}}"
       {%endif%}
       readonly
     />
@@ -42,7 +42,7 @@
       {% if form %}
         value="{{form.get('input-nickname')}}"
       {% else %}
-        value="{{session.nickname}}"
+        value="{{current_user.nickname}}"
       {%endif %}
       required
     />
