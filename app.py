@@ -374,10 +374,17 @@ def manage_users():
         form = request.form
         user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
             {'_id': ObjectId(form.get('id'))})
-        if form.get('action') == "edit":
-            return render_template("/users/edit.template.html", user_data=user_data)
-        if form.get('action')=='delete':
-            return render_template("/users/delete.template.html", user_data=user_data)
+        if form.get('action') == 'edit':
+            return render_template("/users/edit.template.html", form=form, user_data=user_data)
+        if form.get('action') == 'edit-process':
+            if form.get('input-password') == "":
+            # no change in password, direct update nickname and/or admin
+                myquery = {'_id': ObjectId(form.get('id'))}
+                updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
+                client[DB_NAME][USER_COLLECTION_NAME].update_one(myquery, updatevalues)
+                flash("User details successfully updated", category='success')
+                return render_template("/users/edit.template.html", form=form, user_data=user_data)
+
 
     else:
 

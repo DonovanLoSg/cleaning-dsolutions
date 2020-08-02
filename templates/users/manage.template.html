@@ -26,6 +26,7 @@
                 <form method="post" name="form" target="_self">
                     <button type="submit" class="btn btn-primary">Edit</button>
                     <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="source" value="user-listing">
                     <input type="hidden" name="id" value="{{user._id}}">
                 </form>
             </td>
@@ -33,6 +34,7 @@
                 <form method="post" name="form" target="_self">
                     <button type="submit" class="btn btn-danger">Delete</button>
                     <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="source" value="user-listing">
                     <input type="hidden" name="id" value="{{user._id}}">
                 </form>
             </td>
