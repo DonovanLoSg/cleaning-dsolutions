@@ -6,27 +6,35 @@
 {% endblock %}
 
 {% block content %}
-
-
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="black-border p-2 ml-2">  
+            <div class="black-border blur-shadow p-2 ml-2 mb-4">  
                 <h2>Search</h2>
                 Conditions include:
                 <form method="post" name="form" target="_self">
-                    <input type="checkbox">
-                    <div class="form-group">
-                        <label for="search-title">Article Title containing..</label>
-                        <input type="text" class="form-control" 
-                            id="search-title" name="search-title" placeholder="search in title"
-                            {% if (form) %} 
-                                value="{{form.get('search-title')}}"
-                            {%endif%}
-                        />
+                    <div>
+                        <div class="form-check">
+                            <label class="form-check-label" >
+                                <input type="checkbox" class="form-check-input" id="check-search-titles" name="search-checkbox" value="titles">
+                            </label>
+                        </div>
+                        <div class="form-group ml-4 " >
+                            <label for="search-title">Article Title containing..</label>
+                            <input type="text" class="form-control" 
+                                id="search-title" name="search-title" placeholder="search in title"
+                                {% if (form) %} 
+                                    value="{{form.get('search-title')}}"
+                                {%endif%}
+                            />
+                        </div>
                     </div>
-                    <input type="checkbox">
-                    <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" id="check-search-locations" name="search-checkbox" value="locations">
+                        </label>
+                    </div>
+                    <div class="form-group  ml-4">
                         <label for="search-location">Cleaning Location targetted</label>
                             <input type="text" class="form-control" id="search-location" 
                                 name="search-location" placeholder="search by cleaning location"
@@ -35,8 +43,12 @@
                                 {%endif%}
                             />
                     </div>
-                    <input type="checkbox">
-                    <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" id="check-search-tags" name="search-checkbox" value="tags">
+                        </label>
+                    </div>
+                    <div class="form-group  ml-4">
                         <label for="search-tags">Tags (sepearated by commas)</label>
                         <input type="text" class="form-control"
                             id="search-tags" name="search-tags" placeholder="search by Tags"
@@ -50,7 +62,7 @@
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="black-border p-2 ml-2">        
+            <div class="black-border blur-shadow p-2 ml-2">  
                 <h2>Today's Article </h2>
                         
                 # a list random 5 articles<br>
