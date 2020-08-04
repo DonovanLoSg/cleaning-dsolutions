@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.template.html' %} {% block header %}
+<h1>{% block title %}Home{% endblock %}</h1>
+{% endblock %} {% block content %}
+
+<pre>
+{{form.getlist('check-search-titles')}}
+{{form.get('search-title')}}
+{{form.getlist('check-search-locations')}}
+{{form.get('search-location')}}
+{{form.getlist('check-search-tags')}}
+{{form.get('search-tags')}}
+</pre>
+
+{% endblock %}

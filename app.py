@@ -88,10 +88,15 @@ def index():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+    location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
     if request.method == 'POST':  # recieved as form submitted
-        return render_template("home.template.html", form=form)
+        form = request.form
+        if form.getlist('check-search-titles') or form.getlist('check-search-locations') or form.getlist('check-search-tags'):
+            return render_template("home.template.html", form=form, location_data=location_data)
+        else:
+            return render_template("home.template.html", form=form, location_data=location_data)
     else:
-        return render_template("home.template.html")
+        return render_template("home.template.html", location_data=location_data)
 
 # --------------------------------------------------
 # Login

@@ -6,67 +6,85 @@
 {% endblock %}
 
 {% block content %}
+{% if form %}
+<div class="black-border">
+<pre>
+{{form.getlist('check-search-titles')}}
+{{form.get('search-title')}}
+{{form.getlist('check-search-locations')}}
+{{form.getlist('search-location')}}
+{{form.getlist('check-search-tags')}}
+{{form.get('search-tags')}}
+{{form.to_dict()}}
+</pre>
+</div>
+{% endif %}
+
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="black-border blur-shadow p-2 ml-2 mb-4">  
+            <div class="black-border blur-shadow p-2 ml-2 mb-4">
                 <h2>Search</h2>
                 Conditions include:
                 <form method="post" name="form" target="_self">
+                    <!-- search text in title -->
                     <div>
                         <div class="form-check">
-                            <label class="form-check-label" >
-                                <input type="checkbox" class="form-check-input" id="check-search-titles" name="search-checkbox" value="titles">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input"
+                                    id="check-search-titles" name="check-search-titles"
+                                    value="titles" {% if form and form.getlist('check-search-titles') %}checked{% endif %}>
                             </label>
                         </div>
-                        <div class="form-group ml-4 " >
+                        <div class="form-group ml-4">
                             <label for="search-title">Article Title containing..</label>
-                            <input type="text" class="form-control" 
-                                id="search-title" name="search-title" placeholder="search in title"
-                                {% if (form) %} 
-                                    value="{{form.get('search-title')}}"
-                                {%endif%}
-                            />
+                            <input type="text" class="form-control" id="search-title" name="search-title" placeholder="search in title"
+                                {% if (form) %} value="{{form.get('search-title')}}" {%endif%} />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="check-search-locations" name="search-checkbox" value="locations">
-                        </label>
+                    <!-- search location using dropdown list -->
+                    <div>
+                        <div class="form-check">
+                            <div class="form-check-label">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
+                                        value="locations"  {% if form and form.getlist('check-search-locations') %}checked{% endif %}>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group ml-4">
+                            <label for="search-title">Targeted cleaning location(s)..</label>
+                            <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
+                                {% for each_location in location_data %}
+                                <option value="{{each_location.location}}" {% if each_location.location in form.getlist('search-location') %} selected {% endif %}>{{each_location.location}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group  ml-4">
-                        <label for="search-location">Cleaning Location targetted</label>
-                            <input type="text" class="form-control" id="search-location" 
-                                name="search-location" placeholder="search by cleaning location"
-                                {% if (form) %}  
-                                    value="{{form.get('search-location')}}"
-                                {%endif%}
-                            />
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="check-search-tags" name="search-checkbox" value="tags">
-                        </label>
-                    </div>
-                    <div class="form-group  ml-4">
-                        <label for="search-tags">Tags (sepearated by commas)</label>
-                        <input type="text" class="form-control"
-                            id="search-tags" name="search-tags" placeholder="search by Tags"
-                            {% if (form) %} 
-                                value="{{form.get('search-tags')}}" 
-                            {%endif%}
-                        />
+                    <!-- search tags using csv -->
+                    <div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" id="check-search-tags" name="check-search-tags" 
+                                    value="tags" {% if form and form.getlist('check-search-tags') %}checked{% endif %}>
+                            </label>
+                        </div>
+                        <div class="form-group ml-4">
+                            <label for="search-tags">Tags (sepearated by commas)</label>
+                            <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="search by Tags"
+                                {% if (form) %} value="{{form.get('search-tags')}}"{%endif%} />
+                        </div> 
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="black-border blur-shadow p-2 ml-2">  
-                <h2>Today's Article </h2>
-                        
-                # a list random 5 articles<br>
-                # list all<br>
+            <div class="black-border blur-shadow p-2 ml-2">
+                <h2>Today's Article</h2>
+
+                # a list random 5 articles<br />
+                # list all<br />
             </div>
         </div>
     </div>
