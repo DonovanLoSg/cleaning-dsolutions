@@ -62,3 +62,21 @@ button {
 .blur-shadow {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.search-param {
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.search-param ul {
+    margin-block-end: 0;
+}
+
+
+.search-param li {
+    list-style-type: circle;
+    list-style-position: outside;
+    padding-left: 1rem;
+    margin-left: 2rem;
+    margin-block-end: 0;
+
+}

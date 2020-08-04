@@ -6,8 +6,44 @@
 {% endblock %}
 
 {% block content %}
+{% if (listtype=="search") %}
+    <div class="black-border blur-shadow search-param">
+        Searched for articles which fulfil the following conditions:<br>
+            <ul>
+            {% if (form.getlist('check-search-titles')) %}
+                {% if (form.get('search-title').strip() == "") %}
+                    <li>any words</li>
+                {% else %}
+                    <li>titles contain '{{form.get('search-title')}}'</li>
+                {% endif %}
+            {% endif %}
+            {% if (form.getlist('check-search-locations')) and locationArray|length > 0 %}
+                <li>cleaning:
+                    <ul>
+                    {% for each_location in locationArray %}
+                        <li>{{each_location}}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if (form.getlist('check-search-tags')) and tagsArray|length > 0 %}
+                {% if (tagsArray|length) > 1 %}
+                    <li> with one or more of these tags:
+                    {% else %}
+                    <li>- with this tag:
+                {% endif %}
+                <ul>
+                {% for each_tag in tagsArray %}
+                    <li>{{each_tag}}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </ul>
+    </div>
+{% endif %}
 
-<table id="table_id" class="display article-title" data-page-length="10">
+
+<table id="myTable" class="display article-title" data-page-length="10">
     <thead>
         <tr>
             <td>
@@ -19,7 +55,7 @@
         </tr>
     </thead>
     <tbody>
-        {%for article in articles%}
+        {% for article in articles%}
         <tr>
             <td>
                 {{article.article_title}}

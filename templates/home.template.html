@@ -6,28 +6,6 @@
 {% endblock %}
 
 {% block content %}
-{% if form %}
-<div class="black-border">
-<pre>
-{{form.getlist('check-search-titles')}}
-{{form.get('search-title')}}
-{{form.getlist('check-search-locations')}}
-{{form.getlist('search-location')}}
-{{form.getlist('check-search-tags')}}
-{{form.get('search-tags')}}
-{{form.to_dict()}}
-<hr>
-.find({{myQuery}})
-<hr>
-{% for each in article_data %}
-{{each}}
-{% endfor %}
-
-
-</pre>
-</div>
-{% endif %}
-
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">

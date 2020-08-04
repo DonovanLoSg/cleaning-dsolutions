@@ -6,7 +6,7 @@ import pymongo
 import flask_login
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 # from passlib.hash import pbkdf2_sha256
-
+import csv
 
 
 # load in the variables in the .env file into our operating system environment
@@ -94,41 +94,43 @@ def home():
         "location")
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
+        myQuery = {}
+        tagsArray = []
+        locationArray =[]
         if form.getlist('check-search-titles') or form.getlist('check-search-locations') or form.getlist('check-search-tags'):
-            myQuery = {}
             if form.getlist('check-search-titles'):
                 if not(form.get('search-title') == ''):
                     search_article_string = form.get('search-title')
-                    myQuery.update({'article_title':{'$regex' : search_article_string, '$options' : 'i'}})
-
+                    myQuery.update(
+                        {'article_title': {'$regex': search_article_string, '$options': 'i'}})
+                else:
+                    flash('Please key in the words you want to search in the article titles.', 'info')
+                    return render_template("/home.template.html", location_data = location_data, form=form)
 
             if form.getlist('check-search-locations'):
-                myQuery.update(
-                    {"cleaning_location": {"$in": form.getlist('search-location')}})
-            article_data = client[DB_NAME]['articles'].find(myQuery)
+                locationArray = form.getlist('search-location')
+                if locationArray > 0:
+                    myQuery.update(
+                        {"cleaning_location": {"$in": locationArray}})
+                else:
+                    flash('Please key in the words you want to search in the article titles.', 'info')
+                    return render_template("/home.template.html", location_data = location_data, form=form)
 
-
-
-
-
-            # if form.getlist('check-search-titles'):
-            #     myQueryTitle = 'article-title :  {$regex : ".*'+form.get('search-title')+'.*"}'
-            #     myQuery.update(myQueryTitle)
-            
-
-        #         myQuery.append({'article title': {$regex: ".*"+form.get('search-title')+".*"})
-
-        #         myQuery.append(
-            
-        #      article_title:  {$regex : ".*{%if form.get('search-title') %}{{form.get('sarch-title')}}{% endif %}.*"} {% endif %}
-        # {% if form.getlist('check-search-locations') %}, cleaning_location: {% endif %}
-        # {% if form.getlist('check-search-tags') %}, tags: {% endif %}
-        # }
-            return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data)
-        else:
-            return render_template("home.template.html", form=form, location_data=location_data)
+            tags = []
+            if form.getlist('check-search-tags'):
+                tagsArray = form.get('search-tags').split(",")
+                if tagsArray > 0:
+                    myQuery.update(
+                        {'tags': {'$elemMatch': {'$in': tagsArray}}})
+                else:
+                    flash('Please key in the tags you looking for.', 'info')
+                    return render_template("/home.template.html", location_data = location_data, form=form)
+        article_data = client[DB_NAME]['articles'].find(myQuery)
+        return render_template("/articles/article-list.template.html", articles=article_data, listtype="search", form=form, tagsArray=tagsArray, locationArray=locationArray)
+        # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
     else:
-        return render_template("home.template.html", location_data=location_data)
+        return render_template("/home.template.html", location_data = location_data)
+
 
 # --------------------------------------------------
 # Login
