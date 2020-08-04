@@ -16,6 +16,14 @@
 {{form.getlist('check-search-tags')}}
 {{form.get('search-tags')}}
 {{form.to_dict()}}
+<hr>
+.find({{myQuery}})
+<hr>
+{% for each in article_data %}
+{{each}}
+{% endfor %}
+
+
 </pre>
 </div>
 {% endif %}
@@ -53,11 +61,11 @@
                             </div>
                         </div>
                         <div class="form-group ml-4">
-                            <label for="search-title">Targeted cleaning location(s)..</label>
+                            <label for="search-title">Targeted any of these cleaning locations..</label>
                             <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
                                 {% for each_location in location_data %}
                                     <option value="{{each_location.location}}" 
-                                        {% if each_location.location in form.getlist('search-location') %} selected {% endif %}
+                                        {% if form and each_location.location in form.getlist('search-location') %} selected {% endif %}
                                     >{{each_location.location}}</option>
                                 {% endfor %}
 							</select>
