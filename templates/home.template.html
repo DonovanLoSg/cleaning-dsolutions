@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group ml-4">
                             <label for="search-title">Article Title containing..</label>
-                            <input type="text" class="form-control" id="search-title" name="search-title" placeholder="search in title"
+                            <input type="text" class="form-control" id="search-title" name="search-title" placeholder="words appearing in titles"
                                 {% if (form) %} value="{{form.get('search-title')}}" {%endif%} />
                         </div>
                     </div>
@@ -56,9 +56,11 @@
                             <label for="search-title">Targeted cleaning location(s)..</label>
                             <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
                                 {% for each_location in location_data %}
-                                <option value="{{each_location.location}}" {% if each_location.location in form.getlist('search-location') %} selected {% endif %}>{{each_location.location}}</option>
+                                    <option value="{{each_location.location}}" 
+                                        {% if each_location.location in form.getlist('search-location') %} selected {% endif %}
+                                    >{{each_location.location}}</option>
                                 {% endfor %}
-                            </select>
+							</select>
                         </div>
                     </div>
                     <!-- search tags using csv -->
@@ -70,8 +72,8 @@
                             </label>
                         </div>
                         <div class="form-group ml-4">
-                            <label for="search-tags">Tags (sepearated by commas)</label>
-                            <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="search by Tags"
+                            <label for="search-tags">with Tags...</label>
+                            <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="tags sepearated by commas"
                                 {% if (form) %} value="{{form.get('search-tags')}}"{%endif%} />
                         </div> 
                     </div>
