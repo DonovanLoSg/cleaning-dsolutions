@@ -1,8 +1,12 @@
 $(document).ready( function () {
-    $('#myTable').DataTable({
-            "language": "No articles found."
-        })
-    
+    $('#myTable').DataTable();
+
+    $('#myTable2').DataTable({
+        "paging" : false,
+        "ordering" : false,
+        "info" : false
+    });
+
     
 } );
 

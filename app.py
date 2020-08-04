@@ -92,6 +92,7 @@ def index():
 def home():
     location_data = client[DB_NAME]['cleaning_locations'].find().sort(
         "location")
+    random_articles = client[DB_NAME]['articles'].aggregate([{ "$sample" : { "size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
         myQuery = {}
@@ -105,31 +106,31 @@ def home():
                         {'article_title': {'$regex': search_article_string, '$options': 'i'}})
                 else:
                     flash('Please key in the words you want to search in the article titles.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form)
+                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
 
             if form.getlist('check-search-locations'):
                 locationArray = form.getlist('search-location')
-                if locationArray > 0:
+                if len(locationArray) > 0:
                     myQuery.update(
                         {"cleaning_location": {"$in": locationArray}})
                 else:
                     flash('Please key in the words you want to search in the article titles.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form)
+                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
 
-            tags = []
             if form.getlist('check-search-tags'):
                 tagsArray = form.get('search-tags').split(",")
-                if tagsArray > 0:
+                tagsArray = [item.lower() for item in tagsArray]
+                if len(tagsArray) > 0:
                     myQuery.update(
                         {'tags': {'$elemMatch': {'$in': tagsArray}}})
                 else:
                     flash('Please key in the tags you looking for.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form)
+                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
         article_data = client[DB_NAME]['articles'].find(myQuery)
         return render_template("/articles/article-list.template.html", articles=article_data, listtype="search", form=form, tagsArray=tagsArray, locationArray=locationArray)
         # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
     else:
-        return render_template("/home.template.html", location_data = location_data)
+        return render_template("/home.template.html", location_data = location_data, random_articles = random_articles)
 
 
 # --------------------------------------------------

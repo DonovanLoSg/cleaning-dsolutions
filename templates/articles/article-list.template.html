@@ -28,45 +28,56 @@
             {% endif %}
             {% if (form.getlist('check-search-tags')) and tagsArray|length > 0 %}
                 {% if (tagsArray|length) > 1 %}
-                    <li> with one or more of these tags:
-                    {% else %}
-                    <li>- with this tag:
+                    <li>with one or more of these tags:
+                        <ul>
+                            {% for each_tag in tagsArray %}
+                                <li>{{each_tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>with this tag:
+                        <ul>
+                            {% for each_tag in tagsArray %}
+                                <li>{{each_tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endif %}
-                <ul>
-                {% for each_tag in tagsArray %}
-                    <li>{{each_tag}}</li>
-                {% endfor %}
                 </ul>
             {% endif %}
-            </ul>
+        </ul>
     </div>
 {% endif %}
 
 
-<table id="myTable" class="display article-title" data-page-length="10">
+
+
+<table id="myTable" class="display" data-page-length="10">
     <thead>
         <tr>
-            <td>
+            <td  class="article-titles">
                 <strong>Article Title</strong>
             </td>
-            <td>
+            <td  class="article-titles">
                 <strong>Cleaning Location</strong>
             </td>
         </tr>
     </thead>
     <tbody>
-        {% for article in articles%}
+        {% for article in articles %}
         <tr>
-            <td>
+            <td  class="article-titles">
                 {{article.article_title}}
             </td>
-            <td>
+            <td  class="article-titles">
                 {{article.cleaning_location}}
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
 
 
 {% endblock %}
