@@ -62,16 +62,25 @@
             <td  >
                 <strong>Cleaning Location</strong>
             </td>
+            <td>
+                View
+            </td>
         </tr>
     </thead>
     <tbody>
         {% for article in articles %}
-        <tr data="xxx">
+        <tr>
             <td  >
                 {{article.article_title}}
             </td>
             <td  >
                 {{article.cleaning_location}}
+
+            </td>
+            <td>
+                <a href="/articles/{{article._id}}" class="btn btn-primary btn-md">
+                    <span class="glyphicon glyphicon-eye-open"></span> View
+                </a>
             </td>
         </tr>
         {% endfor %}

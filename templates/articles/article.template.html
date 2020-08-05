@@ -2,9 +2,12 @@
 {% extends 'base.template.html' %}
 
 {% block header %}
-<h1>{% block title %}Article {{id}} {% endblock %}</h1>
+<h1>{% block title %}Article {{article_id}} {% endblock %}</h1>
 {% endblock %}
 
+
+
 {% block content %}
-xxx
+{{article_data}}
+
 {% endblock %}

@@ -48,7 +48,7 @@ class User(flask_login.UserMixin):
 def load_user(_id):
     # find the user from the database by its email
     user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
-        '_id': ObjectId('5f1e6d81eab745c4e0b7fbd8')
+        '_id': ObjectId(_id)
     })
     if user_data:
         # create a new user object
@@ -78,36 +78,36 @@ def verify_password(user_input, encrypted_password):
 # START ROUTING
 
 
+# --------------------------------------------------
+# Home Page
+# --------------------------------------------------
 @app.route('/')
 def index():
     return redirect(url_for("home"))
-
-# a list random 5 articles
-# list all
-# search panel: search by article title, cleaning location and tags
-# search result return in a list of title, cleaning location
-# click on list to view article
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     location_data = client[DB_NAME]['cleaning_locations'].find().sort(
         "location")
-    random_articles = client[DB_NAME]['articles'].aggregate([{ "$sample" : { "size": 5}}])
+    random_articles = client[DB_NAME]['articles'].aggregate(
+        [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
         form = request.form
         myQuery = {}
         tagsArray = []
-        locationArray =[]
-        if form.getlist('check-search-titles') or form.getlist('check-search-locations') or form.getlist('check-search-tags'):
+        locationArray = []
+        if form.getlist('check-search-titles') or form.getlist(
+                'check-search-locations') or form.getlist('check-search-tags'):
             if form.getlist('check-search-titles'):
                 if not(form.get('search-title') == ''):
-                    search_article_string =  '/^' + re.escape(form.get('search-title'))
+                    search_article_string = re.escape(form.get('search-title'))
                     myQuery.update(
                         {'article_title': {'$regex': search_article_string, '$options': 'i'}})
                 else:
-                    flash('Please key in the words you want to search in the article titles.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
+                    flash(
+                        'Please key in the words you want to search in the article titles.', 'info')
+                    return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
 
             if form.getlist('check-search-locations'):
                 locationArray = form.getlist('search-location')
@@ -115,23 +115,25 @@ def home():
                     myQuery.update(
                         {"cleaning_location": {"$in": locationArray}})
                 else:
-                    flash('Please key in the words you want to search in the article titles.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
+                    flash(
+                        'Please key in the words you want to search in the article titles.', 'info')
+                    return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
 
             if form.getlist('check-search-tags'):
-                tagsArray = form.get('search-tags').split(",")
-                tagsArray = [item.lower() for item in tagsArray]
+                tagsArray = form.get('search-tags').strip().split(",")
+                tagsArray = [item.lower().strip() for item in tagsArray]
+                tagsArray = list(filter(None, tagsArray))
                 if len(tagsArray) > 0:
                     myQuery.update(
                         {'tags': {'$elemMatch': {'$in': tagsArray}}})
                 else:
                     flash('Please key in the tags you looking for.', 'info')
-                    return render_template("/home.template.html", location_data = location_data, form=form, random_articles=random_articles)
+                    return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
         article_data = client[DB_NAME]['articles'].find(myQuery)
         return render_template("/articles/article-list.template.html", articles=article_data, listtype="search", form=form, tagsArray=tagsArray, locationArray=locationArray)
         # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
     else:
-        return render_template("/home.template.html", location_data = location_data, random_articles = random_articles)
+        return render_template("/home.template.html", location_data=location_data, random_articles=random_articles)
 
 
 # --------------------------------------------------
@@ -192,7 +194,7 @@ def unauthorized():
 # Logout
 # --------------------------------------------------
 # A instruction to log the user out and return to the home page
-@ app.route('/auth/logout')
+@app.route('/auth/logout')
 def logout():
     flash('User has successfully logged out.', category='danger')
     # session.pop('_id')
@@ -206,7 +208,7 @@ def logout():
 # Redirect to login page after successful registration
 
 
-@ app.route('/auth/register', methods=['GET', 'POST'])
+@app.route('/auth/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         form = request.form
@@ -247,8 +249,8 @@ def register():
 # --------------------------------------------------
 # Allow the user to view their own profile
 # and update their nickanme and password
-@ app.route('/users/my-profile', methods=['GET', 'POST'])
-@ flask_login.login_required
+@app.route('/users/my-profile', methods=['GET', 'POST'])
+@flask_login.login_required
 def my_profile():
     if request.method == 'POST':
         form = request.form
@@ -284,12 +286,12 @@ def my_profile():
         return render_template("/users/my-profile.template.html", current_user=flask_login.current_user)
 
 
-@ app.route('/about')
+@app.route('/about')
 def about():
     return render_template("/about.template.html")
 
 
-@ app.route('/instructions')
+@app.route('/instructions')
 def instructions():
     return render_template("/instructions.template.html")
 
@@ -311,14 +313,14 @@ def instructions():
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
-@ app.route('/articles/list')
+@app.route('/articles/list')
 def list_articles():
     return render_template("/articles/article-list.template.html")
 
 
-@ app.route('/articles/list-all')
+@app.route('/articles/list-all')
 def all_articles():
-    myProjections = {"_id": 0, "article_title": 1, "cleaning_location": 1}
+    myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
     articles = client[DB_NAME]['articles'].find(
         {}, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
@@ -349,9 +351,11 @@ def all_articles():
 # Allow administrator to edit any article.
 
 
-@ app.route('/articles/show/<id>')
-def show_article(id):
-    return render_template("/articles/article.template.html", id=id)
+@app.route('/articles/<_id>')
+def show_article(_id):
+    myQuery = {'_id': ObjectId(str(_id))}
+    article_data = client[DB_NAME]['articles'].find_one(myQuery)
+    return render_template("/articles/article.template.html", article_data=article_data, article_id=_id)
 
 
 # Display a list of all articles the member contributed.
@@ -365,15 +369,16 @@ def show_article(id):
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
-@ app.route('/articles/my-list')
-@ flask_login.login_required
+@app.route('/articles/my-list')
+@flask_login.login_required
 def my_articles():
     myQuery = {'created_by': ObjectId(session['_user_id'])}
-    myProjections = {"_id": 0, "article_title": 1, "cleaning_location": 1}
+    myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
     articles = client[DB_NAME]['articles'].find(
         myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
                            articles=articles, listtype='my')
+
 
 # Include an article creation page accepting article titles,
 # cleaning location, article content, cleaning items,
@@ -382,8 +387,8 @@ def my_articles():
 #  cleaning location, article content, cleaning items, cleaning supplies and tags.
 
 
-@ app.route('/articles/contribute')
-@ flask_login.login_required
+@app.route('/articles/contribute')
+@flask_login.login_required
 def contribute_articles():
     return render_template("/articles/contribute.template.html")
 
@@ -392,8 +397,8 @@ def contribute_articles():
 # Cleaning Locations
 # --------------------------------------------------
 # Allow administrator to manage the list of cleaning location.
-@ app.route('/cleaning-locations/manage', methods=['GET', 'POST'])
-@ flask_login.login_required
+@app.route('/cleaning-locations/manage', methods=['GET', 'POST'])
+@flask_login.login_required
 def manage_cleaning_locations():
     if request.method == 'POST':
         form = request.form
@@ -444,8 +449,8 @@ def manage_cleaning_locations():
 # Allow administrators to manage the list of users.
 
 
-@ app.route('/users/manage', methods=['GET', 'POST'])
-@ flask_login.login_required
+@app.route('/users/manage', methods=['GET', 'POST'])
+@flask_login.login_required
 def manage_users():
     if request.method == 'POST':
         form = request.form
@@ -515,12 +520,12 @@ def manage_users():
 
 
 # inbuilt function which handles exception like file not found
-@ app.errorhandler(404)
+@app.errorhandler(404)
 def not_found(e):
     return render_template('/file-not-found.template.html')
 
 
-@ app.route('/error-encountered')
+@app.route('/error-encountered')
 def error_encountered():
     return render_template('/error-encountered.template.html')
 
