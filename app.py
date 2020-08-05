@@ -7,6 +7,7 @@ import flask_login
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 # from passlib.hash import pbkdf2_sha256
 import csv
+import re
 
 
 # load in the variables in the .env file into our operating system environment
@@ -101,7 +102,7 @@ def home():
         if form.getlist('check-search-titles') or form.getlist('check-search-locations') or form.getlist('check-search-tags'):
             if form.getlist('check-search-titles'):
                 if not(form.get('search-title') == ''):
-                    search_article_string = form.get('search-title')
+                    search_article_string =  '/^' + re.escape(form.get('search-title'))
                     myQuery.update(
                         {'article_title': {'$regex': search_article_string, '$options': 'i'}})
                 else:

@@ -14,7 +14,7 @@
                 {% if (form.get('search-title').strip() == "") %}
                     <li>any words</li>
                 {% else %}
-                    <li>titles contain '{{flask.escape(form.get('search-title'))}}'</li>
+                    <li>titles contain '{{form.get('search-title')}}'</li>
                 {% endif %}
             {% endif %}
             {% if (form.getlist('check-search-locations')) and locationArray|length > 0 %}
@@ -53,7 +53,7 @@
 
 
 
-<table id="myTable" class="article-titles display" data-page-length="10" style="width:100%">
+<table id="myTable" class=" display dataTable article-title" data-page-length="10" style="width:100%">
     <thead>
         <tr>
             <td  >
@@ -66,7 +66,7 @@
     </thead>
     <tbody>
         {% for article in articles %}
-        <tr>
+        <tr data="xxx">
             <td  >
                 {{article.article_title}}
             </td>
