@@ -8,6 +8,79 @@
 
 
 {% block content %}
-{{article_data}}
+
+</div>
+<!-- title -->
+<div><h2>{{article_data.title}}</h2></div>
+
+<!-- cleaning location -->
+<div class="container">
+Targeted cleaning location: 
+{% if (article_data.cleaning_location) %}
+    {{ article_data.cleaning_location}}
+{% else %}
+    Not specified.
+{% endif %}
+</div>
+<br>
+<!-- content> -->
+<div class="container">
+Notes: {{article_data.article_content}}
+</div>
+<br>
+<!-- cleaning items -->
+<!-- <div class="container">
+    <ul>
+        <li>Cleaning item:
+            {% if article_data.cleaning_items|length <= 0 %}
+                No item found.
+            {% else %}
+                <ul>
+                    {% for each_cleaning_items in cleaning_items %}
+                        <li>each_cleaning_items.cleaning_item</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+<!-- cleaning supplies -->
+<div class="container">
+    <ul>
+        <li>Cleaning supplies:
+            {% if (article_data.cleaning_supplies|length) <= 0 %}
+                No item found.
+            {% else %}
+                <ul>
+                    {% for each_cleaning_supplies in article_data.cleaning_supplies %}
+                        <li>each_cleaning_supplies.cleaning_supplies</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+</div> -->
+<!-- tag -->
+<div class="container">
+    <ul>
+        <li>Tags
+            {% if article_data.tags|length <= 0 %}
+                No item found.
+            {% else %}
+                <ul>
+                    {% for each_tags in tags %}
+                        <li>each_tags.tags</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+<!-- dates -->
+{{created_by}}
+{{date_created}}
+{{date_modified}}
+
+
 
 {% endblock %}

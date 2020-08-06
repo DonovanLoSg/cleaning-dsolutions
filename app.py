@@ -353,9 +353,16 @@ def all_articles():
 
 @app.route('/articles/<_id>')
 def show_article(_id):
-    myQuery = {'_id': ObjectId(str(_id))}
-    article_data = client[DB_NAME]['articles'].find_one(myQuery)
-    return render_template("/articles/article.template.html", article_data=article_data, article_id=_id)
+    myQuery1 = {'_id': ObjectId(_id)}
+    article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+    article_owner_id = article_data['created_by']
+    myQuery2 = {'_id': ObjectId(article_owner_id)}
+    article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+
+    return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+
+
+
 
 
 # Display a list of all articles the member contributed.
