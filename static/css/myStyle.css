@@ -1,8 +1,8 @@
 html {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
-@include media-breakpoint-up(sm) {
+/* @include media-breakpoint-up(sm) {
   html {
     font-size: 1.2rem;
   }
@@ -18,7 +18,7 @@ html {
   html {
     font-size: 1.6rem;
   }
-}
+} */
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -50,6 +50,7 @@ button {
 .article-title {
     font-family: 'Lora', serif;
     font-style: italic;
+
 }
 
 .black-border {
@@ -94,3 +95,7 @@ button {
     margin: 0
 }
 
+.doc-title {
+    font-size: 2rem;
+    
+}

@@ -1,86 +1,85 @@
 <!doctype html>
 {% extends 'base.template.html' %}
 
+
+
 {% block header %}
-<h1>{% block title %}Article {{article_id}} {% endblock %}</h1>
+<div class="container blur-shadow black-border">
+<br><br>
+    <div class="doc-title">{% block title %}{{article_data.article_title}}{% endblock %}</div>
+    <div>Article Id = {{article_id}}</div>
 {% endblock %}
-
-
 
 {% block content %}
 
-</div>
+    
 <!-- title -->
 <div><h2>{{article_data.title}}</h2></div>
 
 <!-- cleaning location -->
-<div class="container">
-Targeted cleaning location: 
+
+Targeted cleaning location: <br>
 {% if (article_data.cleaning_location) %}
     {{ article_data.cleaning_location}}
 {% else %}
     Not specified.
 {% endif %}
-</div>
-<br>
+
+<br><br>
+
 <!-- content> -->
-<div class="container">
-Notes: {{article_data.article_content}}
-</div>
-<br>
-<!-- cleaning items -->
-<!-- <div class="container">
-    <ul>
-        <li>Cleaning item:
-            {% if article_data.cleaning_items|length <= 0 %}
-                No item found.
-            {% else %}
-                <ul>
-                    {% for each_cleaning_items in cleaning_items %}
-                        <li>each_cleaning_items.cleaning_item</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
-    </ul>
-</div>
-<!-- cleaning supplies -->
-<div class="container">
-    <ul>
-        <li>Cleaning supplies:
-            {% if (article_data.cleaning_supplies|length) <= 0 %}
-                No item found.
-            {% else %}
-                <ul>
-                    {% for each_cleaning_supplies in article_data.cleaning_supplies %}
-                        <li>each_cleaning_supplies.cleaning_supplies</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
-    </ul>
-</div> -->
-<!-- tag -->
-<div class="container">
-    <ul>
-        <li>Tags
-            {% if article_data.tags|length <= 0 %}
-                No item found.
-            {% else %}
-                <ul>
-                    {% for each_tags in tags %}
-                        <li>each_tags.tags</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
-    </ul>
-</div>
-<!-- dates -->
-{{created_by}}
-{{date_created}}
-{{date_modified}}
+Notes: <br>
+{{article_data.article_content|safe}}
+
+<br><br><br>
 
 
-
+<ul>
+    <!-- cleaning items -->
+    <li>Cleaning item:<br>
+        {% if article_data.cleaning_items|length == 0 %}
+            - No item found. -
+        {% else %}
+            <ul>
+                {% for each_cleaning_items in article_data.cleaning_items %}
+                    <li>{{each_cleaning_items}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+    <br>
+    <!-- cleaning supplies -->
+    <li>Cleaning supplies:<br>
+        {% if (article_data.cleaning_supplies|length) == 0 %}
+             - No item found. -
+        {% else %}
+            <ul>
+                {% for each_cleaning_supplies in article_data.cleaning_supplies %}
+                    <li>{{each_cleaning_supplies}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+    <br>
+    <!-- tag -->
+    <li>Tags:
+        {% if (article_data.tags|length) == 0 %}
+            - No tag found. -
+        {% else %}
+            <ul>
+                {% for each_tag in article_data.tags %}
+                    <li>{{each_tag}}</li>
+                {% endfor %}
+                
+            </ul>
+        {% endif %}        
+    </li>
+</ul>
+<p>Creation date: {{article_data.date_created}}</p>
+<p>Last modified date: {{article_data.date_modified}}</p>
+<p>Created by: {{article_owner_data.nickname}}</p>
+        
+<br><br>  
+</div>
+<br><br>
 {% endblock %}

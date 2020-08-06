@@ -358,7 +358,6 @@ def show_article(_id):
     article_owner_id = article_data['created_by']
     myQuery2 = {'_id': ObjectId(article_owner_id)}
     article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-
     return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
 
 
