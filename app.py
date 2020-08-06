@@ -357,11 +357,9 @@ def show_article(_id):
     article_data = client[DB_NAME]['articles'].find_one(myQuery1)
     article_owner_id = article_data['created_by']
     myQuery2 = {'_id': ObjectId(article_owner_id)}
-    article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+    article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+        myQuery2)
     return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
-
-
-
 
 
 # Display a list of all articles the member contributed.
@@ -393,14 +391,27 @@ def my_articles():
 #  cleaning location, article content, cleaning items, cleaning supplies and tags.
 
 
-@app.route('/articles/contribute')
+@app.route('/articles/contribute', methods=['GET', 'POST'])
 @flask_login.login_required
 def contribute_articles():
-
     location_data = client[DB_NAME]['cleaning_locations'].find().sort(
         "location")
+    if request.method == 'POST':
+        form = request.form
+        return render_template("/articles/contribute.template.html", location_data=location_data, form=form)
+    else:
+        return render_template("/articles/contribute.template.html", location_data=location_data)
 
-    return render_template("/articles/contribute.template.html", location_data=location_data)
+
+# _id
+# article_title
+# cleaning_location
+# cleaning_items []
+# cleaning_supplies []
+# tags []
+# date_created
+# date_modified
+# created_y
 
 
 # --------------------------------------------------

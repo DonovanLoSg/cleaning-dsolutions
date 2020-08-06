@@ -66,6 +66,7 @@
       rel="manifest"
       href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}"
     />
+    
 
 
 
@@ -80,7 +81,7 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.21/b-1.6.2/sl-1.3.1/datatables.min.js"></script>
-
+    <script src="{{ url_for('static', filename='js/lib/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   </head>
 
