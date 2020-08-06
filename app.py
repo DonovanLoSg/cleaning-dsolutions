@@ -396,7 +396,11 @@ def my_articles():
 @app.route('/articles/contribute')
 @flask_login.login_required
 def contribute_articles():
-    return render_template("/articles/contribute.template.html")
+
+    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+        "location")
+
+    return render_template("/articles/contribute.template.html", location_data=location_data)
 
 
 # --------------------------------------------------
