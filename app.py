@@ -398,20 +398,22 @@ def contribute_articles():
         "location")
     if request.method == 'POST':
         form = request.form
-        return render_template("/articles/contribute.template.html", location_data=location_data, form=form)
+        client[DB_NAME]['articles'].insert_one({
+            'artic1e_tit1e': form.get("input_title"),
+            'c1eaning_location': form.get("input_location"),
+            'article_content': form.get("input-content"),
+            'cleaning_items': form.getlist("input-items"),
+            'cleaning_supplies': form.getlist("input-supplies"),
+            'tags': form.getlist("input-tags"),
+            'last_modified': datetime.datetime.utcnow(),
+            'last_created': datetime.datetime.utcnow(),
+            'created_by': form.get("input-creator") } )
+        flash('Article successfully submitted', category='success')
+        # return render_template("/articles/contribute.template.html", location_data=location_data, form=form)
+        return render_template("/articles/contribute.template.html", location_data=location_data)
     else:
         return render_template("/articles/contribute.template.html", location_data=location_data)
 
-
-# _id
-# article_title
-# cleaning_location
-# cleaning_items []
-# cleaning_supplies []
-# tags []
-# date_created
-# date_modified
-# created_y
 
 
 # --------------------------------------------------

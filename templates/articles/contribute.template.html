@@ -13,7 +13,9 @@
     <div class="form-group">
         <label for="input-title">Title: </label>
         <input type="text" class="form-control" id="input-title" name="input-title"
-            placeholder="enter an article title" required/>
+            placeholder="enter an article title" required autofocus
+            {% if form and form.get('input-title') != "" %} value="{{form.get('input-title') }}" {% endif %}
+            />
     </div>
 
     <div class="form-group">
@@ -22,7 +24,7 @@
             <option value="" disabled selected>Select your option</option>
             {% for each_location in location_data %}
                 <option value="{{each_location.location}}" 
-                    {% if form and each_location.location in form.getlist('search-location') %} selected {% endif %}
+                    {% if form and form.get('input-location') == each_location.location %} selected {% endif %}
                 >{{each_location.location}}</option>
             {% endfor %}
         </select>
@@ -31,37 +33,37 @@
     <div>
         <div class="form-group ">
             <label for="input-content">Content:</label>
-            <textarea class="form-control" id="input-content" rows="10"></textarea>
+            <textarea class="form-control" id="input-content" name="input-content" rows="10">{% if (form) %} {{form.get('input-content') }}{% endif %}
+           </textarea>
         </div>
     <div>
 
     <div class="form-group">
         <label for="input-items">Cleaning Items: </label>
         <input type="text" class="form-control" id="input-items" name="input-items"
-            placeholder="enter cleaning items, seperated by commas" />
-    </div>
-
+            placeholder="enter cleaning items, seperated by commas" 
+            {% if (form) %} value = '{{form.get('input-items') }}' {% endif %}
+           />
     <div class="form-group">
         <label for="input-supplies">Cleaning Items: </label>
         <input type="text" class="form-control" id="input-supplies" name="input-supplies"
-            placeholder="enter cleaning supplies (consumables), seperated by commas" />
+            placeholder="enter cleaning supplies (consumables), seperated by commas" 
+             {% if (form) %} value = '{{form.get('input-supplies') }}' {% endif %}
+            />
     </div>
 
     <div class="form-group">
-        <label for="input-tags">Cleaning Items: </label>
+        <label for="input-tags">Tags: </label>
         <input type="text" class="form-control" id="input-tags" name="input-tags"
-            placeholder="enter tags, seperated by commas" />
+            placeholder="enter tags, seperated by commas" 
+            {% if (form) %} value = '{{form.get('input-tags') }}' {% endif %}
+            />
     </div>
 
     <input type="hidden" id="input-creator" name="input-creator" value="{{session._id}}">
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
-
-
-
-</pre>
 
 
 {% endblock %}
