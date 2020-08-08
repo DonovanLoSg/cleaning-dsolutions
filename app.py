@@ -359,6 +359,7 @@ def show_article(_id):
     myQuery2 = {'_id': ObjectId(article_owner_id)}
     article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
         myQuery2)
+
     return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
 
 
@@ -398,27 +399,29 @@ def contribute_articles():
         "location")
     if request.method == 'POST':
         form = request.form
-        
         input_title = request.form.get('input-title')
         input_location = form.get('input-location')
         input_content = form.get('input-content')
         input_items = form.get("input-items").split(",")
-        input_supplies = form.getlist("input-supplies")
-        input_tags = form.getlist("input-tags")
+        input_items = [item.strip(' ') for item in input_items]
+        input_supplies = form.get("input-supplies").split(",")
+        input_supplies = [item.strip(' ') for item in input_supplies]
+        input_tags = form.get("input-tags").split(",")
+        input_tags = [item.strip(' ') for item in input_tags]
         now = datetime.datetime.now()
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
         input_creator = ObjectId(session['_user_id'])
 
         client[DB_NAME]['articles'].insert_one({
-            'artic1e_tit1e': input_title,
-            'c1eaning_location': input_location,
+            'article_title': input_title,
+            'cleaning_location': input_location,
             'article_content': input_content,
             'cleaning_items': input_items,
             'cleaning_supplies': input_supplies,
             'tags': input_tags,
             'last_modified': input_modified,
-            'last_created': input_created,
+            'date_created': input_created,
             'created_by': input_creator
         })
 

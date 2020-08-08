@@ -75,9 +75,11 @@ Notes: <br>
         {% endif %}        
     </li>
 </ul>
-<p>Creation date: {{article_data.date_created}}</p>
-<p>Last modified date: {{article_data.date_modified}}</p>
-<p>Created by: {{article_owner_data.nickname}}</p>
+<p>Creation date: {{article_data.date_created[0:12]}}</p>
+<p>Last modified date: {{article_data.last_modified[0:12]}}</p>
+{% if (article_owner_data) %}
+    <p>Created by: {{article_owner_data.nickname}}</p>
+{% endif %}
         
 <br><br>  
 </div>
