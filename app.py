@@ -93,6 +93,7 @@ def home():
     random_articles = client[DB_NAME]['articles'].aggregate(
         [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
+        current_user = load_user(session['_id'])
         form = request.form
         myQuery = {}
         tagsArray = []
@@ -160,14 +161,14 @@ def login():
             # check email and password against database
             if user_data['password'] == inputpassword:
                 # password correct
-                tempid = str(user_data['_id'])
-                current_user = load_user(tempid)
-                flask_login.login_user(current_user)
-                session._id = current_user._id
-                session.nickname = current_user.nickname
-                session.admin = current_user.admin
-                flash(current_user.nickname +
-                      ' logged in successfully.', 'success')
+                tempid = str(ObjectId(user_data['_id']))
+                logging_user = load_user(tempid)
+                flask_login.login_user(logging_user)
+                session['_id'] = logging_user._id
+                session['nickname'] = logging_user.nickname
+                session['admin'] = logging_user.admin
+                current_user = load_user(ObjectId(session['_id']))
+                flash(logging_user.nickname + 'logged in successfully.', 'success')
                 return redirect(url_for('home'))
             else:
                 # password incorrect
@@ -353,19 +354,16 @@ def all_articles():
 
 @app.route('/articles/<_id>')
 def show_article(_id):
-    if not(_id is None) and ObjectId.is_valid(_id):
+    if (_id != "") :
         myQuery1 = {'_id': ObjectId(_id)}
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
             article_owner_id = article_data['created_by']
-            myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-                myQuery2)
-            if '_user_id' in session:
-                current_user = load_user(session['_user_id'])
-            else:
-                current_user = None
-            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+            myQuery2 = {'_id': article_owner_id}
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+            
+            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, 
+            article_owner_data=article_owner_data)
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
@@ -373,29 +371,44 @@ def show_article(_id):
         flash('No such article found', category='danger')
         return redirect(url_for('home'))
 
-@app.route('/articles/edit/<_id>')
+
+@app.route('/articles/edit/<_id>', methods=['GET', 'POST'])
+@flask_login.login_required
 def edit_article(_id):
-    if not(_id is None) and ObjectId.is_valid(_id):
-        myQuery1 = {'_id': ObjectId(_id)}
-        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
-        if (article_data):
-            article_owner_id = article_data['created_by']
-            myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-                myQuery2)
-            if '_user_id' in session:
-                current_user = load_user(session['_user_id'])
+    if request.method == 'GET':
+        if not(_id is None) and ObjectId.is_valid(_id):
+            myQuery1 = {'_id': ObjectId(_id)}
+            article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+            if (article_data):
+                article_owner_id = article_data['created_by']
+                myQuery2 = {'_id': ObjectId(article_owner_id)}
+                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+                    myQuery2)
+                if '_user_id' in session:
+                    current_user = load_user(session['_user_id'])
+                else:
+                    current_user = None
+                location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
+                return render_template("/articles/edit.template.html", location_data=location_data, article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
             else:
-                current_user = None
-            return render_template("/articles/edit.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+                flash('No such article found', category='danger')
+                return redirect(url_for('home'))
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
     else:
-        flash('No such article found', category='danger')
-        return redirect(url_for('home'))
+        form = request.form
+        article_owner_id = form.get['created-by']
+        myQuery2 = {'_id': ObjectId(article_owner_id)}
+        article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+        location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
+        return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+
+
+
 
 @app.route('/articles/delete/<_id>')
+@flask_login.login_required
 def delete_article(_id):
     if not(_id is None) and ObjectId.is_valid(_id):
         myQuery1 = {'_id': ObjectId(_id)}
@@ -629,7 +642,6 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    flash('The page you requested does not exist. You are being redirected to home page', 'danger')
     return redirect(url_for("home"))
 
 

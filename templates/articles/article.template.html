@@ -1,13 +1,10 @@
 <!doctype html>
 {% extends 'base.template.html' %}
 
-
-
 {% block header %}
 <div class="container blur-shadow black-border">
 <br><br>
     <div class="doc-title d-none">{% block title %}Cleaning d'Solutions: {{article_data.article_title}}{% endblock %}</div>
-    <div>Article Id = {{article_id}}</div>
 {% endblock %}
 
 {% block content %}
@@ -76,22 +73,16 @@ Notes: <br>
 <p>Creation date: {{article_data.date_created[0:12]}}</p>
 <p>Last modified date: {{article_data.last_modified[0:12]}}</p>
 {% if (article_owner_data) %}
-    <p>Created by: {{article_owner_data.nickname}}</p>
+<p>Created by: {{article_owner_data.nickname}}</p>
 {% endif %}
-        
 
-
-
-{% if current_user != None %}
-    {% if current_user.admin or curent_user.get_id() == article_data.created_by %}
-                <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">
-                    <span class="glyphicon glyphicon-eye-open"></span> Edit
-                </a>
-                <a href="/articles/delete/{{article_data._id}}" class="btn btn-primary btn-md">
-                    <span class="glyphicon glyphicon-eye-open"></span> Delete
-                </a>
+{% if current_user.is_authenticated %}
+    {% if article_owner_data._id == current_user.id or current_user.admin%}
+        <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">Edit</a>
+        <a href="/articles/delete/{{article_data._id}}" class="btn btn-primary btn-md">Delete</a>
     {% endif %}
 {% endif %}
+
 <br><br><br>
 <br></div>
 <br><br>

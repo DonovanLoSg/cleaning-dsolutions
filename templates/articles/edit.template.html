@@ -1,0 +1,144 @@
+<!doctype html>
+{% extends 'base.template.html' %}
+
+{% block header %}
+<div class="container blur-shadow black-border">
+<br><br>
+    <div class="doc-title d-none">{% block title %}Cleaning d'Solutions: {{article_data.article_title}}{% endblock %}</div>
+{% endblock %}
+
+{% block content %}
+<!-- title -->
+
+{% if (form) %}
+    <form method="post" name="form" target="_self">
+        <div class="form-group">
+            <label for="input-title">Title: </label>
+            <input type="text" class="form-control" id="input-title" name="input-title"
+                placeholder="enter an article title" required autofocus
+                {% if form.get("input-title") != "" %} value="{{form.get('input-title') }}" {% endif %}
+                />
+        </div>
+    
+        <div class="form-group">
+            <label for="search-title">Targeted cleaning location:</label>
+            <select class="custom-select" id="input-location" name="input-location" required>
+                <option value="" disabled selected>Select your option</option>
+                {% for each_location in location_data %}
+                    <option value="{{each_location.location}}" 
+                        {% if form.get('input-location') == each_location.location %} selected {% endif %}
+                    >{{each_location.location}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <div class="form-group ">
+                <label for="input-content">Content:</label>
+                <textarea class="form-control" id="input-content" name="input-content" rows="10">{{form.get('input-content')}}
+            </textarea>
+            </div>
+        <div>
+        <div class="form-group">
+            <label for="input-items">Cleaning Items: </label>
+            <input type="text" class="form-control" id="input-items" name="input-items"
+                placeholder="enter cleaning items, seperated by commas" value = '{{form.get('input-item') }}' 
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="input-supplies">Cleaning Items: </label>
+            <input type="text" class="form-control" id="input-supplies" name="input-supplies"
+                placeholder="enter cleaning supplies (consumables), seperated by commas" 
+                value = '{{form.get("input-supplies") }}' 
+                />
+        </div>
+
+        <div class="form-group">
+            <label for="input-tags">Tags: </label>
+            <input type="text" class="form-control" id="input-tags" name="input-tags"
+                placeholder="enter tags, seperated by commas" 
+                value = '{{form.get("input-tags") }}' 
+                />
+        </div>
+
+
+    </form>
+
+{% else %}
+
+    <form method="post" name="form" target="_self">
+        <div class="form-group">
+            <label for="input-title">Title: </label>
+            <input type="text" class="form-control" id="input-title" name="input-title"
+                placeholder="enter an article title" required autofocus
+                value="{{article_data.article_title}}"
+                />
+        </div>
+
+
+        <div class="form-group">
+            <label for="search-title">Targeted cleaning location:</label>
+            <select class="custom-select" id="input-location" name="input-location" required>
+                <option value="" disabled selected>Select your option</option>
+                {% for each_location in location_data %}
+                {{each_location.location}}
+                    <option value="{{each_location.location}}" 
+                        {% if article_data.cleaning_location == each_location.location %} selected {% endif %}>
+                    {{each_location.location}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <div class="form-group ">
+                <label for="input-content">Content:</label>
+                <textarea class="form-control" id="input-content" name="input-content" rows="10">{{article_data.article_content}}
+            </textarea>
+            </div>
+        <div>
+
+        <div class="form-group">
+            <label for="input-items">Cleaning Items: </label>
+            <input type="text" class="form-control" id="input-items" name="input-items"
+                placeholder="enter cleaning items, seperated by commas" value = '{{ ", ".join(article_data.cleaning_items) }}'
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="input-supplies">Cleaning Items: </label>
+            <input type="text" class="form-control" id="input-supplies" name="input-supplies"
+                placeholder="enter cleaning supplies (consumables), seperated by commas" value = '{{ ", ".join(article_data.cleaning_supplies) }}'
+                />
+        </div>
+
+        <div class="form-group">
+            <label for="input-tags">Tags: </label>
+            <input type="text" class="form-control" id="input-tags" name="input-tags"
+                placeholder="enter tags, seperated by commas" 
+                value = '{{ ", ".join(article_data.tag) }}'/>
+        </div>
+
+        <p>Creation date: {{article_data.date_created[0:12]}}</p>
+        <input type="hidden" name="input-created" value="{{article_data.date_created[0:12]}}">
+
+        <p>Last modified date: {{article_data.last_modified[0:12]}}</p>
+        <input type="hidden" name="input-modified" value="{{article_data.last_modified[0:12]}}">
+
+        {% if (article_owner_data) %}
+            <p>Created by: {{article_owner_data.nickname}}</p>
+        {% endif %}
+        <input type="hidden" name="created_by" value="{{article_data.created_by}}">
+        
+        <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">
+            Reset
+        </a>
+
+
+    </form>
+
+{% endif %}
+</div>
+
+<br><br><br>
+{% endblock %}
