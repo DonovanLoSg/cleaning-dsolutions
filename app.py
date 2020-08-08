@@ -629,7 +629,8 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    return render_template('/file-not-found.template.html')
+    flash('The page you requested does not exist. You are being redirected to home page', 'danger')
+    return redirect(url_for("home"))
 
 
 @app.route('/error-encountered')
