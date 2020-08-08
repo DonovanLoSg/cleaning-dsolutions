@@ -388,7 +388,35 @@ def edit_article(_id):
             if request.method == 'GET':
                 return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user, article_data=article_data)
             else:
-                return "post method"
+                form = request.form
+                input_title = request.form.get('input-title')
+                input_location = form.get('input-location')
+                input_content = form.get('input-content')
+                input_items = form.get("input-items").split(",")
+                input_items = [item.strip(' ') for item in input_items]
+                while ("" in input_items):
+                    input_items.remove("")
+                input_supplies = form.get("input-supplies").split(",")
+                input_supplies = [item.strip(' ') for item in input_supplies]
+                while ("" in input_supplies):
+                    input_supplies.remove("")
+                input_tags = form.get("input-tags").split(",")
+                input_tags = [item.strip(' ') for item in input_tags]
+                while ("" in input_tags):
+                    input_tags.remove("")
+                now = datetime.datetime.utcnow()
+                input_modified = now.strftime('%y-%m-%d %a %H:%M')
+                client[DB_NAME]['articles'].update_one({
+                    '_id': article_data['_id']}, {'$set': {
+                        'article_title': input_title,
+                        'cleaning_location': input_location,
+                        'article_content': input_content,
+                        'cleaning_items': input_items,
+                        'cleaning_supplies': input_supplies,
+                        'tags': input_tags,
+                        'last_modified': input_modified}})
+                flash('Article saved', category='success')
+                return redirect(url_for('edit_article', _id=article_data['_id']))
         else:
             flash('Unauthorised access', category='danger')
             return redirect(url_for('home'))
@@ -470,7 +498,7 @@ def contribute_articles():
         input_supplies = [item.strip(' ') for item in input_supplies]
         input_tags = form.get("input-tags").split(",")
         input_tags = [item.strip(' ') for item in input_tags]
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
         input_creator = ObjectId(session['_user_id'])
@@ -487,18 +515,7 @@ def contribute_articles():
             'created_by': input_creator
         })
 
-        # .save({
-        #     'artic1e_tit1e': form.get("input-title"),
-        #     'c1eaning_location': form.get("input_location"),
-        #     'article_content': form.get("input-content"),
-        #     'cleaning_items': form.getlist("input-items"),
-        #     'cleaning_supplies': form.getlist("input-supplies"),
-        #     'tags': form.getlist("input-tags"),
-        #     'last_modified': datetime.datetime.utcnow(),
-        #     'last_created': datetime.datetime.utcnow(),
-        #     'created_by': session.id})
-        # flash('Article successfully submitted', category='success')
-        # return render_template("/articles/contribute.template.html", location_data=location_data, form=form)
+        flash('Article successfully submitted', category='success')
         return render_template("/articles/contribute-next.template.html", location_data=location_data, form=form)
     else:
         return render_template("/articles/contribute.template.html", location_data=location_data)
