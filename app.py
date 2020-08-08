@@ -353,14 +353,71 @@ def all_articles():
 
 @app.route('/articles/<_id>')
 def show_article(_id):
-    myQuery1 = {'_id': ObjectId(_id)}
-    article_data = client[DB_NAME]['articles'].find_one(myQuery1)
-    article_owner_id = article_data['created_by']
-    myQuery2 = {'_id': ObjectId(article_owner_id)}
-    article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-        myQuery2)
+    if not(_id is None) and ObjectId.is_valid(_id):
+        myQuery1 = {'_id': ObjectId(_id)}
+        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        if (article_data):
+            article_owner_id = article_data['created_by']
+            myQuery2 = {'_id': ObjectId(article_owner_id)}
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+                myQuery2)
+            if '_user_id' in session:
+                current_user = load_user(session['_user_id'])
+            else:
+                current_user = None
+            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+        else:
+            flash('No such article found', category='danger')
+            return redirect(url_for('home'))
+    else:
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
 
-    return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+@app.route('/articles/edit/<_id>')
+def edit_article(_id):
+    if not(_id is None) and ObjectId.is_valid(_id):
+        myQuery1 = {'_id': ObjectId(_id)}
+        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        if (article_data):
+            article_owner_id = article_data['created_by']
+            myQuery2 = {'_id': ObjectId(article_owner_id)}
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+                myQuery2)
+            if '_user_id' in session:
+                current_user = load_user(session['_user_id'])
+            else:
+                current_user = None
+            return render_template("/articles/edit.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+        else:
+            flash('No such article found', category='danger')
+            return redirect(url_for('home'))
+    else:
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
+
+@app.route('/articles/delete<_id>')
+def delete_article(_id):
+    if not(_id is None) and ObjectId.is_valid(_id):
+        myQuery1 = {'_id': ObjectId(_id)}
+        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        if (article_data):
+            article_owner_id = article_data['created_by']
+            myQuery2 = {'_id': ObjectId(article_owner_id)}
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+                myQuery2)
+            if '_user_id' in session:
+                current_user = load_user(session['_user_id'])
+            else:
+                current_user = None
+            return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+        else:
+            flash('No such article found', category='danger')
+            return redirect(url_for('home'))
+    else:
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
+
+
 
 
 # Display a list of all articles the member contributed.

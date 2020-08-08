@@ -6,15 +6,13 @@
 {% block header %}
 <div class="container blur-shadow black-border">
 <br><br>
-    <div class="doc-title">{% block title %}{{article_data.article_title}}{% endblock %}</div>
+    <div class="doc-title d-none">{% block title %}Cleaning d'Solutions: {{article_data.article_title}}{% endblock %}</div>
     <div>Article Id = {{article_id}}</div>
 {% endblock %}
 
 {% block content %}
-
-    
 <!-- title -->
-<div><h2>{{article_data.title}}</h2></div>
+<div><h2>{{article_data.article_title}}</h2></div>
 
 <!-- cleaning location -->
 
@@ -81,7 +79,20 @@ Notes: <br>
     <p>Created by: {{article_owner_data.nickname}}</p>
 {% endif %}
         
-<br><br>  
-</div>
+
+
+
+{% if current_user != None %}
+    {% if current_user.admin or curent_user.get_id() == article_data.created_by %}
+                <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">
+                    <span class="glyphicon glyphicon-eye-open"></span> Edit
+                </a>
+                <a href="/articles/delete/{{article_data._id}}" class="btn btn-primary btn-md">
+                    <span class="glyphicon glyphicon-eye-open"></span> Edit
+                </a>
+    {% endif %}
+{% endif %}
+<br><br><br>
+<br></div>
 <br><br>
 {% endblock %}
