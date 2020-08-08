@@ -398,19 +398,43 @@ def contribute_articles():
         "location")
     if request.method == 'POST':
         form = request.form
+        
+        input_title = request.form.get('input-title')
+        input_location = form.get('input-location')
+        input_content = form.get('input-content')
+        input_items = form.get("input-items").split(",")
+        input_supplies = form.getlist("input-supplies")
+        input_tags = form.getlist("input-tags")
+        now = datetime.datetime.now()
+        input_created = now.strftime('%y-%m-%d %a %H:%M')
+        input_modified = now.strftime('%y-%m-%d %a %H:%M')
+        input_creator = ObjectId(session['_user_id'])
+
         client[DB_NAME]['articles'].insert_one({
-            'artic1e_tit1e': form.get("input_title"),
-            'c1eaning_location': form.get("input_location"),
-            'article_content': form.get("input-content"),
-            'cleaning_items': form.getlist("input-items"),
-            'cleaning_supplies': form.getlist("input-supplies"),
-            'tags': form.getlist("input-tags"),
-            'last_modified': datetime.datetime.utcnow(),
-            'last_created': datetime.datetime.utcnow(),
-            'created_by': form.get("input-creator") } )
-        flash('Article successfully submitted', category='success')
+            'artic1e_tit1e': input_title,
+            'c1eaning_location': input_location,
+            'article_content': input_content,
+            'cleaning_items': input_items,
+            'cleaning_supplies': input_supplies,
+            'tags': input_tags,
+            'last_modified': input_modified,
+            'last_created': input_created,
+            'created_by': input_creator
+        })
+
+        # .save({
+        #     'artic1e_tit1e': form.get("input-title"),
+        #     'c1eaning_location': form.get("input_location"),
+        #     'article_content': form.get("input-content"),
+        #     'cleaning_items': form.getlist("input-items"),
+        #     'cleaning_supplies': form.getlist("input-supplies"),
+        #     'tags': form.getlist("input-tags"),
+        #     'last_modified': datetime.datetime.utcnow(),
+        #     'last_created': datetime.datetime.utcnow(),
+        #     'created_by': session.id})
+        # flash('Article successfully submitted', category='success')
         # return render_template("/articles/contribute.template.html", location_data=location_data, form=form)
-        return render_template("/articles/contribute.template.html", location_data=location_data)
+        return render_template("/articles/contribute-next.template.html", location_data=location_data, form=form)
     else:
         return render_template("/articles/contribute.template.html", location_data=location_data)
 

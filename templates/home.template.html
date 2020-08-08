@@ -60,7 +60,7 @@
                         <div class="form-group ml-4">
                             <label for="search-tags">with Tags...</label>
                             <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="tags sepearated by commas"
-                                {% if (form) %} value="{{form.get('search-tags')}}"{%endif%} />
+                                {% if (form) %} value="{{form.get('search-tags')}}"{% endif %} />
                         </div> 
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>

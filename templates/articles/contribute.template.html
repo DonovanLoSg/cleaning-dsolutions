@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<pe>
+
 
  <form method="post" name="form" target="_self">
     <div class="form-group">
@@ -59,8 +59,6 @@
             {% if (form) %} value = '{{form.get('input-tags') }}' {% endif %}
             />
     </div>
-
-    <input type="hidden" id="input-creator" name="input-creator" value="{{session._id}}">
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

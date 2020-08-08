@@ -1,0 +1,18 @@
+<!doctype html>
+{% extends 'base.template.html' %}
+
+{% block header %}
+<h1>{% block title %}Contribute{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<pre>
+{{form.get('input-title') }}
+{{form.get('input-location') }}
+{{form.get('input-content') }}
+{{form.get('input-creator') }}
+
+
+
+{% endblock %}
