@@ -395,7 +395,7 @@ def edit_article(_id):
         flash('No such article found', category='danger')
         return redirect(url_for('home'))
 
-@app.route('/articles/delete<_id>')
+@app.route('/articles/delete/<_id>')
 def delete_article(_id):
     if not(_id is None) and ObjectId.is_valid(_id):
         myQuery1 = {'_id': ObjectId(_id)}
