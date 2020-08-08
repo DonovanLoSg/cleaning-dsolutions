@@ -375,34 +375,26 @@ def show_article(_id):
 @app.route('/articles/edit/<_id>', methods=['GET', 'POST'])
 @flask_login.login_required
 def edit_article(_id):
-    if request.method == 'GET':
-        if not(_id is None) and ObjectId.is_valid(_id):
-            myQuery1 = {'_id': ObjectId(_id)}
-            article_data = client[DB_NAME]['articles'].find_one(myQuery1)
-            if (article_data):
-                article_owner_id = article_data['created_by']
-                myQuery2 = {'_id': ObjectId(article_owner_id)}
-                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-                    myQuery2)
-                if '_user_id' in session:
-                    current_user = load_user(session['_user_id'])
-                else:
-                    current_user = None
-                location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
-                return render_template("/articles/edit.template.html", location_data=location_data, article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+    current_user = load_user(session['_user_id'])
+    myQuery1 = {'_id': ObjectId(_id)}
+    article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+    if (article_data):
+        article_owner_id = article_data['created_by']
+        myQuery2 = {'_id': article_owner_id}
+        article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+        article_owner_id = article_data['created_by']
+        if (article_owner_id == current_user.id or current_user.admin):
+            location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
+            if request.method == 'GET':
+                return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user, article_data=article_data)
             else:
-                flash('No such article found', category='danger')
-                return redirect(url_for('home'))
+                return "post method"
         else:
-            flash('No such article found', category='danger')
+            flash('Unauthorised access', category='danger')
             return redirect(url_for('home'))
     else:
-        form = request.form
-        article_owner_id = form.get['created-by']
-        myQuery2 = {'_id': ObjectId(article_owner_id)}
-        article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-        location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
-        return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
 
 
 
