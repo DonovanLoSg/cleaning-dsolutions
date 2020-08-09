@@ -57,13 +57,13 @@ Notes: <br>
     </li>
     <br>
     <!-- tag -->
-    <li>Tags:
+    <li>Tags:<br>
         {% if (article_data.tags|length) == 0 %}
             - No tag found. -
         {% else %}
             <ul>
                 {% for each_tag in article_data.tags %}
-                    <li>{{each_tag}}</li>
+                    <span class="badge badge-pill badge-secondary">{{each_tag}}</span>
                 {% endfor %}
                 
             </ul>
@@ -76,8 +76,18 @@ Notes: <br>
 <p>Created by: {{article_owner_data.nickname}}</p>
 {% endif %}
 
+
+
+
+
  <form method="post" name="form" target="_self">
 {% if current_user.is_authenticated %}
+    <a href="/rate/{{article_data._id}}/good" class="btn btn-info btn-md">Rate It works !</a>
+    <a href="/rate/{{article_data._id}}/neutral" class="btn btn-info btn-md">Rate works somewhat !</a>
+    <a href="/rate/{{article_data._id}}/bad" class="btn btn-info btn-md">Rate Doesn't work !</a>
+    <br><br>
+
+
     {% if article_owner_data._id == current_user.id or current_user.admin%}
         <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">Edit</a>
         <a href="/articles/delete/{{article_data._id}}" class="btn btn-danger btn-md">Delete</a>

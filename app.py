@@ -327,6 +327,16 @@ def all_articles():
     return render_template("/articles/article-list.template.html",
                            articles=articles, listtype='all')
 
+
+@app.route('/rate/<_id>/<rating>')
+@flask_login.login_required
+def rate(_id, rating):
+    client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$pull': {'ratings':{'user_id':ObjectId(session['_id'])}}})
+    client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'ratings':rating}}})
+
+    flash('Rating successfully updated', category='success')
+    return redirect(url_for('show_article', _id=_id))
+
 # Display the article containing article titles,
 # cleaning location, article content, cleaning items,
 # cleaning supplies and tags.
@@ -359,13 +369,10 @@ def show_article(_id):
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
             article_owner_id = article_data['created_by']
-            myQuery2 = {'_id': article_owner_id}
+            myQuery2 = {'_id': ObjectId(article_owner_id)}
             article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-            if (article_owner_data):
-                return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
-            else:
-                article_owner_id = 0
-                return render_template("/articles/article.template.html", article_data=article_data, article_id=_id)
+            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
@@ -530,6 +537,8 @@ def contribute_articles():
 
 
 
+
+
 # --------------------------------------------------
 # Cleaning Locations
 # --------------------------------------------------
@@ -672,3 +681,5 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
+
+
