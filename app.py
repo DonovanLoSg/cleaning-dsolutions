@@ -361,9 +361,11 @@ def show_article(_id):
             article_owner_id = article_data['created_by']
             myQuery2 = {'_id': article_owner_id}
             article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-            
-            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, 
-            article_owner_data=article_owner_data)
+            if (article_owner_data):
+                return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+            else:
+                article_owner_id = 0
+                return render_template("/articles/article.template.html", article_data=article_data, article_id=_id)
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
@@ -416,7 +418,7 @@ def edit_article(_id):
                         'tags': input_tags,
                         'last_modified': input_modified}})
                 flash('Article saved', category='success')
-                return redirect(url_for('edit_article', _id=article_data['_id']))
+                return redirect('/articles/'+_id) 
         else:
             flash('Unauthorised access', category='danger')
             return redirect(url_for('home'))
@@ -427,28 +429,34 @@ def edit_article(_id):
 
 
 
-@app.route('/articles/delete/<_id>')
+@app.route('/articles/delete/<_id>', methods=['GET', 'POST'])
 @flask_login.login_required
 def delete_article(_id):
-    if not(_id is None) and ObjectId.is_valid(_id):
-        myQuery1 = {'_id': ObjectId(_id)}
-        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
-        if (article_data):
-            article_owner_id = article_data['created_by']
-            myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-                myQuery2)
-            if '_user_id' in session:
-                current_user = load_user(session['_user_id'])
+    if request.method == 'GET':
+        if not(_id is None) and ObjectId.is_valid(_id):
+            myQuery1 = {'_id': ObjectId(_id)}
+            article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+            if (article_data):
+                article_owner_id = article_data['created_by']
+                myQuery2 = {'_id': ObjectId(article_owner_id)}
+                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+                    myQuery2)
+                if '_user_id' in session:
+                    current_user = load_user(session['_user_id'])
+                else:
+                    current_user = None
+                return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
             else:
-                current_user = None
-            return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+                flash('No such article found', category='danger')
+                return redirect(url_for('home'))
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
     else:
-        flash('No such article found', category='danger')
-        return redirect(url_for('home'))
+        myQuery1 = {'_id': ObjectId(_id)}
+        article_data = client[DB_NAME]['articles'].delete_one(myQuery1)
+        return redirect(url_for('my_articles'))
+
 
 
 

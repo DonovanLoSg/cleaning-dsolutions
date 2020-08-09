@@ -8,7 +8,17 @@ logging_user : {{logging_user}}
 current_user : {{current_user}}
 session : {{session}}
 form : {{form}}
+{{article_id}}
 user_data : {{user_data}}
+{{article_data}}
+{{article_data['created_by']}}
+{{article_data._id}}
+{{article_data['_id']}}
+
+{% for i in article_data %}
+{{i}}
+{% endfor%}
+
 </pre>
 
 {% endblock %}

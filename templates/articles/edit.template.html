@@ -4,11 +4,13 @@
 {% block header %}
 <div class="container blur-shadow black-border">
 <br><br>
-    <div class="doc-title d-none">{% block title %}Cleaning d'Solutions: {{article_data.article_title}}{% endblock %}</div>
+    <div class="doc-title d-none">{% block title %}Editing: {{article_data.article_title}}{% endblock %}</div>
 {% endblock %}
+
 
 {% block content %}
 <!-- title -->
+<div><h1>Editing: {{article_data.article_title}}</h1></div>
 
 {% if (form) %}
     <form method="post" name="form" target="_self">
@@ -130,7 +132,7 @@
         {% endif %}
         <input type="hidden" name="created_by" value="{{article_data.created_by}}">
         
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
         <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">
             Reset
         </a>
