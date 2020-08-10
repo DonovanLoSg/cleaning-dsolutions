@@ -374,10 +374,8 @@ def show_article(_id):
             rated_good = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'good'}}).count()
             rated_neutral = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'neutral'}}).count()
             rated_bad = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'bad'}}).count()
-            this_user_rated = client[DB_NAME]['articles'].find_one(myQuery1, {'user_id': ObjectId(session['_id']) } )
-            # return render_template('/test.template.html', article_data=article_data, rated_good=rated_good, rated_neutral=rated_neutral,  rated_bad=rated_bad, owner=article.user_id)
-            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data,this_user_rated=this_user_rated,rated_good=rated_good,rated_neutral=rated_neutral,rated_bad=rated_bad)
-
+            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data,
+            rated_good=rated_good,rated_neutral=rated_neutral, rated_bad=rated_bad)
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
