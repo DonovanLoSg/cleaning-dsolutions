@@ -328,14 +328,15 @@ def all_articles():
                            articles=articles, listtype='all')
 
 
-@app.route('/rate/<_id>/<rating>')
-@flask_login.login_required
-def rate(_id, rating):
-    client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$pull': {'ratings':{'user_id':ObjectId(session['_id'])}}})
-    client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'ratings':rating}}})
+# to remove
+# @app.route('/rate/<_id>/<rating>')
+# @flask_login.login_required
+# def rate(_id, rating):
+#     client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$pull': {'ratings':{'user_id':ObjectId(session['_id'])}}})
+#     client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'rated':rating}}})
 
-    flash('Rating successfully updated', category='success')
-    return redirect(url_for('show_article', _id=_id))
+#     flash('Rating successfully updated', category='success')
+#     return redirect(url_for('show_article', _id=_id))
 
 # Display the article containing article titles,
 # cleaning location, article content, cleaning items,
@@ -370,12 +371,10 @@ def show_article(_id):
         if (article_data):
             article_owner_id = article_data['created_by']
             myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-            rated_good = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'good'}}).count()
-            rated_neutral = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'neutral'}}).count()
-            rated_bad = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'bad'}}).count()
-            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data,
-            rated_good=rated_good,rated_neutral=rated_neutral, rated_bad=rated_bad)
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one()
+
+            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+
         else:
             flash('No such article found', category='danger')
             return redirect(url_for('home'))
@@ -520,8 +519,7 @@ def contribute_articles():
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
         input_creator = ObjectId(session['_user_id'])
-        input_comments = [0]
-        input_ratings = [0]
+        input_user_postings = [{'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
         client[DB_NAME]['articles'].insert_one({
             'article_title': input_title,
@@ -533,8 +531,7 @@ def contribute_articles():
             'last_modified': input_modified,
             'date_created': input_created,
             'created_by': input_creator,
-            'ratings' : input_ratings,
-            'comments' : input_comments,
+            'user_postings': input_user_postings
         })
 
         flash('Article successfully submitted', category='success')

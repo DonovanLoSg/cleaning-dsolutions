@@ -9,16 +9,18 @@ current_user : {{current_user}}
 session : {{session}}
 form : {{form}}
 =======
-{{user_ratings}}
+{{rating_table}}
 
-{% for item in article_data %}
-ratings
+{% for ratings in ratings_table %}
+{{ratings}}<br>
 {% endfor %}
+
+{{ratings_table.ratings}}
+
+
 =====
-{{rated_good}}
-{{rated_neutral}}
-{{rated_good}}
-{{this_user_rated}}
+
+
 
 </pre>
 
