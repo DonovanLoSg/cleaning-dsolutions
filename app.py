@@ -371,7 +371,12 @@ def show_article(_id):
             article_owner_id = article_data['created_by']
             myQuery2 = {'_id': ObjectId(article_owner_id)}
             article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+            rated_good = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'good'}}).count()
+            rated_neutral = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'neutral'}}).count()
+            rated_bad = client[DB_NAME]['articles'].find(myQuery1, {'$eleMatch':{'ratings' : 'bad'}}).count()
+            this_user_rated = client[DB_NAME]['articles'].find_one(myQuery1, {'user_id': ObjectId(session['_id']) } )
+            # return render_template('/test.template.html', article_data=article_data, rated_good=rated_good, rated_neutral=rated_neutral,  rated_bad=rated_bad, owner=article.user_id)
+            return render_template("/articles/article.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data,this_user_rated=this_user_rated,rated_good=rated_good,rated_neutral=rated_neutral,rated_bad=rated_bad)
 
         else:
             flash('No such article found', category='danger')
@@ -517,6 +522,8 @@ def contribute_articles():
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
         input_creator = ObjectId(session['_user_id'])
+        input_comments = [0]
+        input_ratings = [0]
 
         client[DB_NAME]['articles'].insert_one({
             'article_title': input_title,
@@ -527,7 +534,9 @@ def contribute_articles():
             'tags': input_tags,
             'last_modified': input_modified,
             'date_created': input_created,
-            'created_by': input_creator
+            'created_by': input_creator,
+            'ratings' : input_ratings,
+            'comments' : input_comments,
         })
 
         flash('Article successfully submitted', category='success')

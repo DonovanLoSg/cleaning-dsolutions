@@ -75,10 +75,12 @@ Notes: <br>
 {% if (article_owner_data) %}
 <p>Created by: {{article_owner_data.nickname}}</p>
 {% endif %}
+It works ! :<span class="badge badge-pill badge-info">{{rated_good}}</span><br>
+Works somewhat :<span class="badge badge-pill badge-info">{{rating_neutral}}</span><br>
+Doesn't work ! :<span class="badge badge-pill badge-info">{{rating_bad}}</span><br>
 
 
-
-
+{{this_user_rated}}
 
  <form method="post" name="form" target="_self">
 {% if current_user.is_authenticated %}
