@@ -32,7 +32,6 @@ body {
 h1 {
     display: block;
     font-family: 'Roboto', sans-serif;
-    line-height: 5rem;
     position: static;
 };
 
@@ -47,10 +46,46 @@ button {
  
 }
 
-.btn {
+
+p.normal {
+    font-weight: normal;
+}
+
+p.thick {
+    font-family: 'Lora', serif;
+    font-weight: bold;
+}
+
+p.thicker {
+    font-family: 'Lora', serif;
+    font-weight: 900;
+}
+
+ul.items {
+    list-style-type: circle;
+    list-style-position: outside;
+    padding: 5px;
+    margin-left: 35px;
+}
+
+ul.items li {
+    margin: 5px;
+}
+
+.badge-pill {
+    font-size: 1rem
+}
+
+.faces {
+    max-width: 80px;
+    margin: 5px;
+    
+}
+
+#myTable .btn {
     padding: 10px;
-    width: 4rem;
-    padding: 0.5rem;
+    width: 5rem;
+    padding: 0.2rem;
     margin: 0.5rem;
 }
 
@@ -116,4 +151,9 @@ button {
     border: 3px solid red;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
+
+.rated {
+    border: 2px solid red;
+    border-radius: 25px;
 }

@@ -96,7 +96,7 @@ def home():
     random_articles = client[DB_NAME]['articles'].aggregate(
         [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
-        current_user = load_user(session['_user_id'])
+        current_user = load_user(flask_login.current_user.get_id())
         form = request.form
         myQuery = {}
         tagsArray = []
@@ -171,7 +171,7 @@ def login():
                 session['_id'] = logging_user.get_id()
                 session['nickname'] = logging_user.nickname
                 session['admin'] = logging_user.admin
-                current_user = load_user(ObjectId(session['_user_id']))
+                current_user = load_user(ObjectId(flask_login.current_user.get_id()))
                 flash(logging_user.nickname + 'logged in successfully.', 'success')
                 return redirect(url_for('home'))
             else:
@@ -196,9 +196,9 @@ def login():
 @app.route('/auth/logout')
 def logout():
     flash('User has successfully logged out.', category='danger')
-    session.pop('_id')
-    session.pop('nickname')
-    session.pop('admin')
+    session.pop('_id', None)
+    session.pop('nickname', None)
+    session.pop('admin', None)
     flask_login.logout_user()
     return redirect(url_for('home'))
 
@@ -344,7 +344,7 @@ def all_articles():
 @app.route('/articles/my-list')
 @flask_login.login_required
 def my_articles():
-    myQuery = {'created_by': ObjectId(session['_user_id'])}
+    myQuery = {'created_by': ObjectId(flask_login.current_user.get_id())}
     myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
     articles = client[DB_NAME]['articles'].find(
         myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
@@ -385,7 +385,7 @@ def contribute_articles():
         now = datetime.datetime.utcnow()
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
-        input_creator = ObjectId(session['_user_id'])
+        input_creator = ObjectId(flask_login.current_user.get_id())
         input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
         client[DB_NAME]['articles'].insert_one({
@@ -412,7 +412,7 @@ def contribute_articles():
 @app.route('/articles/edit/<_id>', methods=['GET', 'POST'])
 @flask_login.login_required
 def edit_article(_id):
-    current_user = load_user(session['_user_id'])
+    current_user = load_user(flask_login.current_user.get_id())
     myQuery1 = {'_id': ObjectId(_id)}
     article_data = client[DB_NAME]['articles'].find_one(myQuery1)
     if (article_data):
@@ -508,7 +508,7 @@ def show_article(_id):
             user_rated = ''
             user_comments = ''
             for post in user_postings:
-                if post['user_id'] == ObjectId(session['_user_id']):
+                if post['user_id'] == ObjectId(flask_login.current_user.get_id()):
                     if post['good_rating']:
                         user_rated = 'good'
                     elif post['neutral_rating']:
@@ -548,7 +548,7 @@ def delete_article(_id):
                 article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
                     myQuery2)
                 if '_user_id' in session:
-                    current_user = load_user(session['_user_id'])
+                    current_user = load_user(flask_login.current_user.get_id())
                 else:
                     current_user = None
                 return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
@@ -570,19 +570,19 @@ def delete_article(_id):
 @app.route('/rate/<_id>/<rating>')
 @flask_login.login_required
 def rate(_id, rating):
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_user_id'])}}} ))
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(flask_login.current_user.get_id())}}} ))
     if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_user_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(flask_login.current_user.get_id()), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
         client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
     reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},reset_rating )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},reset_rating )
     if rating == 'good':
         set_rating = { '$set': {'user_postings.$.good_rating':True}}
     elif rating == 'neutral':
         set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
     else:
         set_rating = { '$set': {'user_postings.$.bad_rating':True}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},set_rating )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},set_rating )
 
     flash('Rating successfully updated. ', category='success')
     return redirect(url_for('show_article', _id=_id))
@@ -595,12 +595,12 @@ def comment(_id):
         input_comments = form.get('input-comments')
     else:
         input_comments = ""
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_user_id'])}}} ))
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(flask_login.current_user.get_id())}}} ))
     if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_user_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(flask_login.current_user.get_id()), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
         client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
     set_comments = { '$set': {'user_postings.$.comments': input_comments}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},set_comments )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},set_comments )
     flash('Comments successfully saved. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
