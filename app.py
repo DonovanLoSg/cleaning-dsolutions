@@ -5,8 +5,8 @@ from bson import ObjectId
 import pymongo
 import flask_login
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-# from passlib.hash import pbkdf2_sha256
-import csv
+#from passlib.hash import pbkdf2_sha256
+# import csv
 import re
 
 
@@ -63,15 +63,18 @@ def load_user(_id):
         return None
 
 
-# encrypt user's password        <-- rmb to use your database to create a collection that stores registered users' info like passwords and emails
-def password_encryptor(user_password):
-    return pbkdf2_sha256.hash(user_password)
-
-# verify user's password        <-- then use this function to check user's password against the password in your collection
 
 
-def verify_password(user_input, encrypted_password):
-    return pbkdf2_sha256.verify(user_input, encrypted_password)
+@app.route('/about')
+def about():
+    return render_template("/about.template.html")
+
+
+@app.route('/instructions')
+def instructions():
+    return render_template("/instructions.template.html")
+
+
 
 # --- User Authentication: End ---------------------------------
 
@@ -93,7 +96,7 @@ def home():
     random_articles = client[DB_NAME]['articles'].aggregate(
         [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
-        current_user = load_user(session['_id'])
+        current_user = load_user(session['_user_id'])
         form = request.form
         myQuery = {}
         tagsArray = []
@@ -159,15 +162,16 @@ def login():
             {'email': inputemail})
         if user_data:
             # check email and password against database
-            if user_data['password'] == inputpassword:
+            if inputpassword == user_data['password']:
                 # password correct
                 tempid = str(ObjectId(user_data['_id']))
+                logging_user = User()
                 logging_user = load_user(tempid)
                 flask_login.login_user(logging_user)
-                session['_id'] = logging_user._id
+                session['_id'] = logging_user.get_id()
                 session['nickname'] = logging_user.nickname
                 session['admin'] = logging_user.admin
-                current_user = load_user(ObjectId(session['_id']))
+                current_user = load_user(ObjectId(session['_user_id']))
                 flash(logging_user.nickname + 'logged in successfully.', 'success')
                 return redirect(url_for('home'))
             else:
@@ -185,12 +189,6 @@ def login():
         return render_template("/auth/login.template.html")
 
 
-@ login_manager.unauthorized_handler
-def unauthorized():
-    # do stuff
-    return render_template("/unauthorized.template.html")
-
-
 # --------------------------------------------------
 # Logout
 # --------------------------------------------------
@@ -198,11 +196,20 @@ def unauthorized():
 @app.route('/auth/logout')
 def logout():
     flash('User has successfully logged out.', category='danger')
-    # session.pop('_id')
-    # session.pop('nickname')
-    # session.pop('admin')
+    session.pop('_id')
+    session.pop('nickname')
+    session.pop('admin')
     flask_login.logout_user()
     return redirect(url_for('home'))
+
+
+@ login_manager.unauthorized_handler
+def unauthorized():
+    # do stuff
+    return render_template("/unauthorized.template.html")
+
+
+
 
 # Registration form
 # Allow an user to register for an account
@@ -268,7 +275,7 @@ def my_profile():
         else:
             # changes to passowrd, to check both passwods to be the same
             # if both password are not the same
-            if not(form.get('input-password') == form.get('input-verify')):
+            if not( form.get('input-password') == form.get('input-verify')):
                 # if the two passwords are not the same
                 flash("The passwords do not match. Please retry.",
                       category='danger')
@@ -286,15 +293,6 @@ def my_profile():
     else:
         return render_template("/users/my-profile.template.html", current_user=flask_login.current_user)
 
-
-@app.route('/about')
-def about():
-    return render_template("/about.template.html")
-
-
-@app.route('/instructions')
-def instructions():
-    return render_template("/instructions.template.html")
 
 
 # Allow user to select one of the articles by clicking
@@ -332,145 +330,83 @@ def all_articles():
 
 
 
-@app.route('/rate/<_id>/<rating>')
+# Display a list of all articles the member contributed.
+# Allow member to select one of the articles by clicking on
+# the article titles from the list to view the article.
+# Allow member to select one of the articles by clicking on
+# the corresponding delete button.
+# Allow member to delete the article by clicking on the
+# delete confirmation button on the article itself.
+# Allow administrator to select one of article by clicking
+# on the article titles from the search results to view the article.
+# Allow administrator to delete an article by clicking on the corresponding delete button.
+# Allow administrator to delete any article.
+@app.route('/articles/my-list')
 @flask_login.login_required
-def rate(_id, rating):
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
-    if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
-        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
-    reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},reset_rating )
-    if rating == 'good':
-        set_rating = { '$set': {'user_postings.$.good_rating':True}}
-    elif rating == 'neutral':
-        set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
-    else:
-        set_rating = { '$set': {'user_postings.$.bad_rating':True}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_rating )
-
-    flash('Rating successfully updated. ', category='success')
-    return redirect(url_for('show_article', _id=_id))
-
-@app.route('/comment/<_id>', methods=['GET', 'POST'])
-@flask_login.login_required
-def comment(_id):
-    form = request.form
-    if request.method == 'POST':
-        input_comments = form.get('input-comments')
-    else:
-        input_comments = ""
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
-    if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
-        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
-    set_comments = { '$set': {'user_postings.$.comments': input_comments}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_comments )
-    flash('Comments successfully saved. ', category='success')
-    return redirect(url_for('show_article', _id=_id))
+def my_articles():
+    myQuery = {'created_by': ObjectId(session['_user_id'])}
+    myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
+    articles = client[DB_NAME]['articles'].find(
+        myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
+    return render_template("/articles/article-list.template.html",
+                           articles=articles, listtype='my')
 
 
-# Display the article containing article titles,
+
+
+
+
+
+
+
+# Include an article creation page accepting article titles,
 # cleaning location, article content, cleaning items,
 # cleaning supplies and tags.
-# List the comments for individual articles
-# Display the count of validating vote.
-# Allow member to edit the article by clicking on the
-# edit button on the article itself.
-# Allow member to add a comment on the article page.
-# Allow member to edit the comment he left
-# on the article page
-# Allow member to validate the article content by voting
-# whether it works, somewhat works, or doesn’t work.
-# Allow member to change their validating votes.
-# Allow member to edit articles they contributed.
-# Allow member to delete articles they contributed.
-# Allow administrator to delete an article by clicking on the delete button on the article itself.
-# Allow administrator to edit an article by clicking on the edit button on the article itself.
-# Allow administrator to add a comment on the article page.
-# Allow member to edit the comment he left on the article page.
-# Allow administrator to validate the article content by voting
-#  whether it works, somewhat works, or doesn’t work.
-# Allow administrator to change their validating votes.
-# Allow administrator to edit any article.
+# Include an article creation page accepting article titles,
+#  cleaning location, article content, cleaning items, cleaning supplies and tags.
 
 
-@app.route('/articles/<_id>')
-def show_article(_id):
-    if (_id != "") :
-        myQuery1 = {'_id': ObjectId(_id)}
-        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
-        if (article_data):
-            article_owner_id = article_data['created_by']
-            myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one()
-            user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
-            user_posting_data.rewind()
-            user_posting_list = list(user_posting_data)
-            user_postings = user_posting_list[0]['user_postings']
-            user_posting_data.rewind()
-            good_rating_count = 0
-            neutral_rating_count = 0
-            bad_rating_count = 0
-            user_rated = ''
-            user_comments = ''
-            
+@app.route('/articles/contribute', methods=['GET', 'POST'])
+@flask_login.login_required
+def contribute_articles():
+    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+        "location")
+    if request.method == 'POST':
+        form = request.form
+        input_title = request.form.get('input-title')
+        input_location = form.get('input-location')
+        input_content = form.get('input-content')
+        input_items = form.get("input-items").split(",")
+        input_items = [item.strip(' ') for item in input_items]
+        input_supplies = form.get("input-supplies").split(",")
+        input_supplies = [item.strip(' ') for item in input_supplies]
+        input_tags = form.get("input-tags").split(",")
+        input_tags = [item.strip(' ') for item in input_tags]
+        now = datetime.datetime.utcnow()
+        input_created = now.strftime('%y-%m-%d %a %H:%M')
+        input_modified = now.strftime('%y-%m-%d %a %H:%M')
+        input_creator = ObjectId(session['_user_id'])
+        input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
-            for post in user_postings:
-                if post['user_id'] == ObjectId(session['_id']):
-                    if post['good_rating']:
-                        user_rated = 'good'
-                    elif post['neutral_rating']:
-                        user_rated = 'neutral'
-                    else:
-                        user_rated = 'bad'
-                    user_comments = post['comments']
-                if post['good_rating']:
-                    good_rating_count = good_rating_count +1
-                if post['neutral_rating']:
-                    neutral_rating_count=neutral_rating_count+1
-                if post['bad_rating']:
-                    bad_rating_count = bad_rating_count +1
+        client[DB_NAME]['articles'].insert_one({
+            'article_title': input_title,
+            'cleaning_location': input_location,
+            'article_content': input_content,
+            'cleaning_items': input_items,
+            'cleaning_supplies': input_supplies,
+            'tags': input_tags,
+            'last_modified': input_modified,
+            'date_created': input_created,
+            'created_by': input_creator,
+            'user_postings': input_user_postings
+        })
 
-# {% for posting in user_posting_list.0['user_postings'] %}
-            # for idx, posting in user_posting_list.idx['user_postings']:
-            #     if posting['user_id'] == ObjectId(session('_id')):
-            #         if posting['good_rating']:
-            #             user_rated = 'good'
-            #         elif posting['neutral_rating']:
-            #             user_rated = 'neutral'
-            #         else:
-            #             user_rated = 'bad'
-            #         user_comments = posting['comments']
-            #     if posting['good_rating']:
-            #         good_rating_count += 1
-            #     if posting['neutral_rating']:
-            #         neutral_rating_count += 1
-            #     if posting['bad_rating']:
-            #         bad_rating_count += 1
-
-# {% for posting in user_posting_list.0['user_postings'] %}
-# || {{loop.index}}
-# || {{posting['user_id']}}x
-# || {{posting['comments']}}x
-# || {{posting['good_rating']}}x
-# || {{posting['neutral_rating']}}x
-# || {{posting['bad_rating']}}x
-# {% endfor %}
-
-
-
-            # return render_template("/test.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_posting_data=user_posting_data,user_posting_list=user_posting_list,
-            # good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
-            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
-            good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
-
-        else:
-            flash('No such article found', category='danger')
-            return redirect(url_for('home'))
+        flash('Article successfully submitted', category='success')
+        return render_template("/articles/contribute-next.template.html", location_data=location_data, form=form)
     else:
-        flash('No such article found', category='danger')
-        return redirect(url_for('home'))
+        return render_template("/articles/contribute.template.html", location_data=location_data)
+
+
 
 
 @app.route('/articles/edit/<_id>', methods=['GET', 'POST'])
@@ -526,6 +462,77 @@ def edit_article(_id):
         return redirect(url_for('home'))
 
 
+# Display the article containing article titles,
+# cleaning location, article content, cleaning items,
+# cleaning supplies and tags.
+# List the comments for individual articles
+# Display the count of validating vote.
+# Allow member to edit the article by clicking on the
+# edit button on the article itself.
+# Allow member to add a comment on the article page.
+# Allow member to edit the comment he left
+# on the article page
+# Allow member to validate the article content by voting
+# whether it works, somewhat works, or doesn’t work.
+# Allow member to change their validating votes.
+# Allow member to edit articles they contributed.
+# Allow member to delete articles they contributed.
+# Allow administrator to delete an article by clicking on the delete button on the article itself.
+# Allow administrator to edit an article by clicking on the edit button on the article itself.
+# Allow administrator to add a comment on the article page.
+# Allow member to edit the comment he left on the article page.
+# Allow administrator to validate the article content by voting
+#  whether it works, somewhat works, or doesn’t work.
+# Allow administrator to change their validating votes.
+# Allow administrator to edit any article.
+
+
+@app.route('/articles/<_id>')
+def show_article(_id):
+    if (_id != "") :
+        myQuery1 = {'_id': ObjectId(_id)}
+        
+        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        if (article_data):
+            article_owner_id = article_data['created_by']
+            myQuery2 = {'_id': ObjectId(article_owner_id)}
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one()
+            user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
+            user_posting_data.rewind()
+            user_posting_list = list(user_posting_data)
+            user_postings = user_posting_list[0]['user_postings']
+            user_posting_data.rewind()
+            good_rating_count = 0
+            neutral_rating_count = 0
+            bad_rating_count = 0
+            user_rated = ''
+            user_comments = ''
+            for post in user_postings:
+                if post['user_id'] == ObjectId(session['_user_id']):
+                    if post['good_rating']:
+                        user_rated = 'good'
+                    elif post['neutral_rating']:
+                        user_rated = 'neutral'
+                    else:
+                        user_rated = 'bad'
+                    user_comments = post['comments']
+                if post['good_rating']:
+                    good_rating_count = good_rating_count +1
+                if post['neutral_rating']:
+                    neutral_rating_count=neutral_rating_count+1
+                if post['bad_rating']:
+                    bad_rating_count = bad_rating_count +1
+
+
+            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
+            good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
+
+        else:
+            flash('No such article found', category='danger')
+            return redirect(url_for('home'))
+    else:
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
 
 
 @app.route('/articles/delete/<_id>', methods=['GET', 'POST'])
@@ -560,74 +567,43 @@ def delete_article(_id):
 
 
 
-# Display a list of all articles the member contributed.
-# Allow member to select one of the articles by clicking on
-# the article titles from the list to view the article.
-# Allow member to select one of the articles by clicking on
-# the corresponding delete button.
-# Allow member to delete the article by clicking on the
-# delete confirmation button on the article itself.
-# Allow administrator to select one of article by clicking
-# on the article titles from the search results to view the article.
-# Allow administrator to delete an article by clicking on the corresponding delete button.
-# Allow administrator to delete any article.
-@app.route('/articles/my-list')
+@app.route('/rate/<_id>/<rating>')
 @flask_login.login_required
-def my_articles():
-    myQuery = {'created_by': ObjectId(session['_user_id'])}
-    myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
-    articles = client[DB_NAME]['articles'].find(
-        myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
-    return render_template("/articles/article-list.template.html",
-                           articles=articles, listtype='my')
-
-
-# Include an article creation page accepting article titles,
-# cleaning location, article content, cleaning items,
-# cleaning supplies and tags.
-# Include an article creation page accepting article titles,
-#  cleaning location, article content, cleaning items, cleaning supplies and tags.
-
-
-@app.route('/articles/contribute', methods=['GET', 'POST'])
-@flask_login.login_required
-def contribute_articles():
-    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
-        "location")
-    if request.method == 'POST':
-        form = request.form
-        input_title = request.form.get('input-title')
-        input_location = form.get('input-location')
-        input_content = form.get('input-content')
-        input_items = form.get("input-items").split(",")
-        input_items = [item.strip(' ') for item in input_items]
-        input_supplies = form.get("input-supplies").split(",")
-        input_supplies = [item.strip(' ') for item in input_supplies]
-        input_tags = form.get("input-tags").split(",")
-        input_tags = [item.strip(' ') for item in input_tags]
-        now = datetime.datetime.utcnow()
-        input_created = now.strftime('%y-%m-%d %a %H:%M')
-        input_modified = now.strftime('%y-%m-%d %a %H:%M')
-        input_creator = ObjectId(session['_user_id'])
-        input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
-
-        client[DB_NAME]['articles'].insert_one({
-            'article_title': input_title,
-            'cleaning_location': input_location,
-            'article_content': input_content,
-            'cleaning_items': input_items,
-            'cleaning_supplies': input_supplies,
-            'tags': input_tags,
-            'last_modified': input_modified,
-            'date_created': input_created,
-            'created_by': input_creator,
-            'user_postings': input_user_postings
-        })
-
-        flash('Article successfully submitted', category='success')
-        return render_template("/articles/contribute-next.template.html", location_data=location_data, form=form)
+def rate(_id, rating):
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_user_id'])}}} ))
+    if not(Post_to_update):
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_user_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
+    reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},reset_rating )
+    if rating == 'good':
+        set_rating = { '$set': {'user_postings.$.good_rating':True}}
+    elif rating == 'neutral':
+        set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
     else:
-        return render_template("/articles/contribute.template.html", location_data=location_data)
+        set_rating = { '$set': {'user_postings.$.bad_rating':True}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},set_rating )
+
+    flash('Rating successfully updated. ', category='success')
+    return redirect(url_for('show_article', _id=_id))
+
+@app.route('/comment/<_id>', methods=['GET', 'POST'])
+@flask_login.login_required
+def comment(_id):
+    form = request.form
+    if request.method == 'POST':
+        input_comments = form.get('input-comments')
+    else:
+        input_comments = ""
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_user_id'])}}} ))
+    if not(Post_to_update):
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_user_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
+    set_comments = { '$set': {'user_postings.$.comments': input_comments}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_user_id']) }}},set_comments )
+    flash('Comments successfully saved. ', category='success')
+    return redirect(url_for('show_article', _id=_id))
+
 
 
 
@@ -762,7 +738,6 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    flash('Requested URL not found', category='danger')
     return redirect(url_for("home"))
 
 

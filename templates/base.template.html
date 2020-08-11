@@ -122,24 +122,12 @@
     <!-- ========================================================== 
 PAGE HEADER
 ========================================================== -->
-    <div class="container-fluid bg-light">
-<pre style="color: red; font-weight: bold" class="black-border">
-session = {{session}}
-request.form = {{request.form}}
-form = {{form}}
-article_id = {{article_id}}
-current_user = {{current_user}}
-current_user.id = {{current_user.id}}
-current_user._id = {{current_user._id}}
-current_user.nickname = {{current_user.nickname}}
-current_user.admin = {{current_user.admin}}
-</pre>
-<hr>
+
       <header>
-        <div class="container">
+        <div class="container black-border blur-shadow">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <!-- Branding -->
-            <a class="navbar-brand" href="{{ url_for('home') }}">
+            <a class="navbar-brand" href="{{url_for('home')}}">
               <img
                 src="http://resume.donovanlo.sg/images/donovanlogo150x131.png"
                 height="50"

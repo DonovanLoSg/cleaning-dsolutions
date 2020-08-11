@@ -10,34 +10,19 @@ session : {{session}}
 form : {{form}}
 =======
 
-1.{{user_posting_list}}
-2.{{user_posting_data}}
-3.{{user_posting_list.0}}
-4.{{user_posting_list.0._id}}
-5.{{user_posting_list.0['user_postings']}}
-6.{{user_posting_list.0['user_postings']}}
-7. {{good_rating_count}}
-
-{% for posting in user_posting_list.0['user_postings'] %}
-|| {{loop.index}}
-|| {{posting['user_id']}}x
-|| {{posting['comments']}}x
-|| {{posting['good_rating']}}x
-|| {{posting['neutral_rating']}}x
-|| {{posting['bad_rating']}}x
-{% endfor %}
---------------------
-{% for posting in user_posting_list%}
-|| {{loop.index}}
-|| {{posting['user_id']}}x
-|| {{posting['comments']}}x
-|| {{posting['good_rating']}}x
-|| {{posting['neutral_rating']}}x
-|| {{posting['bad_rating']}}x
-{% endfor %}
-
+1. user_posting_data: {{user_posting_data}}
+2. user_posting_list：{{user_posting_list}}
+3. user_postings: {{user_postings}}
+4. current_user[]: {{current_user[]}}
+5. session['_user_id'] : {{session['_user_id']}}
 
 </pre>
+{% for items in sessions %}
+{{items}}
+{% endfor %}
+
+
+
 
 {% endblock %}
 

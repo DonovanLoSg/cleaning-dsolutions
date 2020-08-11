@@ -5,11 +5,13 @@
 <h1>{% block title %}{% if listtype=='all' %}All Articles{% elif listtype=="my" %}My Articles{% else %}Articles Search{% endif %}{% endblock %}</h1>
 {% endblock %}
 
+<!-- This section display the criteria of the search if the listing is result of a search. -->
+
 {% block content %}
 {% if (listtype=="search") %}
     <div class="black-border blur-shadow search-param">
         Searched for articles which fulfil the following conditions:<br>
-            <ul>
+        <ul>
             {% if (form.getlist('check-search-titles')) %}
                 {% if (form.get('search-title').strip() == "") %}
                     <li>any words</li>
@@ -44,52 +46,50 @@
                         </ul>
                     </li>
                 {% endif %}
-                </ul>
             {% endif %}
         </ul>
     </div>
 {% endif %}
 
+<!-- This section display a list of requested articles. -->
 
-
-
-<table id="myTable" class=" display dataTable article-title" data-page-length="10" style="width:100%">
-    <thead>
-        <tr>
-            <td  >
-                <strong>Article Title</strong>
-            </td>
-            <td  >
-                <strong>Cleaning Location</strong>
-            </td>
-            <td>
-                View
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for article in articles %}
-        <tr>
-            <td  >
-                {{article.article_title}}
-            </td>
-            <td  >
-                {{article.cleaning_location}}
-
-            </td>
-            <td>
-                <a href="/articles/{{article._id}}" class="btn btn-primary btn-md">
+<div class="container black-border blur-shadow p-3 mb-5"> 
+    <table id="myTable" class=" display dataTable article-title" data-page-length="10" style="width:100%">
+        <thead>
+            <tr>
+                <td>
+                    <strong>Article Title</strong>
+                </td>
+                <td>
+                    <strong>Cleaning Location</strong>
+                </td>
+                <td>
                     View
-                </a>
-                <a href="/articles/delete/{{article._id}}" class="btn btn-danger btn-md">
-                    Delete
-                </a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td  >
+                    {{article.article_title}}
+                </td>
+                <td  >
+                    {{article.cleaning_location}}
 
-
+                </td>
+                <td class="mx-auto">
+                    <a href="/articles/{{article._id}}" class="btn btn-primary btn-md">
+                        View
+                    </a>
+                    <a href="/articles/delete/{{article._id}}" class="btn btn-danger btn-md">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<div>
 
 {% endblock %}
