@@ -349,20 +349,25 @@ def rate(_id, rating):
         set_rating = { '$set': {'user_postings.$.bad_rating':True}}
     client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_rating )
 
-        
-    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)} ,{'$upsert':{'user_postings.good_rating':"", 'user_postings.neutral_rating':"", 'user_postings.bad_rating':""}} )
-    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet': {'ratings':{'user_id':ObjectId(session['_id'])}}})
-    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'rated':rating}}})
-    # user_posting_list.0['user_postings'] 
-
     flash('Rating successfully updated. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
-
-            # user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
-            # user_posting_data.rewind()
-            # user_posting_list = list(user_posting_data)
-            # user_postings = user_posting_list[0]['user_postings']
+@app.route('/comment/<_id>', methods=['GET', 'POST'])
+@flask_login.login_required
+def comment(_id):
+    form = request.form
+    if request.method == 'POST':
+        input_comments = form.get('input-comments')
+    else:
+        input_comments = ""
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
+    if not(Post_to_update):
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
+    set_comments = { '$set': {'user_postings.$.comments': input_comments}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_comments )
+    flash('Comments successfully saved. ', category='success')
+    return redirect(url_for('show_article', _id=_id))
 
 
 # Display the article containing article titles,
@@ -757,6 +762,7 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
+    flash('Requested URL not found', category='danger')
     return redirect(url_for("home"))
 
 

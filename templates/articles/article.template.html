@@ -86,7 +86,7 @@ Doesn't work ! :<span class="badge badge-pill badge-info">{{ bad_rating_count }}
 
 
 
- <form method="post" name="form" target="_self">
+
 
 
 {% if current_user.is_authenticated %}
@@ -97,13 +97,15 @@ Doesn't work ! :<span class="badge badge-pill badge-info">{{ bad_rating_count }}
     <a href="/rate/{{article_data._id}}/bad" class="btn  btn-md {% if user_rated == 'bad' %} btn-success {% else %} btn-info {% endif %}">Rate Doesn't work !</a>
     <br><br>
 
+    <form method="post" name="form" target="_self" action="/comment/{{article_data._id}}">
+
     <div class="form-group ">
-        <label for="input-comment">Your comments:</label>
-        <textarea class="form-control" id="input-comment" name="input-content" rows="3">{% if (user_comments) %}{{user_comments}}{% endif %}
+        <label for="input-comments">Your comments:</label>
+        <textarea class="form-control" id="input-comments" name="input-comments" rows="3">{% if (user_comments) %}{{user_comments}}{% endif %}
         </textarea>
     </div>
-    <a href="/articles/comment/{{article_data._id}}" class="btn btn-primary btn-md">Save Comments</a>
-
+    <button type="submit" class="btn btn-primary">Save Comments</button>
+    </form>
     <br>
     <br>
     
