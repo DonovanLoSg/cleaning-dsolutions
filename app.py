@@ -328,15 +328,36 @@ def all_articles():
                            articles=articles, listtype='all')
 
 
-# to remove
-# @app.route('/rate/<_id>/<rating>')
-# @flask_login.login_required
-# def rate(_id, rating):
-#     client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$pull': {'ratings':{'user_id':ObjectId(session['_id'])}}})
-#     client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'rated':rating}}})
 
-#     flash('Rating successfully updated', category='success')
-#     return redirect(url_for('show_article', _id=_id))
+@app.route('/rate/<_id>/<rating>')
+@flask_login.login_required
+def rate(_id, rating):
+
+
+    Post_to_update = str(client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
+    reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},reset_rating )
+    if rating == 'good':
+        set_rating = { '$set': {'user_postings.$.good_rating':True}}
+    elif rating == 'neutral':
+        set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
+    else:
+        set_rating = { '$set': {'user_postings.$.bad_rating':True}}
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_rating )
+    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)} ,{'$upsert':{'user_postings.good_rating':"", 'user_postings.neutral_rating':"", 'user_postings.bad_rating':""}} )
+    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet': {'ratings':{'user_id':ObjectId(session['_id'])}}})
+    # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'rated':rating}}})
+    # user_posting_list.0['user_postings'] 
+
+    flash('Rating successfully updated '+Post_to_update, category='success')
+    return redirect(url_for('show_article', _id=_id))
+
+
+            # user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
+            # user_posting_data.rewind()
+            # user_posting_list = list(user_posting_data)
+            # user_postings = user_posting_list[0]['user_postings']
+
 
 # Display the article containing article titles,
 # cleaning location, article content, cleaning items,
@@ -577,7 +598,7 @@ def contribute_articles():
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
         input_creator = ObjectId(session['_user_id'])
-        input_user_postings = [{'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
+        input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
         client[DB_NAME]['articles'].insert_one({
             'article_title': input_title,

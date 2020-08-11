@@ -91,13 +91,13 @@ Doesn't work ! :<span class="badge badge-pill badge-info">{{ bad_rating_count }}
 
 {% if current_user.is_authenticated %}
 
-    Your have rated it {{user_rated}}.<br>
+    Your have rated it:<br>
+    <a href="/rate/{{article_data._id}}/good" class="btn  btn-md {% if user_rated == 'good' %} btn-success {% else %} btn-info {% endif %}">Rate It works !</a>
+    <a href="/rate/{{article_data._id}}/neutral" class="btn  btn-md {% if user_rated == 'neutral' %} btn-success {% else %} btn-info {% endif %}">Rate works somewhat !</a>
+    <a href="/rate/{{article_data._id}}/bad" class="btn  btn-md {% if user_rated == 'bad' %} btn-success {% else %} btn-info {% endif %}">Rate Doesn't work !</a>
+    <br><br>
     Your comments:<br>
     {{user_comments}}<br>
-    <!-- <a href="/rate/{{article_data._id}}/good" class="btn btn-info btn-md">Rate It works !</a>
-    <a href="/rate/{{article_data._id}}/neutral" class="btn btn-info btn-md">Rate works somewhat !</a>
-    <a href="/rate/{{article_data._id}}/bad" class="btn btn-info btn-md">Rate Doesn't work !</a>
-    <br><br> -->
 
 
     {% if article_owner_data._id == current_user.id or current_user.admin%}
