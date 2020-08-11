@@ -33,6 +33,7 @@ h1 {
     display: block;
     font-family: 'Roboto', sans-serif;
     position: static;
+    margin: 0.5rem;
 };
 
 h2 {
@@ -51,12 +52,12 @@ p.normal {
     font-weight: normal;
 }
 
-p.thick {
+p.thick, span.thick, label.thick {
     font-family: 'Lora', serif;
     font-weight: bold;
 }
 
-p.thicker {
+p.thicker, span.thick, label.thick {
     font-family: 'Lora', serif;
     font-weight: 900;
 }
@@ -77,7 +78,7 @@ ul.items li {
 }
 
 .faces {
-    max-width: 80px;
+    max-width: 50px;
     margin: 5px;
     
 }

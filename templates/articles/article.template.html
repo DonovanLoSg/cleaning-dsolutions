@@ -2,7 +2,7 @@
 {% extends 'base.template.html' %}
 
 {% block header %}
-<div class="container blur-shadow black-border mt-5">
+<div class="container black-border blur-shadow p-3 mb-5">
 	<br><br>
 	<div class="doc-title d-none">{% block title %}Cleaning d'Solutions: {{article_data.article_title}}{% endblock %}
 	</div>
@@ -10,7 +10,7 @@
 
 	{% block content %}
 	<!-- title -->
-	<div class="container">
+	<div class="container mt-2">
 		<h1>{{article_data.article_title}}</h1>
         <hr>
 	</div>
@@ -115,7 +115,7 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <!-- User's rating -->
-                <p>Rate the method(s) in this article:</p>
+                <p class="thick">Rate the method(s) in this article:</p>
                 <a href="/rate/{{article_data._id}}/good">
                 <img src="../static/img/faces/noun_Smile_2472187.svg" 
                     onerror="this.onerror=null; this.src='noun_Smile_2472187.png'" 
@@ -137,6 +137,7 @@
             </div>
             <div class="col-12 col-md-6">
                 <!-- User's comments -->
+                <p class="thick">Comments:</p>
                 <form method="post" name="form" target="_self" action="/comment/{{article_data._id}}">
                     <div class="form-group ">
                         <label for="input-comments">Your comments:</label>
@@ -155,10 +156,10 @@
         <div class="row">
             <div class="col-12 col-md-6">
             <!-- Article's details -->
-                <p>Creation date: {{article_data.date_created[0:12]}}</p>
-                <p>Last modified date: {{article_data.last_modified[0:12]}}</p>
+                <p><span class="thick">Creation date:</span> {{article_data.date_created[0:12]}}</p>
+                <p><span class="thick">Last modified date:</span> {{article_data.last_modified[0:12]}}</p>
                 {% if (article_owner_data) %}
-                    <p>Created by: {{article_owner_data.nickname}}</p>
+                    <p><span class="thick">Created by:</span> {{article_owner_data.nickname}}</p>
                 {% endif %}
             </div>
             <div class="col-12 col-md-6">
@@ -170,22 +171,6 @@
             </div>
         </div>
     </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<br><br><br>
-	<br></div>
-	<br><br>
 {% endblock %}
