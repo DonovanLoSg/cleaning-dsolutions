@@ -96,13 +96,22 @@ Doesn't work ! :<span class="badge badge-pill badge-info">{{ bad_rating_count }}
     <a href="/rate/{{article_data._id}}/neutral" class="btn  btn-md {% if user_rated == 'neutral' %} btn-success {% else %} btn-info {% endif %}">Rate works somewhat !</a>
     <a href="/rate/{{article_data._id}}/bad" class="btn  btn-md {% if user_rated == 'bad' %} btn-success {% else %} btn-info {% endif %}">Rate Doesn't work !</a>
     <br><br>
-    Your comments:<br>
-    {{user_comments}}<br>
+
+    <div class="form-group ">
+        <label for="input-comment">Your comments:</label>
+        <textarea class="form-control" id="input-comment" name="input-content" rows="3">{% if (user_comments) %}{{user_comments}}{% endif %}
+        </textarea>
+    </div>
+    <a href="/articles/comment/{{article_data._id}}" class="btn btn-primary btn-md">Save Comments</a>
+
+    <br>
+    <br>
+    
 
 
     {% if article_owner_data._id == current_user.id or current_user.admin%}
-        <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">Edit</a>
-        <a href="/articles/delete/{{article_data._id}}" class="btn btn-danger btn-md">Delete</a>
+        <a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">Edit Article</a>
+        <a href="/articles/delete/{{article_data._id}}" class="btn btn-danger btn-md">Delete Article</a>
     {% endif %}
 {% endif %}
 

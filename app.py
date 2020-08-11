@@ -314,9 +314,12 @@ def instructions():
 # on the article titles from the search results to view the article.
 # Allow administrator to delete an article by clicking on the corresponding delete button.
 # Allow administrator to delete any article.
+
+
 @app.route('/articles/list')
 def list_articles():
-    return render_template("/articles/article-list.template.html")
+    return redirect(url_for("all_articles"))
+
 
 
 @app.route('/articles/list-all')
@@ -332,9 +335,10 @@ def all_articles():
 @app.route('/rate/<_id>/<rating>')
 @flask_login.login_required
 def rate(_id, rating):
-
-
-    Post_to_update = str(client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(session['_id'])}}} ))
+    if not(Post_to_update):
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(session['_id']), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
     reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
     client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},reset_rating )
     if rating == 'good':
@@ -344,12 +348,14 @@ def rate(_id, rating):
     else:
         set_rating = { '$set': {'user_postings.$.bad_rating':True}}
     client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(session['_id']) }}},set_rating )
+
+        
     # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)} ,{'$upsert':{'user_postings.good_rating':"", 'user_postings.neutral_rating':"", 'user_postings.bad_rating':""}} )
     # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet': {'ratings':{'user_id':ObjectId(session['_id'])}}})
     # client[DB_NAME]['articles'].update_one({'_id': ObjectId(_id)},{'$addToSet':{'ratings': { 'user_id' : ObjectId(session['_id']),'rated':rating}}})
     # user_posting_list.0['user_postings'] 
 
-    flash('Rating successfully updated '+Post_to_update, category='success')
+    flash('Rating successfully updated. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
 
