@@ -372,8 +372,66 @@ def show_article(_id):
             article_owner_id = article_data['created_by']
             myQuery2 = {'_id': ObjectId(article_owner_id)}
             article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one()
+            user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
+            user_posting_data.rewind()
+            user_posting_list = list(user_posting_data)
+            user_postings = user_posting_list[0]['user_postings']
+            user_posting_data.rewind()
+            good_rating_count = 0
+            neutral_rating_count = 0
+            bad_rating_count = 0
+            user_rated = ''
+            user_comments = ''
+            
 
-            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data)
+            for post in user_postings:
+                if post['user_id'] == ObjectId(session['_id']):
+                    if post['good_rating']:
+                        user_rated = 'good'
+                    elif post['neutral_rating']:
+                        user_rated = 'neutral'
+                    else:
+                        user_rated = 'bad'
+                    user_comments = post['comments']
+                if post['good_rating']:
+                    good_rating_count = good_rating_count +1
+                if post['neutral_rating']:
+                    neutral_rating_count=neutral_rating_count+1
+                if post['bad_rating']:
+                    bad_rating_count = bad_rating_count +1
+
+# {% for posting in user_posting_list.0['user_postings'] %}
+            # for idx, posting in user_posting_list.idx['user_postings']:
+            #     if posting['user_id'] == ObjectId(session('_id')):
+            #         if posting['good_rating']:
+            #             user_rated = 'good'
+            #         elif posting['neutral_rating']:
+            #             user_rated = 'neutral'
+            #         else:
+            #             user_rated = 'bad'
+            #         user_comments = posting['comments']
+            #     if posting['good_rating']:
+            #         good_rating_count += 1
+            #     if posting['neutral_rating']:
+            #         neutral_rating_count += 1
+            #     if posting['bad_rating']:
+            #         bad_rating_count += 1
+
+# {% for posting in user_posting_list.0['user_postings'] %}
+# || {{loop.index}}
+# || {{posting['user_id']}}x
+# || {{posting['comments']}}x
+# || {{posting['good_rating']}}x
+# || {{posting['neutral_rating']}}x
+# || {{posting['bad_rating']}}x
+# {% endfor %}
+
+
+
+            # return render_template("/test.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_posting_data=user_posting_data,user_posting_list=user_posting_list,
+            # good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
+            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
+            good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
 
         else:
             flash('No such article found', category='danger')
