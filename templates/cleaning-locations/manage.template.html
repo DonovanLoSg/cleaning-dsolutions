@@ -3,51 +3,47 @@
 <h1>{% block title %}Cleaning Locations{% endblock %}</h1>
 {% endblock %} {% block content %}
 <!-- display a form to allow user to add a new cleaning location -->
-<form method="post" name="form" target="_self">
-  <label for="input-new-location" class="mr-sm-2">Add New Location:</label>
-  <input
-    type="text"
-    class="form-control mb-2 mr-sm-2"
-    placeholder="Enter location"
-    id="input-new-location"
-    name="input-new-location"
-    required
-  />
-  <input type="hidden" name="action" value="add" />
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<p></p>
-<p></p>
+<div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
+    <form method="post" name="form" target="_self">
+        <label for="input-new-location" class="mr-sm-2">Add New Location:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter location"
+            id="input-new-location" name="input-new-location" required />
+        <input type="hidden" name="action" value="add" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
 <!-- display the list of cleaning locstion from the database sorted in ascending order -->
 <!-- include edit and delete button for the respective actions -->
-<div class="container datatable_wrap">
-  <table id="table_id" class="display" data-page-length="10">
-    <thead>
-      <tr>
-        <th scope="col">Locations</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {%for location in location_data%}
-      <tr>
-        <td scope="row">{{location.location}}</td>
-        <td>
-          <form method="post" name="form" target="_self">
-            <button type="submit" class="btn btn-primary">Edit</button>
-            <input type="hidden" name="action" value="edit" />
-            <input type="hidden" name="id" value="{{location._id}}" />
-          </form>
-        </td>
-        <td>
-          <form method="post" name="form" target="_self">
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <input type="hidden" name="action" value="delete" />
-            <input type="hidden" name="id" value="{{location._id}}" />
-          </form>
-        </td>
-      </tr>
+<div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
+    <div class="container datatable_wrap">
+        <table id="myTable" class="display" data-page-length="10">
+            <thead>
+                <tr>
+                    <th scope="col">Locations</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+        <tbody>
+        {% for each_location in location_data %}
+            <tr>
+                <td scope="row">{{each_location.location}}</td>
+                <td>
+                    <form method="post" name="form" target="_self">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <input type="hidden" name="action" value="edit" />
+                        <input type="hidden" name="id" value="{{each_location._id}}" />
+                    </form>
+                </td>
+                <td>
+                    <form method="post" name="form" target="_self">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="id" value="{{each_location._id}}" />
+                    </form>
+                </td>
+            </tr>
       {% endfor %}
     </tbody>
   </table>

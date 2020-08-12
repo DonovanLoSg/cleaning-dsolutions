@@ -3,17 +3,19 @@
 <h1>{% block title %}Cleaning Locations{% endblock %}</h1>
 {% endblock %} {% block content %}
 <!-- display record flag for deletion and ask user to confirm deletion -->
-<form method="post" name="form" target="_self">
-  <div class="form-group">
-    <label for="input-location">Location</label>
-    <input type="text" class="form-control" id="input-location"
-    name="input-location" value="{{location_data.location}}"" readonly />
-  </div>
-  <input type="hidden" name="action" value="delete-process" />
-  <input type="hidden" name="id" value="{{location_data._id}}" />
-  <button type="submit" class="btn btn-primary">Confirm Delete</button>
-</form>
-<form>
-  <button type="submit" class="btn btn-primary">Back to list</button>
-</form>
+<div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
+    <form method="post" name="form" target="_self">
+        <div class="form-group">
+            <label for="input-location">Location</label>
+            <input type="text" class="form-control" id="input-location"
+                name="input-location" value="{{location_data.location}}"" readonly />
+        </div>
+        <input type="hidden" name="action" value="delete-process" />
+        <input type="hidden" name="id" value="{{location_data._id}}" />
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    </form>
+    <form>
+        <button type="submit" class="btn btn-primary">Back to list</button>
+    </form>
+</div>
 {% endblock %}
