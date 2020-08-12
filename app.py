@@ -538,6 +538,7 @@ def show_article(_id):
 @app.route('/articles/delete/<_id>', methods=['GET', 'POST'])
 @flask_login.login_required
 def delete_article(_id):
+    current_user = load_user(flask_login.current_user.get_id())
     if request.method == 'GET':
         if not(_id is None) and ObjectId.is_valid(_id):
             myQuery1 = {'_id': ObjectId(_id)}
