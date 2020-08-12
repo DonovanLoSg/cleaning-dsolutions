@@ -260,6 +260,7 @@ def register():
 @app.route('/users/my-profile', methods=['GET', 'POST'])
 @flask_login.login_required
 def my_profile():
+    current_user = load_user(flask_login.current_user.get_id())
     if request.method == 'POST':
         form = request.form
         print(form)
@@ -371,6 +372,7 @@ def my_articles():
 def contribute_articles():
     location_data = client[DB_NAME]['cleaning_locations'].find().sort(
         "location")
+    current_user = load_user(flask_login.current_user.get_id())
     if request.method == 'POST':
         form = request.form
         input_title = request.form.get('input-title')
@@ -546,8 +548,7 @@ def delete_article(_id):
             if (article_data):
                 article_owner_id = article_data['created_by']
                 myQuery2 = {'_id': ObjectId(article_owner_id)}
-                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
-                    myQuery2)
+                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
                 if '_user_id' in session:
                     current_user = load_user(flask_login.current_user.get_id())
                 else:

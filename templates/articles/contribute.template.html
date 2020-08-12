@@ -1,3 +1,5 @@
+<!-- Displaying a form for accepting article info, supporting the contribute route. -->
+
 <!doctype html>
 {% extends 'base.template.html' %}
 
@@ -6,18 +8,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="container black-border blur-shadow p-3 mb-5">
+<div class="container black-border blur-shadow p-3 pb-5 mb-5">
 	<br><br>
     <div class="container">
         <form method="post" name="form" target="_self">
+            <!-- title -->
             <div class="form-group">
                 <label for="input-title" class="thick">Title: </label>
                 <input type="text" class="form-control" id="input-title" name="input-title"
                     placeholder="enter an article title" required autofocus
-                    {% if form and form.get('input-title') != "" %} value="{{form.get('input-title') }}" {% endif %}
-                    />
+                    {% if form and form.get('input-title') != "" %} value="{{form.get('input-title') }}" {% endif %} />
             </div>
-
+            <!-- cleaning location -->
             <div class="form-group">
                 <label for="search-title" class="thick">Targeted cleaning location:</label>
                 <select class="custom-select" id="input-location" name="input-location" required>
@@ -29,7 +31,7 @@
                     {% endfor %}
                 </select>
             </div>
-
+            <!-- content -->
             <div>
                 <div class="form-group ">
                     <label for="input-content" class="thick">Content:</label>
@@ -37,13 +39,14 @@
                 </textarea>
                 </div>
             <div>
-
+            <!-- cleaning items -->
             <div class="form-group">
                 <label for="input-items" class="thick">Cleaning Items: <small>(seperated by commas)</small></label>
                 <input type="text" class="form-control" id="input-items" name="input-items" rows="2"
                     placeholder="i.e. tools and equipment" 
                     {% if (form) %} value = '{{form.get('input-items') }}' {% endif %}
                 />
+            <!-- cleaning supplies -->
             <div class="form-group">
                 <label for="input-supplies" class="thick">Cleaning Supplies: <small>(seperated by commas)</small></label>
                 <input type="text" class="form-control" id="input-supplies" name="input-supplies"
@@ -51,7 +54,7 @@
                     {% if (form) %} value = '{{form.get('input-supplies') }}' {% endif %}
                     />
             </div>
-
+            <!-- Tags -->
             <div class="form-group">
                 <label for="input-tags" class="thick">Tags: </label>
                 <input type="text" class="form-control" id="input-tags" name="input-tags"

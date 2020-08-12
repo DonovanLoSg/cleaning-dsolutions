@@ -1,3 +1,7 @@
+<!-- Supporting home route for result of the search panel, 
+all_articles route for listing all the articles and 
+my articles route listing articles owned by current user. -->
+
 <!doctype html>
 {% extends 'base.template.html' %}
 
@@ -53,7 +57,7 @@
 
 <!-- This section display a list of requested articles. -->
 
-<div class="container black-border blur-shadow p-3 mb-5"> 
+<div class="container black-border blur-shadow p-3 pb-5 mb-5"> 
     <table id="myTable" class=" display dataTable article-title" data-page-length="10" style="width:100%">
         <thead>
             <tr>
@@ -71,10 +75,10 @@
         <tbody>
             {% for article in articles %}
             <tr>
-                <td  >
+                <td>
                     {{article.article_title}}
                 </td>
-                <td  >
+                <td>
                     {{article.cleaning_location}}
 
                 </td>

@@ -1,130 +1,136 @@
+<!-- Display the article to get confirmation of deletion requested through the current user's articles listing
+or from the individual article page belonging to the current user. -->
+
+
 <!doctype html>
 {% extends 'base.template.html' %}
 
 {% block header %}
-<div class="container black-border blur-shadow p-3 mb-5 mt-5">
-	<br><br>
-	<div class="doc-title d-none">{% block title %}Delete Article{% endblock %}
-	</div>
+<h1>{% block title %}Delete Article{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-	<!-- title -->
-	<div class="container mt-2">
-		<h1>Deleting: {{article_data.article_title}}</h1>
-        <hr>
-	</div>
+<div class="container black-border blur-shadow p-3 pb-5 mb-5">
 
-    <!-- cleaning location -->
     <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <!-- cleaning location -->
-                <p class="thick">Targeted cleaning location: </p>
-                <p>
-                    {% if (article_data.cleaning_location) %}
-                        {{ article_data.cleaning_location[:1].upper() +article_data.cleaning_location[1:] }}
-                    {% else %}
-                        Not specified.
-                    {% endif %}
-                </p>
-            </div>
-          <div class="col-12 col-md-6">
-                <!-- Validation/Ratings -->
-                <p class="thick">Does it works? </p>
-                <div class="row">
-                    <div class="col text-center">
-                        <img src="../static/img/faces/noun_Smile_2472187.svg" 
-                            onerror="this.onerror=null; this.src='../../static/img/faces/noun_Smile_2472187.png'" 
-                            class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-                        <span class="badge badge-pill badge-info">{{good_rating_count}}</span>
-                    </div>
-                    <div class="col text-center">
-                        <img src="../../static/img/faces/noun_Face_2472188.svg" 
-                            onerror="this.onerror=null; this.src='../../static/img/faces/noun_Face_2472188.png'" 
-                            class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-                        <span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
-                    </div>
-                    <div class="col text-center">
-                        <img src="..../static/img/faces/noun_Face_2472189.svg" 
-                            onerror="this.onerror=null; this.src='this.src='../../static/img/faces/noun_Face_2472189.png'" 
-                            class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
-                        <span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
-                    </div>
+    
+        <!-- title -->
+        <div class="container mt-2">
+            <h1>{{article_data.article_title}}</h1>
+            <hr>
+        </div>
 
+        <!-- cleaning location -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <!-- cleaning location -->
+                    <p class="thick">Targeted cleaning location: </p>
+                    <p>
+                        {% if (article_data.cleaning_location) %}
+                            {{ article_data.cleaning_location[:1].upper() +article_data.cleaning_location[1:] }}
+                        {% else %}
+                            Not specified.
+                        {% endif %}
+                    </p>
                 </div>
-           </div>
+                <div class="col-12 col-md-6">
+                    <!-- Validation/Ratings -->
+                    <p class="thick">Does it works? </p>
+                    <div class="row">
+                        <div class="col text-center">
+                            <img src="../../static/img/faces/noun_Smile_2472187.svg" 
+                                onerror="this.onerror=null; this.src='../../static/img/faces/noun_Smile_2472187.png'" 
+                                class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+                            <span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
+                        </div>
+                        <div class="col text-center">
+                            <img src="../../static/img/faces/noun_Face_2472188.svg" 
+                                onerror="this.onerror=null; this.src='../../static/img/faces/noun_Face_2472188.png'" 
+                                class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                            <span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
+                        </div>
+                        <div class="col text-center">
+                            <img src="../../static/img/faces/noun_Face_2472189.svg" 
+                                onerror="this.onerror=null; this.src='../../static/img/faces/noun_Face_2472189.png'" 
+                                class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
+                            <span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- content> -->
-    <div class="container">
-        <hr>
-        {{article_data.article_content|safe}}
-        <hr>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <!-- cleaning items -->
-                <p class="thick">Cleaning item:</p>
+        <!-- content> -->
+        <div class="container">
+            <hr>
+            {{article_data.article_content|safe}}
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <!-- cleaning items -->
+                    <p class="thick">Cleaning item:</p>
+                    <ul class="items">
+                        {% if article_data.cleaning_items|length == 0 %}
+                            <li>No item found.</li>
+                        {% else %}
+                            {% for each_cleaning_items in article_data.cleaning_items %}
+                                <li>{{each_cleaning_items}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- cleaning supplies -->
+                    <p class="thick">Cleaning supplies:</p>
+                    <ul class="items">
+                        {% if article_data.cleaning_supplies|length == 0 %}
+                            <li>No item found.</li>
+                        {% else %}
+                            {% for each_cleaning_supplies in article_data.cleaning_supplies %}
+                                <li>{{each_cleaning_supplies}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Tags -->
+            <p class="thick">Tags:</p>
+            {% if (article_data.tags|length) == 0 %}
                 <ul class="items">
-                    {% if article_data.cleaning_items|length == 0 %}
-                        <li>No item found.</li>
-                    {% else %}
-                        {% for each_cleaning_items in article_data.cleaning_items %}
-                            <li>{{each_cleaning_items}}</li>
-                        {% endfor %}
-                    {% endif %}
+                    <li>No tag found.</li>
                 </ul>
-            </div>
-            <div class="col-12 col-md-6">
-                <!-- cleaning supplies -->
-                <p class="thick">Cleaning supplies:</p>
-                <ul class="items">
-                    {% if article_data.cleaning_supplies|length == 0 %}
-                        <li>No item found.</li>
-                    {% else %}
-                        {% for each_cleaning_supplies in article_data.cleaning_supplies %}
-                            <li>{{each_cleaning_supplies}}</li>
-                        {% endfor %}
+            {% else %}
+                {% for each_tag in article_data.tags %}
+                    <span class="badge badge-pill badge-secondary">{{each_tag}}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                <!-- Article's details -->
+                    <p><span class="thick">Creation date:</span> {{article_data.date_created[0:12]}}</p>
+                    <p><span class="thick">Last modified date:</span> {{article_data.last_modified[0:12]}}</p>
+                    {% if (article_owner_data) %}
+                        <p><span class="thick">Created by:</span> {{article_owner_data.nickname}}</p>
                     {% endif %}
-                </ul>
+                </div>
+                <div class="col-12 col-md-6">
+                    {% if article_owner_data._id == current_user.id or current_user.admin %}
+                    <!-- Confirm deletion -->
+                        <form method="post" name="form" target="_self">
+                            <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                            <a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <!-- Tags -->
-        <p class="thick">Tags:</p>
-        {% if (article_data.tags|length) == 0 %}
-            <ul class="items">
-                <li>No tag found.</li>
-            </ul>
-        {% else %}
-            {% for each_tag in article_data.tags %}
-                <span class="badge badge-pill badge-secondary">{{each_tag}}</span>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12 col-md-6">
-            <!-- Article's details -->
-                <p><span class="thick">Creation date:</span> {{article_data.date_created[0:12]}}</p>
-                <p><span class="thick">Last modified date:</span> {{article_data.last_modified[0:12]}}</p>
-                {% if (article_owner_data) %}
-                    <p><span class="thick">Created by:</span> {{article_owner_data.nickname}}</p>
-                {% endif %}
-            </div>
-            <div class="col-12 col-md-6">
-                {% if article_owner_data._id == current_user.id or current_user.admin %}
-                <!-- Confirm deletion -->
-                    <form method="post" name="form" target="_self">
-                        <button type="submit" class="btn btn-danger">Confirm Deletion</button>
-                        <a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
-                    </form>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+</div>
 
 {% endblock %}
