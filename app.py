@@ -620,17 +620,35 @@ def view_comment(_id):
         current_user = load_user(flask_login.current_user.get_id())
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
-            joint_data = client[DB_NAME]['articles'].aggregate(
-                { '$addFields': {
-                    'user_postings': { "$ifNull" : [ "$user_postings",[]]}
-                }},
-                { '$lookup': {
-                    'from': 'registered_users',
-                    'localField': 'user_postings.user_id',
-                    'foreignField': '_id,',
-                    'as': 'user_postingsu.user_details'
-                }}
-            )
+            joint_data = client[DB_NAME]['articles'].aggregate([
+                { 
+                    "$project": {               
+                        "_id": 1,
+                        "user_postings": { "$ifNull" : [ "$user_postings", [ ] ] } 
+                    }
+                },
+                {
+                "$unwind": {
+                    "path": "$user_postings",
+                    "preserveNullAndEmptyArrays": True
+                    }
+                },      
+                {
+                    "$lookup": {
+                                'from': 'registered_users',
+                                'localField': 'user_postings.user_id',
+                                'foreignField': '_id,',
+                                'as': 'user_posting.user_details'
+                    }
+                },
+                { "$unwind": "$user_postings", },
+                { 
+                    "$group": {
+                        "_id": "$_id",
+                        "user_postings": { "$push": "$user_postings"}
+                    }
+                }
+            ])
 
 
 
