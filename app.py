@@ -530,7 +530,7 @@ def show_article(_id):
                         bad_rating_count = bad_rating_count +1
 
 
-            return render_template("/articles/article.template.html",  current_user=current_user, article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
+            return render_template("/articles/article.template.html",  current_user=current_user, article_data=article_data, article_id=_id, article_owner_id=article_owner_id, article_owner_data=article_owner_data, user_postings=user_postings,
             good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
 
         else:
@@ -620,11 +620,21 @@ def view_comment(_id):
         current_user = load_user(flask_login.current_user.get_id())
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
+            joint_data = client[DB_NAME]['articles'].aggregate(
+                { '$addFields': {
+                    'user_postings': { "$ifNull" : [ "$user_postings",[]]}
+                }},
+                { '$lookup': {
+                    'from': 'registered_users',
+                    'localField': 'user_postings.user_id',
+                    'foreignField': '_id,',
+                    'as': 'user_postingsu.user_details'
+                }}
+            )
 
 
 
-
-            x = article_data
+            x = list(joint_data)
             list_x = x
         return render_template('test.template.html', x=x, list_x=list_x)
     else:

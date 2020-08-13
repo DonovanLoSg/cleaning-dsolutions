@@ -25,10 +25,17 @@ or from the individual article page belonging to the current user. -->
             <div class="col">
             {% if (article_owner_id == current_user.id) or current_user.admin %}
             <!-- Confirm deletion -->
-                <form method="post" name="form" target="_self">
-                    <button type="submit" class="btn btn-danger">Confirm Deletion</button>
-                    <a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
-                </form><br><br>
+                    {% if (article_owner_id == current_user.id) or current_user.admin %}
+                    <!-- Confirm deletion -->
+                        <form method="post" name="form" target="_self">
+                            <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                        </form>
+                        {% if listtype=="page" %}
+                            <a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+                        {% else %}
+                            <a href="/articles/my-list" class="btn btn-primary btn-md">Cancel Deletion</a>
+                        {% endif %}
+                    {% endif %}<br><br>
             {% endif %}
             </div>
         </div>
