@@ -3,30 +3,24 @@
 <h1>{% block title %}Home{% endblock %}</h1>
 {% endblock %} {% block content %}
 
-<pre>
-
----
-{% for doc in x %}
- 
- {{doc.user_details[0]['nickname']}}
- {{doc.user_postings.good_rating}}
- {{doc.user_postings.neutral_rating}}
- {{doc.user_postings.bad_rating}}
- {{doc.user_postings.comments}}
 
 
-
-
-
- {% endfor %}
+<div class="container black-border blur-shadow p-3 pb-5 mb-5">
+    <div class="container">
+        <a href="/articles/contribute" class="btn btn-primary btn-md btn2">
+            Add another article
+        </a>
+        <a href="/articles/my-list" class="btn btn-primary btn-md btn2">
+            Go to my article listing
+        </a>
+    </div>
+</div>
 
 
 
 
 ---
 
-
-</pre>
 
 
 

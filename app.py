@@ -715,6 +715,7 @@ def manage_cleaning_locations():
         return render_template("/cleaning-locations/manage.template.html",
                                location_data=location_data)
 
+
 # --------------------------------------------------
 # Users Administration
 # --------------------------------------------------
@@ -801,6 +802,7 @@ def not_found(e):
 @app.route('/error-encountered')
 def error_encountered():
     return render_template('/error-encountered.template.html')
+
 
 
 # "magic code" -- boilerplate

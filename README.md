@@ -226,4 +226,6 @@ The top navigation will be minimised into a hamburger menu when displayed in mob
 
 
 
-##
+## Designing Graphics User Interface (Surface)
+
+### Visual Design

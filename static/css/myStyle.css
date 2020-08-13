@@ -141,6 +141,12 @@ button {
   margin: 0.5rem;
 }
 
+.btn2 {
+  width: 12rem;
+  padding: 0.2rem;
+  margin: 0.5rem;
+}
+
 /* DataTables */
 
 #myTable .btn {
