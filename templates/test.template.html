@@ -4,22 +4,16 @@
 {% endblock %} {% block content %}
 
 <pre>
-logging_user : {{logging_user}}
-current_user : {{current_user}}
-session : {{session}}
-form : {{form}}
-=======
+{{x}}
+---
+{% for doc in x %}
+{{doc}}<br>
+{% endfor %}
 
-1. user_posting_data: {{user_posting_data}}
-2. user_posting_list：{{user_posting_list}}
-3. user_postings: {{user_postings}}
-4. current_user[]: {{current_user[]}}
-5. session['_user_id'] : {{session['_user_id']}}
+---
+{{list_x}}
 
 </pre>
-{% for items in sessions %}
-{{items}}
-{% endfor %}
 
 
 

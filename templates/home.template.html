@@ -8,70 +8,72 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="black-border blur-shadow p-2 ml-2 mb-4">
-                <h2>Search</h2>
-                Conditions include:
-                <form method="post" name="form" target="_self">
-                    <!-- search text in title -->
-                    <div>
-                        <div class="form-check">
+    <div class="row no-gutters ">
+        <div class="col-12 col-md black-border blur-shadow p-3 py-5 mt-0  ml-0 mx-0 mr-md-3 ">
+           
+            <h2>Search</h2>
+            <hr class="title-divider">
+            Conditions include:
+            <form method="post" name="form" target="_self">
+                <!-- search text in title -->
+                <div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input"
+                                id="check-search-titles" name="check-search-titles"
+                                value="titles" {% if form and form.getlist('check-search-titles') %}checked{% endif %}>
+                        </label>
+                    </div>
+                    <div class="form-group ml-4">
+                        <label for="search-title">Article Title containing..</label>
+                        <input type="text" class="form-control" id="search-title" name="search-title" placeholder="words appearing in titles"
+                            {% if (form) %} value="{{form.get('search-title')}}" {%endif%} />
+                    </div>
+                </div>
+                <!-- search location using dropdown list -->
+                <div>
+                    <div class="form-check">
+                        <div class="form-check-label">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input"
-                                    id="check-search-titles" name="check-search-titles"
-                                    value="titles" {% if form and form.getlist('check-search-titles') %}checked{% endif %}>
+                                <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
+                                    value="locations"  {% if form and form.getlist('check-search-locations') %}checked{% endif %}>
                             </label>
                         </div>
-                        <div class="form-group ml-4">
-                            <label for="search-title">Article Title containing..</label>
-                            <input type="text" class="form-control" id="search-title" name="search-title" placeholder="words appearing in titles"
-                                {% if (form) %} value="{{form.get('search-title')}}" {%endif%} />
-                        </div>
                     </div>
-                    <!-- search location using dropdown list -->
-                    <div>
-                        <div class="form-check">
-                            <div class="form-check-label">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
-                                        value="locations"  {% if form and form.getlist('check-search-locations') %}checked{% endif %}>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label for="search-title">Targeted any of these cleaning locations..</label>
-                            <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
-                                {% for each_location in location_data %}
-                                    <option value="{{each_location.location}}" 
-                                        {% if form and each_location.location in form.getlist('search-location') %} selected {% endif %}
-                                    >{{each_location.location}}</option>
-                                {% endfor %}
-							</select>
-                        </div>
+                    <div class="form-group ml-4">
+                        <label for="search-title">Targeted any of these cleaning locations..</label>
+                        <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
+                            {% for each_location in location_data %}
+                                <option value="{{each_location.location}}" 
+                                    {% if form and each_location.location in form.getlist('search-location') %} selected {% endif %}
+                                >{{each_location.location}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <!-- search tags using csv -->
-                    <div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="check-search-tags" name="check-search-tags" 
-                                    value="tags" {% if form and form.getlist('check-search-tags') %}checked{% endif %}>
-                            </label>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label for="search-tags">with Tags...</label>
-                            <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="tags sepearated by commas"
-                                {% if (form) %} value="{{form.get('search-tags')}}"{% endif %} />
-                        </div> 
+                </div>
+                <!-- search tags using csv -->
+                <div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" id="check-search-tags" name="check-search-tags" 
+                                value="tags" {% if form and form.getlist('check-search-tags') %}checked{% endif %}>
+                        </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
+                    <div class="form-group ml-4">
+                        <label for="search-tags">with Tags...</label>
+                        <input type="text" class="form-control" id="search-tags" name="search-tags" placeholder="tags sepearated by commas"
+                            {% if (form) %} value="{{form.get('search-tags')}}"{% endif %} />
+                    </div> 
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
         </div>
-        <div class="col-12 col-md-6">
-            <div class="black-border blur-shadow p-2 ml-2">
-                <h2>Today's Article</h2>
 
+
+        <div class="col-12 col-md black-border blur-shadow p-3 py-5 mb-5 mb-md-0 mt-5 mt-md-0 mr-0 mx-0 ml-md-3 ">
+
+                <h2>Today's Random Articles</h2>
+                <hr class="title-divider">
 
                 <table id="myTable2" class=" article-title random_articles display" data-page-length="5" style="width:100%">
                     <thead>
@@ -97,7 +99,7 @@
 
             </div>
         </div>
-    </div>
+
 </div>
 
 

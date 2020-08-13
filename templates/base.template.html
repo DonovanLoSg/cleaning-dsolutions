@@ -18,78 +18,28 @@
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,600&family=Roboto&display=swap"
-      rel="stylesheet" type="text/css"/>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
-      rel="stylesheet"
-      type="text/css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,600&family=Roboto&display=swap" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet" type="text/css"/>
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/reset/reset.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/jquery.dataTables.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/myStyle.css') }}" />
 
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/lib/reset/reset.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="Editor-1.9.4/css/editor.dataTables.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/myStyle.css') }}"
-    />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='img/favicon/favicon.ico') }}"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}"
-    />
-    <link
-      rel="manifest"
-      href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}"
-    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}"/>
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}" />
+    
+    
 
-    <!-- <script src="{{ url_for('static', filename='js/lib/bootstrap/jquery-3.5.1.slim.min.js') }}"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootstrap/jquery-3.5.1.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap/popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap/bootstrap.min.js') }}"></script>
-
-    <script
-      type="text/javascript"
-      src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.21/b-1.6.2/sl-1.3.1/datatables.min.js"
-    ></script>
+    <script src="{{ url_for('static', filename='js/lib/dataTables/datatables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   </head>
@@ -97,16 +47,8 @@
   <body>
     {% with messages = get_flashed_messages(with_categories=True) %} {% if
     messages %} {% for message in messages %}
-    <div
-      class="alert alert-{{message[0]}} alert-dismissible fade show"
-      role="alert"
-    >
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >&times;
+    <div class="alert alert-{{message[0]}} alert-dismissible fade show" role="alert" >
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >&times;
         <span aria-hidden="true"></span>
       </button>
       {{ message[1] }}
@@ -114,172 +56,99 @@
     {% endfor %} {% endif %} {% endwith %}
 
     <!-- ========================================================== 
-PAGE HEADER
-========================================================== -->
-
-      <header>
+    PAGE HEADER
+    ========================================================== -->
+    <header>
         <div class="container black-border blur-shadow">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Branding -->
-            <a class="navbar-brand" href="{{url_for('home')}}">
-              <img
-                src="http://resume.donovanlo.sg/images/donovanlogo150x131.png"
-                height="50"
-                class="d-inline-block align-middle"
-                alt="Logo"
-              />
-              <span class="font-weight-bold"
-                >Cleaning d'Solutions&nbsp;&nbsp;&nbsp;</span
-              >
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-              class="collapse navbar-collapse justify-content-between"
-              id="navbarNavDropdown"
-            >
-              <div>
-                <ul class="navbar-nav">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="{{ url_for('home') }}"
-                      >Home </a
-                    >
-                  </li>
-                  <!-- {% if current_user.is_authenticated %} -->
-                  <li class="nav-item dropdown">
-                    <a
-                      class="nav-link dropdown-toggle"
-                      ref="#"
-                      id="navbarArticleDropdownMenuLink"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Articles
-                    </a>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="navbarArticleDropdownMenuLink"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="{{ url_for('my_articles') }}"
-                        >My Articles</a
-                      >
-                      <a
-                        class="dropdown-item"
-                        href="{{ url_for('all_articles') }}"
-                        >All Articles</a
-                      >
-                      <a
-                        class="dropdown-item"
-                        href="{{ url_for('contribute_articles') }}"
-                        >Contribute Articles</a
-                      >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- Branding -->
+                <a class="navbar-brand" href="{{url_for('home')}}">
+                    <img src="http://resume.donovanlo.sg/images/donovanlogo150x131.png" 
+                    height="50" class="d-inline-block align-middle" alt="Logo" /> 
+                    <span class="font-weight-bold">Cleaning d'Solutions&nbsp;&nbsp;&nbsp;</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" > 
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown" >
+                    <div>
+                        <ul class="navbar-nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ url_for('home') }}">Home </a>
+                            </li>
+                            {% if current_user.is_authenticated %} 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" ref="#" id="navbarArticleDropdownMenuLink" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                Articles
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarArticleDropdownMenuLink" >
+                                    <a class="dropdown-item" href="{{ url_for('my_articles') }}"> My Articles</a>
+                                    <a class="dropdown-item" href="{{ url_for('all_articles') }}"> All Articles</a>
+                                    <a class="dropdown-item" href="{{ url_for('contribute_articles') }}">Contribute Articles</a>
+                                </div>
+                            </li>
+                            {% if current_user.admin %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarAdminDropdownMenuLink" role="button" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Admin</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarAdminDropdownMenuLink" >
+                                    <a class="dropdown-item" href="{{ url_for('manage_cleaning_locations') }}"> Cleaning Locations</a>
+                                    <a class="dropdown-item" href="{{ url_for('manage_users') }}"> Users</a>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('all_articles') }}">All Articles</a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('instructions') }}">Instructions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                            </li>
+                        </ul>
                     </div>
-                  </li>
-                  <!-- {% if current_user.admin %} -->
-                  <li class="nav-item dropdown">
-                    <a
-                      class="nav-link dropdown-toggle"
-                      href="#"
-                      id="navbarAdminDropdownMenuLink"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Admin
-                    </a>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="navbarAdminDropdownMenuLink"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="{{ url_for('manage_cleaning_locations') }}"
-                        >Cleaning Locations</a
-                      >
-                      <a
-                        class="dropdown-item"
-                        href="{{ url_for('manage_users') }}"
-                        >Users</a
-                      >
+                    <div>
+                        <ul class="navbar-nav">
+                            {% if not(current_user.is_authenticated) %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                                </li>
+                            {% endif %} {% if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('my_profile') }}">{% if current_user.admin %}Admin:{% else %}User:{% endif%} {{ current_user.nickname }}</a>
+                            </li>
+                            {% endif %} {% if current_user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     </div>
-                  </li>
-                  <!-- {% endif %}  -->
-                  <!-- {% else %} -->
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('all_articles') }}"
-                      >All Articles</a
-                    >
-                  </li>
-                  <!-- {% endif %} -->
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('instructions') }}"
-                      >Instructions</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul class="navbar-nav">
-                  {% if not(current_user.is_authenticated) %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('register') }}"
-                      >Register</a
-                    >
-                  </li>
-                  {% endif %} {% if current_user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('my_profile') }}"
-                      >{% if current_user.admin %}Admin:{% else %}User:{% endif
-                      %} {{ current_user.nickname }}</a
-                    >
-                  </li>
-                  {% endif %} {% if current_user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}"
-                      >Logout</a
-                    >
-                  </li>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
-          </nav>
+                </div>
+            </nav>
         </div>
-      </header>
-    </div>
+    </header>
     <!-- ==========================================================
-MAIN
-========================================================== -->
+    MAIN
+    ========================================================== -->
     <div class="container-fluid">
-      <main>
-        <div class="container">
-          {% block header %}{% endblock %} {% block content %}{% endblock %}
-        </div>
-      </main>
+        <main>
+            <div class="container">
+                {% block header %}{% endblock %} {% block content %}{% endblock %}
+            </div>
+        </main>
     </div>
     <!-- ==========================================================
-PAGE FOOTER
-========================================================== -->
+    PAGE FOOTER
+    ========================================================== -->
     <footer></footer>
   </body>
 </html>

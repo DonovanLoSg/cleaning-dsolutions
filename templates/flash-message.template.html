@@ -2,7 +2,7 @@
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
+    <ul class="flashes">
     {% for message in messages %}
       <li>{{ message }}</li>
     {% endfor %}
@@ -13,7 +13,7 @@
 
 
 {%if messages %}
-    <div class="alert alert-success">
+    <div id="fade5" class="alert alert-success text-center">
         {%for message in messages}
         <div>
             {{ message}}

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    // DataTables
     $('#myTable').DataTable({
         "responsive": true,
         "paging":   true,
@@ -7,15 +9,19 @@ $(document).ready(function() {
         "info":     true,
         "stateSave": true
     });
+
+    // Tooltip
     $('[data-toggle="tooltip"]').tooltip()
+
+
+    
 } );
 
 
-
+// DataTables
 $("myTable").on("click", function(event){
   event.preventDefault()
 });
-
 
 if (document.getElementById('myTable2')) {
     $('#myTable2').DataTable({
@@ -47,3 +53,6 @@ $("#myTable").on("click", function(){alert('x')} )
     'removeformat | help',
     
     });
+
+
+    

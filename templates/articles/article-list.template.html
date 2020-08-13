@@ -13,7 +13,7 @@ my articles route listing articles owned by current user. -->
 
 {% block content %}
 {% if (listtype=="search") %}
-    <div class="black-border blur-shadow search-param">
+    <div class="black-border blur-shadow search-param px-0">
         Searched for articles which fulfil the following conditions:<br>
         <ul>
             {% if (form.getlist('check-search-titles')) %}
@@ -57,7 +57,7 @@ my articles route listing articles owned by current user. -->
 
 <!-- This section display a list of requested articles. -->
 
-<div class="container black-border blur-shadow p-3 pb-5 mb-5"> 
+<div class="container black-border blur-shadow p-3 pb-5 mb-5 "> 
     <table id="myTable" class=" display dataTable article-title" data-page-length="10" style="width:100%">
         <thead>
             <tr>
@@ -86,9 +86,11 @@ my articles route listing articles owned by current user. -->
                     <a href="/articles/{{article._id}}" class="btn btn-primary btn-md">
                         View
                     </a>
-                    <a href="/articles/delete/{{article._id}}" class="btn btn-danger btn-md">
+                    {% if listtype=='my' or current_user.admin %}
+                    <a href="/articles/delete/{{article._id}}/list" class="btn btn-danger btn-md">
                         Delete
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

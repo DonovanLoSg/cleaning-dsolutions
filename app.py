@@ -86,6 +86,7 @@ def instructions():
 # --------------------------------------------------
 @app.route('/')
 def index():
+    pass
     return redirect(url_for("home"))
 
 
@@ -120,7 +121,7 @@ def home():
                         {"cleaning_location": {"$in": locationArray}})
                 else:
                     flash(
-                        'Please key in the words you want to search in the article titles.', 'info')
+                        'Please select the location you want to read about.', 'info')
                     return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
 
             if form.getlist('check-search-tags'):
@@ -172,7 +173,7 @@ def login():
                 session['nickname'] = logging_user.nickname
                 session['admin'] = logging_user.admin
                 current_user = load_user(ObjectId(flask_login.current_user.get_id()))
-                flash(logging_user.nickname + 'logged in successfully.', 'success')
+                flash(logging_user.nickname + ' logged in successfully.', 'success')
                 return redirect(url_for('home'))
             else:
                 # password incorrect
@@ -246,7 +247,7 @@ def register():
                 )
                 flash("User registration successful. Please proceed to login.",
                       category='success')
-                return render_template("/auth/login.template.html")
+                return redirect(url_for('login'))
     else:
         # register form
         return render_template("/auth/register.template.html")
@@ -292,7 +293,7 @@ def my_profile():
                 return render_template("/users/my-profile.template.html",
                                        form=form)
     else:
-        return render_template("/users/my-profile.template.html", current_user=flask_login.current_user)
+        return render_template("/users/my-profile.template.html", current_user=current_user)
 
 
 
@@ -323,11 +324,12 @@ def list_articles():
 
 @app.route('/articles/list-all')
 def all_articles():
+    current_user = load_user(flask_login.current_user.get_id())
     myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
     articles = client[DB_NAME]['articles'].find(
         {}, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
-                           articles=articles, listtype='all')
+                           articles=articles, listtype='all', current_user=current_user)
 
 
 
@@ -345,12 +347,13 @@ def all_articles():
 @app.route('/articles/my-list')
 @flask_login.login_required
 def my_articles():
-    myQuery = {'created_by': ObjectId(flask_login.current_user.get_id())}
+    current_user = load_user(flask_login.current_user.get_id())
+    myQuery = {'created_by': ObjectId(current_user._id)}
     myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
     articles = client[DB_NAME]['articles'].find(
         myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
-                           articles=articles, listtype='my')
+                           current_user=current_user, articles=articles, listtype='my')
 
 
 
@@ -387,7 +390,7 @@ def contribute_articles():
         now = datetime.datetime.utcnow()
         input_created = now.strftime('%y-%m-%d %a %H:%M')
         input_modified = now.strftime('%y-%m-%d %a %H:%M')
-        input_creator = ObjectId(flask_login.current_user.get_id())
+        input_creator = ObjectId(current_user._id)
         input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
         client[DB_NAME]['articles'].insert_one({
@@ -418,11 +421,11 @@ def edit_article(_id):
     myQuery1 = {'_id': ObjectId(_id)}
     article_data = client[DB_NAME]['articles'].find_one(myQuery1)
     if (article_data):
-        article_owner_id = article_data['created_by']
-        myQuery2 = {'_id': article_owner_id}
+        article_owner_id = str(article_data['created_by'])
+        myQuery2 = {'_id': ObjectId(article_owner_id)}
         article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-        article_owner_id = article_data['created_by']
-        if (article_owner_id == current_user.id or current_user.admin):
+        article_owner_id = str(article_data['created_by'])
+        if (article_owner_id == current_user._id) or current_user.admin:
             location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
             if request.method == 'GET':
                 return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user, article_data=article_data)
@@ -493,12 +496,12 @@ def edit_article(_id):
 def show_article(_id):
     if (_id != "") :
         myQuery1 = {'_id': ObjectId(_id)}
-        
+        current_user = load_user(flask_login.current_user.get_id())
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
-            article_owner_id = article_data['created_by']
+            article_owner_id = str(article_data['created_by'])
             myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one()
+            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
             user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
             user_posting_data.rewind()
             user_posting_list = list(user_posting_data)
@@ -510,23 +513,24 @@ def show_article(_id):
             user_rated = ''
             user_comments = ''
             for post in user_postings:
-                if post['user_id'] == ObjectId(flask_login.current_user.get_id()):
+                if current_user:
+                    if post['user_id'] == current_user._id:
+                        if post['good_rating']:
+                            user_rated = 'good'
+                        elif post['neutral_rating']:
+                            user_rated = 'neutral'
+                        else:
+                            user_rated = 'bad'
+                        user_comments = post['comments']
                     if post['good_rating']:
-                        user_rated = 'good'
-                    elif post['neutral_rating']:
-                        user_rated = 'neutral'
-                    else:
-                        user_rated = 'bad'
-                    user_comments = post['comments']
-                if post['good_rating']:
-                    good_rating_count = good_rating_count +1
-                if post['neutral_rating']:
-                    neutral_rating_count=neutral_rating_count+1
-                if post['bad_rating']:
-                    bad_rating_count = bad_rating_count +1
+                        good_rating_count = good_rating_count +1
+                    if post['neutral_rating']:
+                        neutral_rating_count=neutral_rating_count+1
+                    if post['bad_rating']:
+                        bad_rating_count = bad_rating_count +1
 
 
-            return render_template("/articles/article.template.html",  article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
+            return render_template("/articles/article.template.html",  current_user=current_user, article_data=article_data, article_id=_id, article_owner_data=article_owner_data, user_postings=user_postings,
             good_rating_count=good_rating_count, neutral_rating_count=neutral_rating_count, bad_rating_count=bad_rating_count, user_rated=user_rated, user_comments=user_comments)
 
         else:
@@ -537,23 +541,23 @@ def show_article(_id):
         return redirect(url_for('home'))
 
 
-@app.route('/articles/delete/<_id>', methods=['GET', 'POST'])
+@app.route('/articles/delete/<_id>/<listtype>', methods=['GET', 'POST'])
 @flask_login.login_required
-def delete_article(_id):
+def delete_article(_id, listtype):
     current_user = load_user(flask_login.current_user.get_id())
     if request.method == 'GET':
         if not(_id is None) and ObjectId.is_valid(_id):
             myQuery1 = {'_id': ObjectId(_id)}
             article_data = client[DB_NAME]['articles'].find_one(myQuery1)
             if (article_data):
-                article_owner_id = article_data['created_by']
+                article_owner_id = str(article_data['created_by'])
                 myQuery2 = {'_id': ObjectId(article_owner_id)}
                 article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
                 if '_user_id' in session:
                     current_user = load_user(flask_login.current_user.get_id())
                 else:
                     current_user = None
-                return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user)
+                return render_template("/articles/delete.template.html", article_data=article_data, article_id=_id, article_owner_id=article_owner_id, article_owner_data=article_owner_data, current_user=current_user, listtype=listtype)
             else:
                 flash('No such article found', category='danger')
                 return redirect(url_for('home'))
@@ -572,41 +576,60 @@ def delete_article(_id):
 @app.route('/rate/<_id>/<rating>')
 @flask_login.login_required
 def rate(_id, rating):
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(flask_login.current_user.get_id())}}} ))
+    current_user = load_user(flask_login.current_user.get_id())
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
     if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(flask_login.current_user.get_id()), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(current_user._id), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
         client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
     reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},reset_rating )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},reset_rating )
     if rating == 'good':
         set_rating = { '$set': {'user_postings.$.good_rating':True}}
     elif rating == 'neutral':
         set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
     else:
         set_rating = { '$set': {'user_postings.$.bad_rating':True}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},set_rating )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_rating )
 
     flash('Rating successfully updated. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
-@app.route('/comment/<_id>', methods=['GET', 'POST'])
+@app.route('/comment/add/<_id>', methods=['GET', 'POST'])
 @flask_login.login_required
 def comment(_id):
+    current_user = load_user(flask_login.current_user.get_id())
     form = request.form
     if request.method == 'POST':
         input_comments = form.get('input-comments')
     else:
         input_comments = ""
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(flask_login.current_user.get_id())}}} ))
+    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
     if not(Post_to_update):
-        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(flask_login.current_user.get_id()), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
+        set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(current_user._id), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
         client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
     set_comments = { '$set': {'user_postings.$.comments': input_comments}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(flask_login.current_user.get_id()) }}},set_comments )
+    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_comments )
     flash('Comments successfully saved. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
 
+@app.route('/comment/view/<_id>', methods=['GET', 'POST'])
+def view_comment(_id):
+    if (_id != "") :
+        myQuery1 = {'_id': ObjectId(_id)}
+        current_user = load_user(flask_login.current_user.get_id())
+        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        if (article_data):
+
+
+
+
+            x = article_data
+            list_x = x
+        return render_template('test.template.html', x=x, list_x=list_x)
+    else:
+        flash('No such article found', category='danger')
+        return redirect(url_for('home'))
 
 
 
@@ -740,7 +763,7 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    flash('File not found. We will redirect you to the home page in a moment.', category='success')
+    flash('File not found. We will redirect you to the home page in a moment.'+e, category='success')
     return redirect(url_for("home"))
 
 

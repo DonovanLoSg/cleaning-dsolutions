@@ -1,96 +1,97 @@
 <!DOCTYPE html>
-{% extends 'base.template.html' %} {% block header %}
-<h1>{% block title %}User Details{% endblock %}</h1>
-{% endblock %} {% block content %}
+{% extends 'base.template.html' %} 
 
-<form method="post" name="form" target="_self">
-  <input type="hidden" name="action" value="edit-process" />
-  <input type="hidden" name="source" value="edit-user-details" />
-  <input type="hidden" name="id" value="{{user_data._id}}" />
-  <div class="form-group">
-    <label for="input-email">Email address</label>
-    <input type="email" class="form-control" id="input-email" name="input-email"
-    aria-describedby="emailHelp" placeholder="enter your email" 
-    {% if form.get('source') == 'user-listing' %} 
-        value="{{user_data.email}}" 
-    {% elif form.get('source') == 'edit-user-details'%}
-        value="{{form.get('input-email')}}"
-    {% endif %}
-    readonly />
+{% block header %}
+<h1>{% block title %}Edit Users{% endblock %}</h1>
+{% endblock %} 
 
-  </div>
-  <div class="form-group">
-    <label for="input-nickname">Nickname</label>
-    <input type="nickname" class="form-control" id="input-nickname"
-    name="input-nickname" aria-describedby="nicknameHelp" placeholder="enter
-    your nickname" 
-    {% if form.get('source') == 'user-listing' %} 
-        value="{{user_data.nickname}}" 
-    {% elif form.get('source') == 'edit-user-details'%}
-        value="{{form.get('input-nickname')}}"
-    {% endif %} 
-    required />
-    <small id="nicknameHelp" class="form-text text-muted"
-      >This will be the name displayed on the site.</small
-    >
-  </div>
-  <div class="form-group">
-    <label for="input-admin">Admin?</label>
-    {% if form.get('source') == 'user-listing' %} 
-        {% if user_data.admin %}
-            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
-            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
-        {% else %}
-            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
-            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
-        {% endif %}
-    {% elif form.get('source') == 'edit-user-details'%}
-        {% if form.get('input-admin')=='isAdmin' %}
-            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
-            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
-        {% else %}
-            <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
-            <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
-        {% endif %}
-    {% endif %} 
-  </div>
-  <div class="form-group">
-    <label for="input-password" class="mr-sm-2">New Password:</label>
-    <input type="password" class="form-control mb-2 mr-sm-2"
-    pattern="^[A-Za-z\d]{8,20}$" placeholder="Leave this blank if no change to password." id="input-password" name="input-password"
-    aria-describedby="passwordHelpBlock" 
-    {% if form.get('source') == 'user-listing' %}  
-        value="" 
-    {% elif form.get('source') == 'edit-user-details'%}
-        value="{{form.get('input-password')}}"
-    {% endif %} 
-     />
-    <small id="passwordHelpBlock" class="form-text text-muted">
-      Your password must be 8-20 characters long, contain only alphabets and
-      digits.<br />Leave it blank if blank if thee's no change to password.
-    </small>
-  </div>
-  <div class="form-group">
-    <label for="input-verify" class="mr-sm-2">Verify:</label>
-    <input type="password" class="form-control mb-2 mr-sm-2"
-    pattern="^[A-Za-z\d]{8,20}$" placeholder="Enter password again. Leave this blank if no change to password."
-    id="input-verify" name="input-verify"
-    aria-describedby="verifypasswordHelpBlock2" 
-    {% if form.get('source') == 'user-listing' %}
-        value="" 
-    {% elif form.get('source') == 'edit-user-details'%}
-        value="{{form.get('input-verify')}}"
-    {% endif %} 
-    />
-    <small id="verifyPasswordBlock" class="form-text text-muted">
-      Your password must be 8-20 characters long, contain only alphabets and
-      digits.<br />Leave it blank if blank if thee's no change to password.
-    </small>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<form>
-    <button type="submit" class="btn btn-primary">Back to list</button>
-</form>
+{% block content %}
+<div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
+    <form method="post" name="form" target="_self">
+        <input type="hidden" name="action" value="edit-process" />
+        <input type="hidden" name="source" value="edit-user-details" />
+        <input type="hidden" name="id" value="{{user_data._id}}" />
+        <div class="form-group">
+            <label for="input-email">Email address</label>
+            <input type="email" class="form-control" id="input-email" name="input-email" 
+                aria-describedby="emailHelp" placeholder="enter your email" 
+                {% if form.get('source') == 'user-listing' %} 
+                    value="{{user_data.email}}" 
+                {% elif form.get('source') == 'edit-user-details'%}
+                    value="{{form.get('input-email')}}"
+                {% endif %}
+                readonly />
+        </div>
+        <div class="form-group">
+            <label for="input-nickname">Nickname</label>
+            <input type="nickname" class="form-control" id="input-nickname"
+            name="input-nickname" aria-describedby="nicknameHelp" placeholder="enter your nickname" 
+                {% if form.get('source') == 'user-listing' %} 
+                    value="{{user_data.nickname}}" 
+                {% elif form.get('source') == 'edit-user-details'%}
+                    value="{{form.get('input-nickname')}}"
+                {% endif %} 
+                required />
+            <small id="nicknameHelp" class="form-text text-muted">
+            This will be the name displayed on the site.</small>
+        </div>
+        <div class="form-group">
+            <label for="input-admin">Admin?</label>
+            {% if form.get('source') == 'user-listing' %} 
+                {% if user_data.admin %}
+                    <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
+                    <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
+                {% else %}
+                    <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
+                    <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
+                {% endif %}
+            {% elif form.get('source') == 'edit-user-details'%}
+                {% if form.get('input-admin')=='isAdmin' %}
+                    <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" checked > Yes 
+                    <input type="radio" name="input-admin" id="notAdmin" value="notAdmin"> No 
+                {% else %}
+                    <input type="radio" name="input-admin" id="isAdmin" value="isAdmin" > Yes 
+                    <input type="radio" name="input-admin" id="notAdmin" value="notAdmin" checked > No 
+                {% endif %}
+            {% endif %} 
+        </div>
+        <div class="form-group">
+            <label for="input-password" class="mr-sm-2">New Password:</label>
+            <input type="password" class="form-control mb-2 mr-sm-2"
+                id="input-password" name="input-password"
+                pattern="^[A-Za-z\d]{8,20}$" placeholder="Leave this blank if no change to password." 
+                {% if form.get('source') == 'user-listing' %}  
+                    value="" 
+                {% elif form.get('source') == 'edit-user-details'%}
+                    value="{{form.get('input-password')}}"
+                {% endif %} 
+                aria-describedby="passwordHelpBlock" />
+            <small id="passwordHelpBlock" class="form-text text-muted">
+            Your password must be 8-20 characters long, contain only alphabets and
+            digits.<br />Leave it blank if blank if thee's no change to password.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="input-verify" class="mr-sm-2">Verify:</label>
+            <input type="password" class="form-control mb-2 mr-sm-2"
+                pattern="^[A-Za-z\d]{8,20}$" placeholder="Enter password again. Leave this blank if no change to password."
+                id="input-verify" name="input-verify"
+                {% if form.get('source') == 'user-listing' %}
+                    value="" 
+                {% elif form.get('source') == 'edit-user-details'%}
+                    value="{{form.get('input-verify')}}"
+                {% endif %} 
+                aria-describedby="verifypasswordHelpBlock2" />
+            <small id="verifyPasswordBlock" class="form-text text-muted">
+            Your password must be 8-20 characters long, contain only alphabets and
+            digits.<br />Leave it blank if blank if thee's no change to password.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <form>
+        <button type="submit" class="btn btn-primary">Back to list</button>
+    </form>
+</div>
 {% endblock %}
 
