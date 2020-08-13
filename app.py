@@ -135,12 +135,12 @@ def home():
 
 @app.route('/about')
 def about():
-    return render_template("/about.template.html")
+    return redirect('https://support.cleaning.dsolutions.sg/about')
 
 
 @app.route('/instructions')
 def instructions():
-    return render_template("/instructions.template.html")
+    return redirect('https://support.cleaning.dsolutions.sg/')
 
 
 
