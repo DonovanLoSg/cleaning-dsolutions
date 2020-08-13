@@ -62,24 +62,14 @@ def load_user(_id):
     else:
         return None
 
-
-
-
-@app.route('/about')
-def about():
-    return render_template("/about.template.html")
-
-
-@app.route('/instructions')
-def instructions():
-    return render_template("/instructions.template.html")
-
-
-
 # --- User Authentication: End ---------------------------------
 
-# START ROUTING
 
+
+
+
+
+# START ROUTING
 
 # --------------------------------------------------
 # Home Page
@@ -139,6 +129,20 @@ def home():
         # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
     else:
         return render_template("/home.template.html", location_data=location_data, random_articles=random_articles)
+
+
+
+
+@app.route('/about')
+def about():
+    return render_template("/about.template.html")
+
+
+@app.route('/instructions')
+def instructions():
+    return render_template("/instructions.template.html")
+
+
 
 
 # --------------------------------------------------
@@ -210,9 +214,9 @@ def unauthorized():
     return render_template("/unauthorized.template.html")
 
 
-
-
+# --------------------------------------------------
 # Registration form
+# --------------------------------------------------
 # Allow an user to register for an account
 # Redirect to login page after successful registration
 
@@ -258,6 +262,8 @@ def register():
 # --------------------------------------------------
 # Allow the user to view their own profile
 # and update their nickanme and password
+
+
 @app.route('/users/my-profile', methods=['GET', 'POST'])
 @flask_login.login_required
 def my_profile():

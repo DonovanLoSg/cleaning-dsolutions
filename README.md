@@ -217,3 +217,13 @@ Main Navigation is a fixed position menu at the top of every web page. They are 
 #### Collapsible Hamburger Mobile Menu
 
 The top navigation will be minimised into a hamburger menu when displayed in mobile screens or other small screens. Clicking on it will display the familiar 3 choices. [Bootstrap Component - Navbar]
+
+### Interface Design
+
+
+
+### Information Design
+
+
+
+##
