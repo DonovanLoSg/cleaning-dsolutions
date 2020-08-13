@@ -621,40 +621,37 @@ def view_comment(_id):
         article_data = client[DB_NAME]['articles'].find_one(myQuery1)
         if (article_data):
             joint_data = client[DB_NAME]['articles'].aggregate([
-                { 
-                    "$project": {               
-                        "_id": 1,
-                        "user_postings": { "$ifNull" : [ "$user_postings", [ ] ] } 
+                {"$match":
+                    {'_id': ObjectId(_id)}
+                },
+                {"$project": 
+                    {"_id": 1 ,
+                    "article_title" :1,"user_postings": { "$ifNull" : [ "$user_postings", [ ] ] } 
                     }
                 },
-                {
-                "$unwind": {
+                {"$unwind": {
                     "path": "$user_postings",
-                    "preserveNullAndEmptyArrays": True
-                    }
-                },      
-                {
-                    "$lookup": {
-                                'from': 'registered_users',
-                                'localField': 'user_postings.user_id',
-                                'foreignField': '_id,',
-                                'as': 'user_posting.user_details'
-                    }
+                    "preserveNullAndEmptyArrays": True}
                 },
-                { "$unwind": "$user_postings", },
-                { 
-                    "$group": {
-                        "_id": "$_id",
-                        "user_postings": { "$push": "$user_postings"}
-                    }
-                }
-            ])
+                {'$lookup':{
+                    'from': "registered_users",
+                    'localField': "user_postings.user_id",
+                    'foreignField': "_id",
+                    'as': "user_details"}
+                },
+                {'$project': {
+                    'user_details.nickname': 1,
+                    'user_postings.good_rating':1,
+                    'user_postings.neutral_rating':1,
+                    'user_postings.bad_rating':1,
+                    'user_postings.comments':1}}
+                ])
+            joint_list = list(joint_data)
 
 
-
-            x = list(joint_data)
-            list_x = x
-        return render_template('test.template.html', x=x, list_x=list_x)
+            x = joint_list
+            list_x = joint_list
+        return render_template('/articles/view-comments.template.html',joint_list=joint_list, article_data=article_data)
     else:
         flash('No such article found', category='danger')
         return redirect(url_for('home'))

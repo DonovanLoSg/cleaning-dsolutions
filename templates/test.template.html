@@ -4,14 +4,27 @@
 {% endblock %} {% block content %}
 
 <pre>
-{{x}}
----
-{% for doc in x %}
-{{doc}}<br>
-{% endfor %}
 
 ---
-{{list_x}}
+{% for doc in x %}
+ 
+ {{doc.user_details[0]['nickname']}}
+ {{doc.user_postings.good_rating}}
+ {{doc.user_postings.neutral_rating}}
+ {{doc.user_postings.bad_rating}}
+ {{doc.user_postings.comments}}
+
+
+
+
+
+ {% endfor %}
+
+
+
+
+---
+
 
 </pre>
 
@@ -19,4 +32,5 @@
 
 
 {% endblock %}
+
 

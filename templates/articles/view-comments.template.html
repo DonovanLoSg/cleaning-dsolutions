@@ -1,0 +1,71 @@
+<!-- Display the comments and rating associated with this article. -->
+
+
+<!doctype html>
+{% extends 'base.template.html' %}
+
+{% block header %}
+<h1>{% block title %}View Comments{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container black-border blur-shadow p-3 pb-5 mb-5">
+
+    <div class="container">
+    
+        <!-- title -->
+        <div class="container mt-2">
+            <h1>{{article_data.article_title}}</h1>
+            <hr>
+        </div>
+        <div>
+        <table id="myTable2" class=" display dataTable article-title" data-page-length="10" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Rating
+                        </th>
+                        <th>
+                            Nickname
+                        </th>
+                        <th>
+                            Comments
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for each_comment in joint_list %} 
+                        <tr>
+                            <td class="rating-column">
+                                {% if each_comment.user_postings.good_rating %}
+                                    <img src="../../static/img/faces/noun_Smile_2472187.svg" 
+                                        onerror="this.onerror=null; this.src='../../static/img/faces/noun_Smile_2472187.png'" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+                                    <span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
+                                {% elif each_comment.user_postings.neutral_rating %}
+                                    <img src="../../static/img/faces/noun_Face_2472188.svg" 
+                                        onerror="this.onerror=null; this.src='../../static/img/faces/noun_Face_2472188.png'" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                                    <span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
+                                {% else %}
+                                    <img src="../../static/img/faces/noun_Face_2472189.svg" 
+                                        onerror="this.onerror=null; this.src='../../static/img/faces/noun_Face_2472189.png'" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
+                                    <span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
+                            </td>
+                            <td>
+                                {% if (each_comment.user_postings.comments) %}{{each_comment.user_postings.comments}}{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
