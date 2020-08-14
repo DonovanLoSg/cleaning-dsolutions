@@ -92,18 +92,22 @@
     <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   </head>
   
-  <body>
-	<section id="hero-outer">
-		<div id="hero-image"></div>
-		<div id="cover-text" class="frosted-glass-mask">
+  <body >
 
-			<h3>Cleaning d'Solutions</h3>
-			<h4>Solutions to griminess<br> and messiness.</h4>
-				<hr />
-				
-          <a href="{{ url_for('home')}}"  class="glass">Enter the world of cleanliness</a>
-		</div>
-	</section>
+    <div id="frosted-glass-mask" class="center" >
+
+        <div id="body-content-clone " >
+            <div>
+                <h1>Cleaning d'Solutions</h1>
+                <lead>Solutions to griminess and messiness.</lead>
+            </div>
+            <div>
+                <a href="{{ url_for('home')}}#search-panel" class="btn btn-primary btn-md">Search<br>Article</a>
+                <a href="{{ url_for('home')}}#random-read" class="btn btn-primary btn-md">Read<br>Article</a>
+            </div>
+
+        </div>
+    </div>
 
   </body>
 </html>

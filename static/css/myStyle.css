@@ -22,16 +22,51 @@ html {
 }
 
 body {
-background: url("../img/dining-room-3108037.jpg") no-repeat center center;
+  background: url("../img/dining-room-3108037.jpg") no-repeat center center;
   font-family: "Roboto", sans-serif;
   height: 100%;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
+ 
+ 
+
+@media all and (max-width: 900px), (max-device-width: 900px) {
+  body {
+    background-image: url("../img/dining-room-3108037-small.jpg") no-repeat center center;
+    font-family: "Roboto", sans-serif;
+    height: 100%;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+  }
+}
+
+
 
 .container {
   padding-left: 0;
   padding-right: 0;
   column-gap: 40px;
 }
+
+.center {
+
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) }
+}
+
 
 /* Heading */
 
@@ -222,113 +257,95 @@ button {
   font-size: 2rem;
 }
 
-/* hero image */
 
-#hero-image {
-  height: 100%;
-  width: 100%;
+/* frosted glass */
 
-  background: url("../img/dining-room-3108037.jpg") no-repeat center center;
-  animation-name: hero-zoom;
-  animation-duration: 5s;
-  animation-fill-mode: forwards;
+#frosted-glass-mask{
+    width: 400px;
+    height: 26;
+    overflow: hidden;
+    position: absolute;
+    border: #ffffff63 solid 3px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    box-shadow: 6px 7px 5px #00000075;
+    border-radius: 1em;
+    padding: 1em;
+    background: white;
+    opacity:0.5;
+}
+#frosted-glass-mask{
+ width: 500px;
+ height: 500px;
+ overflow: hidden;
+ position: absolute;
+ border: #ffffff63 solid 2px;
+ left: 40px;
+ top: 40px;
+ box-shadow: 6px 7px 5px #00000075;
 }
 
-#hero-outer {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+/* #frosted-glass-mask::after{
+    content: '';
+    position:absolute;
+    width: 300px;
+    height: 300px;
+    background: white; 
+    position: absolute;
+    left: -25px;
+    left position
+    right: 0;
+    top: -25px;  
+    top position 
+    bottom: 0;
+    box-shadow: inset 0 0 0 200px rgba(255,255,255,0.05);
+    filter-me: blur(10px);
+}  */
+
+#body-content-clone{
+ position:absolute;
+ left: -40px;
+ top: -40px;
+ width: 1000px;
+ height: 1000px;
+ background: url("../img/dining-room-3108037.jpg") no-repeat center center;
+ background-repeat: no-repeat;   
+ background-attachment: fixed;
+ filter-me: blur(10px);
+} 
+
+/* #body-content-clone{
+    position:absolute;
+    width: 1000px;
+    height: 1000px;
+    overflow: hidden;
+    top: 0%
+    left: 0%;
+    /* margin-right: -50%;
+    transform: translate(-50%, -50%); */
+    background-color: white;
+    /* background: url("../img/dining-room-3108037.jpg") no-repeat center center; */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    filter: blur(10px);
+    text-shadow: 2px 2px 8px black;
+}  */
+
+.body-content-clone h1 {
+opacity: 1;
+background=color: red
 }
 
-#hero-inner {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  background: white;
-  opacity: 0.5;
+.body-content-clone .lead {
+opacity: 1;
+background=color: yellow
 }
 
-@keyframes hero-zoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
+.body-content-clone button {
+opacity: 1;
+background=color: green
+    
 }
 
-#cover-text {
-  font-size: 200%;
-  letter-spacing: 4px;
-  background-color: whitesmoke;
-  border-radius: 30px 30px 0 0;
-  width: 480px;
-  height: 220px;
-  padding: 20px;
-
-  top: 20vh;
-  left: 10vw;
-  display: block;
-  position: absolute;
-}
-
-#cover-text > h3 {
-  font-family: "Baloo Tamma 2", cursive;
-  font-size: 3rem;
-  text-shadow: 2px 2px 8px black;
-  color: white;
-}
-
-#cover-text > h4 {
-  font-family: "Baloo Tamma 2", cursive;
-  font-size: 1.5rem;
-
-  color: black;
-}
-#cover-text .glass {
-    left: -1vw ;
-}
-
-.glass {
-  /* background styles */
-  position: relative;
-  display: inline-block;
-  padding: 15px 25px;
-  letter-spacing: 2px;
-  background-color: blue; /*for compatibility with older browsers*/
-  background-image: linear-gradient(blue, lightblue);
-  width: 480px;
-  left: -10vw;
-
-  /* text styles */
-  text-decoration: none;
-  color: #fff;
-  font-size: 20px;
-  font-family: lato, sans-serif;
-  font-weight: 100;
-
-  border-radius: 3px;
-  box-shadow: 0px 1px 4px -2px #333;
-  text-shadow: 0px -1px #333;
-}
-
-.glass:after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(100% - 4px);
-  height: 50%;
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.2)
-  );
-}
-
-.glass:hover {
-  background: linear-gradient(rgb(43, 81, 187), rgb(47, 0, 255));
-  text-decoration: none;
-  color: white;
-}

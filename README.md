@@ -9,7 +9,7 @@ Solutions to griminess and messiness. Crowdsourced information, guides, recipes,
 
 ## Demo
 
-Deployed project: 
+Deployed project: http://cleaning.dsolutions.sg/
 
 Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
@@ -52,7 +52,6 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 ## Defining the Project (Strategy)
 
 ### Site owner's goal
-
 
 - Create an online cleaners’ library.
 - Find solutions to my own cleaning issues, and possibility earns some income through google advertisement placement.
@@ -226,7 +225,32 @@ The top navigation will be minimised into a hamburger menu when displayed in mob
 
 ### Interface Design
 
+The site consists of pages that are easily to recognised.
 
+The landing page / splash page have a button to enter the site.
+
+In the site, each pages are made up of three section, the header, the title and the main content.
+
+Header: 
+- The header will include a logo, name of this app and the navigation menu.
+- The navigation menu's items depends on whether the user is logged in and whether he is an administrator.
+- Public users will be able to search and read the articles.
+- A logged in users will be able to see additional menu items like [Contribute Articles]. 
+- A logged in users can access his profile by clicking on his name on the right of the header.
+- If the logged in user is an administrator, he will even more items, like [Manager Users], available to administrators only,
+
+Title:
+- The title of the functions the user is accessing is display in simple words here.
+
+Main Content:
+- The app embraces a simple layout.
+- Other than the home page which has two panels, the rest of the pages only have one panel.
+- The home page left panel is a search panel allowing the user to input the criteria for the search.
+- The home page right panel display up to 5 random articles which the user can view by clicking on the article titles.
+
+Most parts of the site is responsive and will arrange the the panel according to what device is used to access it.
+There will be some tables used by Administrator which may need horizontal scrolling.
+Administrators are advice to use a wider screen to access it when accessing the administrative features.
 
 #### Site Map
 
@@ -239,3 +263,32 @@ The top navigation will be minimised into a hamburger menu when displayed in mob
 ## Designing Graphics User Interface (Surface)
 
 ### Visual Design
+
+
+<hr>
+
+# Features
+
+<hr>
+
+# Technologies Used
+
+<hr>
+
+# Testing
+
+## Functionality Testing
+
+### Link Testing
+
+### Form Testing
+
+### HTML Testing
+
+### CSS Testing
+
+### Color Contrast Accessibility Testing
+
+## Usability Testing
+
+### Navigation Testing
