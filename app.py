@@ -20,9 +20,11 @@ app = Flask(__name__)
 MONGO_URI = os.environ.get('MONGO_URI')
 client = pymongo.MongoClient(MONGO_URI)
 
-# define my db_name
+# define my DB_NAME
 DB_NAME = os.environ.get('DB_NAME')
-USER_COLLECTION_NAME = os.environ.get('USER_COLLECTION_NAME')
+USER_COLLECTION = os.environ.get('USER_COLLECTION')
+LOCATION_COLLECTION = os.environ.get('LOCATION_COLLECTION')
+ARTICLE_COLLECTION = os.environ.get('ARTICLE_COLLECTION')
 
 # read in the SESSION_KEY variable from the operating system environment
 SESSION_KEY = os.environ.get('SESSION_KEY')
@@ -47,7 +49,7 @@ class User(flask_login.UserMixin):
 @login_manager.user_loader
 def load_user(_id):
     # find the user from the database by its email
-    user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+    user_data = client[DB_NAME][USER_COLLECTION].find_one({
         '_id': ObjectId(_id)
     })
     if user_data:
@@ -76,9 +78,9 @@ def load_user(_id):
 # --------------------------------------------------
 @app.route('/')
 def index():
-    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+    location_data = client[DB_NAME][LOCATION_COLLECTION].find().sort(
         "location")
-    random_articles = client[DB_NAME]['articles'].aggregate(
+    random_articles = client[DB_NAME][ARTICLE_COLLECTION].aggregate(
         [{"$sample": {"size": 5}}])
 
     return render_template("/index.template.html", location_data=location_data, random_articles=random_articles)
@@ -87,9 +89,9 @@ def index():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+    location_data = client[DB_NAME][LOCATION_COLLECTION].find().sort(
         "location")
-    random_articles = client[DB_NAME]['articles'].aggregate(
+    random_articles = client[DB_NAME][ARTICLE_COLLECTION].aggregate(
         [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
         current_user = load_user(flask_login.current_user.get_id())
@@ -129,7 +131,7 @@ def home():
                 else:
                     flash('Please key in the tags you looking for.', 'info')
                     return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
-        article_data = client[DB_NAME]['articles'].find(myQuery)
+        article_data = client[DB_NAME][ARTICLE_COLLECTION].find(myQuery)
         return render_template("/articles/article-list.template.html", articles=article_data, listtype="search", form=form, tagsArray=tagsArray, locationArray=locationArray)
         # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
     else:
@@ -168,7 +170,7 @@ def login():
         inputemail = form.get('input-email')
         inputpassword = form.get('input-password')
         # check email against database
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+        user_data = client[DB_NAME][USER_COLLECTION].find_one(
             {'email': inputemail})
         if user_data:
             # check email and password against database
@@ -237,7 +239,7 @@ def register():
             return render_template("/auth/register.template.html", form=form)
         else:
             # check whether email is unique
-            user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one({
+            user_data = client[DB_NAME][USER_COLLECTION].find_one({
                 'email': form.get('input-email')
             })
             if user_data:
@@ -248,7 +250,7 @@ def register():
                 return render_template("/auth/register.template.html",
                                        form=form)
             else:
-                user_data = client[DB_NAME][USER_COLLECTION_NAME].insert_one({
+                user_data = client[DB_NAME][USER_COLLECTION].insert_one({
                     'email': form.get('input-email'),
                     'nickname': form.get('input-nickname'),
                     'password': form.get('input-password'),
@@ -280,7 +282,7 @@ def my_profile():
             # no change in password, direct update nickname
             myquery = {'email': form.get('input-email')}
             updatevalues = {'$set': {'nickname': form.get('input-nickname')}}
-            client[DB_NAME][USER_COLLECTION_NAME].update_one(
+            client[DB_NAME][USER_COLLECTION].update_one(
                 myquery, updatevalues)
             flash("Profile successfully updated", category='success')
             return render_template("/users/my-profile.template.html",
@@ -298,7 +300,7 @@ def my_profile():
                 myquery = {'email': form.get('input-email')}
                 updatevalues = {'$set': {'nickname': form.get(
                     'input-nickname'), 'password': form.get('input-password')}}
-                client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                client[DB_NAME][USER_COLLECTION].update_one(
                     myquery, updatevalues)
                 flash("Profile successfully updated", category='success')
                 return render_template("/users/my-profile.template.html",
@@ -337,7 +339,7 @@ def list_articles():
 def all_articles():
     current_user = load_user(flask_login.current_user.get_id())
     myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
-    articles = client[DB_NAME]['articles'].find(
+    articles = client[DB_NAME][ARTICLE_COLLECTION].find(
         {}, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
                            articles=articles, listtype='all', current_user=current_user)
@@ -361,7 +363,7 @@ def my_articles():
     current_user = load_user(flask_login.current_user.get_id())
     myQuery = {'created_by': ObjectId(current_user._id)}
     myProjections = {"_id": 1, "article_title": 1, "cleaning_location": 1}
-    articles = client[DB_NAME]['articles'].find(
+    articles = client[DB_NAME][ARTICLE_COLLECTION].find(
         myQuery, myProjections).sort('date_modified', pymongo.DESCENDING)
     return render_template("/articles/article-list.template.html",
                            current_user=current_user, articles=articles, listtype='my')
@@ -384,7 +386,7 @@ def my_articles():
 @app.route('/articles/contribute', methods=['GET', 'POST'])
 @flask_login.login_required
 def contribute_articles():
-    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+    location_data = client[DB_NAME][LOCATION_COLLECTION].find().sort(
         "location")
     current_user = load_user(flask_login.current_user.get_id())
     if request.method == 'POST':
@@ -404,7 +406,7 @@ def contribute_articles():
         input_creator = ObjectId(current_user._id)
         input_user_postings = [{'_id': ObjectId(), 'user_id' : '0', 'good_rating':False, 'neutral_rating':False,'bad_rating': False, 'comments': ""}]
 
-        client[DB_NAME]['articles'].insert_one({
+        client[DB_NAME][ARTICLE_COLLECTION].insert_one({
             'article_title': input_title,
             'cleaning_location': input_location,
             'article_content': input_content,
@@ -430,14 +432,14 @@ def contribute_articles():
 def edit_article(_id):
     current_user = load_user(flask_login.current_user.get_id())
     myQuery1 = {'_id': ObjectId(_id)}
-    article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+    article_data = client[DB_NAME][ARTICLE_COLLECTION].find_one(myQuery1)
     if (article_data):
         article_owner_id = str(article_data['created_by'])
         myQuery2 = {'_id': ObjectId(article_owner_id)}
-        article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+        article_owner_data = client[DB_NAME][USER_COLLECTION].find_one(myQuery2)
         article_owner_id = str(article_data['created_by'])
         if (article_owner_id == current_user._id) or current_user.admin:
-            location_data = client[DB_NAME]['cleaning_locations'].find().sort("location")
+            location_data = client[DB_NAME][LOCATION_COLLECTION].find().sort("location")
             if request.method == 'GET':
                 return render_template("/articles/edit.template.html", location_data=location_data, article_id=_id, article_owner_data=article_owner_data, current_user=current_user, article_data=article_data)
             else:
@@ -459,7 +461,7 @@ def edit_article(_id):
                     input_tags.remove("")
                 now = datetime.datetime.utcnow()
                 input_modified = now.strftime('%y-%m-%d %a %H:%M')
-                client[DB_NAME]['articles'].update_one({
+                client[DB_NAME][ARTICLE_COLLECTION].update_one({
                     '_id': article_data['_id']}, {'$set': {
                         'article_title': input_title,
                         'cleaning_location': input_location,
@@ -508,12 +510,12 @@ def show_article(_id):
     if (_id != "") :
         myQuery1 = {'_id': ObjectId(_id)}
         current_user = load_user(flask_login.current_user.get_id())
-        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        article_data = client[DB_NAME][ARTICLE_COLLECTION].find_one(myQuery1)
         if (article_data):
             article_owner_id = str(article_data['created_by'])
             myQuery2 = {'_id': ObjectId(article_owner_id)}
-            article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
-            user_posting_data = client[DB_NAME]['articles'].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
+            article_owner_data = client[DB_NAME][USER_COLLECTION].find_one(myQuery2)
+            user_posting_data = client[DB_NAME][ARTICLE_COLLECTION].find({'_id': ObjectId(_id)},{'user_postings.user_id': 1, 'user_postings.good_rating': 1, 'user_postings.neutral_rating': 1, 'user_postings.bad_rating':1, 'user_postings.comments':1})
             user_posting_data.rewind()
             user_posting_list = list(user_posting_data)
             user_postings = user_posting_list[0]['user_postings']
@@ -559,11 +561,11 @@ def delete_article(_id, listtype):
     if request.method == 'GET':
         if not(_id is None) and ObjectId.is_valid(_id):
             myQuery1 = {'_id': ObjectId(_id)}
-            article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+            article_data = client[DB_NAME][ARTICLE_COLLECTION].find_one(myQuery1)
             if (article_data):
                 article_owner_id = str(article_data['created_by'])
                 myQuery2 = {'_id': ObjectId(article_owner_id)}
-                article_owner_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(myQuery2)
+                article_owner_data = client[DB_NAME][USER_COLLECTION].find_one(myQuery2)
                 if '_user_id' in session:
                     current_user = load_user(flask_login.current_user.get_id())
                 else:
@@ -577,7 +579,7 @@ def delete_article(_id, listtype):
             return redirect(url_for('home'))
     else:
         myQuery1 = {'_id': ObjectId(_id)}
-        article_data = client[DB_NAME]['articles'].delete_one(myQuery1)
+        article_data = client[DB_NAME][ARTICLE_COLLECTION].delete_one(myQuery1)
         return redirect(url_for('my_articles'))
 
 
@@ -588,19 +590,19 @@ def delete_article(_id, listtype):
 @flask_login.login_required
 def rate(_id, rating):
     current_user = load_user(flask_login.current_user.get_id())
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
+    Post_to_update = (client[DB_NAME][ARTICLE_COLLECTION].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
     if not(Post_to_update):
         set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(current_user._id), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
-        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
+        client[DB_NAME][ARTICLE_COLLECTION].update_one({  '_id': ObjectId(_id) },set_user )
     reset_rating = { '$set': {'user_postings.$.good_rating':False, 'user_postings.$.neutral_rating':False, 'user_postings.$.bad_rating':False}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},reset_rating )
+    client[DB_NAME][ARTICLE_COLLECTION].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},reset_rating )
     if rating == 'good':
         set_rating = { '$set': {'user_postings.$.good_rating':True}}
     elif rating == 'neutral':
         set_rating = { '$set': {'user_postings.$.neutral_rating':True}}
     else:
         set_rating = { '$set': {'user_postings.$.bad_rating':True}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_rating )
+    client[DB_NAME][ARTICLE_COLLECTION].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_rating )
 
     flash('Rating successfully updated. ', category='success')
     return redirect(url_for('show_article', _id=_id))
@@ -614,12 +616,12 @@ def comment(_id):
         input_comments = form.get('input-comments')
     else:
         input_comments = ""
-    Post_to_update = (client[DB_NAME]['articles'].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
+    Post_to_update = (client[DB_NAME][ARTICLE_COLLECTION].find_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},{ 'user_postings': {'$elemMatch':{'user_id': ObjectId(current_user._id)}}} ))
     if not(Post_to_update):
         set_user = { '$push': { 'user_postings' : {'user_id': ObjectId(current_user._id), 'good_rating': False, 'neutral_rating':False, 'bad_rating':False, 'comments':''}}}
-        client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id) },set_user )
+        client[DB_NAME][ARTICLE_COLLECTION].update_one({  '_id': ObjectId(_id) },set_user )
     set_comments = { '$set': {'user_postings.$.comments': input_comments}}
-    client[DB_NAME]['articles'].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_comments )
+    client[DB_NAME][ARTICLE_COLLECTION].update_one({  '_id': ObjectId(_id), 'user_postings' : { '$elemMatch' : {  'user_id': ObjectId(current_user._id) }}},set_comments )
     flash('Comments successfully saved. ', category='success')
     return redirect(url_for('show_article', _id=_id))
 
@@ -629,9 +631,9 @@ def view_comment(_id):
     if (_id != "") :
         myQuery1 = {'_id': ObjectId(_id)}
         current_user = load_user(flask_login.current_user.get_id())
-        article_data = client[DB_NAME]['articles'].find_one(myQuery1)
+        article_data = client[DB_NAME][ARTICLE_COLLECTION].find_one(myQuery1)
         if (article_data):
-            joint_data = client[DB_NAME]['articles'].aggregate([
+            joint_data = client[DB_NAME][ARTICLE_COLLECTION].aggregate([
                 {"$match":
                     {'_id': ObjectId(_id)}
                 },
@@ -679,7 +681,7 @@ def view_comment(_id):
 def manage_cleaning_locations():
     if request.method == 'POST':
         form = request.form
-        location_data = client[DB_NAME]['cleaning_locations'].find_one(
+        location_data = client[DB_NAME][LOCATION_COLLECTION].find_one(
             {'_id': ObjectId(form.get('id'))})
         # render a form to allow editing of the selectedd cleaning location
         if form.get('action') == "edit":
@@ -690,7 +692,7 @@ def manage_cleaning_locations():
         elif form.get('action') == "edit-process":
             myquery = {'_id': ObjectId(form.get('id'))}
             updatevalues = {'$set': {'location': form.get('input-location')}}
-            client[DB_NAME]['cleaning_locations'].update_one(
+            client[DB_NAME][LOCATION_COLLECTION].update_one(
                 myquery, updatevalues)
             flash('Location successfully updated', category='success')
             return redirect("/cleaning-locations/manage")
@@ -701,12 +703,12 @@ def manage_cleaning_locations():
         # remove the selected clearning location from the database
         elif form.get('action') == "delete-process":
             myquery = {'_id': ObjectId(form.get('id'))}
-            client[DB_NAME]['cleaning_locations'].delete_one(myquery)
+            client[DB_NAME][LOCATION_COLLECTION].delete_one(myquery)
             flash('Location successfully deleted', category='success')
             return redirect("/cleaning-locations/manage")
         # Insert the new cleaning location into the database
         elif form.get('action') == "add":
-            client[DB_NAME]['cleaning_locations'].insert_one(
+            client[DB_NAME][LOCATION_COLLECTION].insert_one(
                 {'location': form.get('input-new-location')})
             flash("New cleaning location added.")
             return redirect("/cleaning-locations/manage")
@@ -715,7 +717,7 @@ def manage_cleaning_locations():
     else:
         # display the add cleaning location form and
         # list out the cleaning locations in the databasse
-        location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+        location_data = client[DB_NAME][LOCATION_COLLECTION].find().sort(
             'location', pymongo.ASCENDING)
         return render_template("/cleaning-locations/manage.template.html",
                                location_data=location_data)
@@ -732,7 +734,7 @@ def manage_cleaning_locations():
 def manage_users():
     if request.method == 'POST':
         form = request.form
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find_one(
+        user_data = client[DB_NAME][USER_COLLECTION].find_one(
             {'_id': ObjectId(form.get('id'))})
         # Render a form to allow editing of the selected user
         # This includes changing nickname, reset password and
@@ -751,7 +753,7 @@ def manage_users():
                 myquery = {'_id': ObjectId(form.get('id'))}
                 updatevalues = {'$set': {'nickname': form.get(
                     'input-nickname'), 'admin': adminrights}}
-                client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                client[DB_NAME][USER_COLLECTION].update_one(
                     myquery, updatevalues)
                 flash("User details successfully updated", category='success')
                 return render_template("/users/edit.template.html",
@@ -772,7 +774,7 @@ def manage_users():
                         'nickname': form.get('input-nickname'),
                         'password': form.get('input-password'),
                         'admin': adminrights}}
-                    client[DB_NAME][USER_COLLECTION_NAME].update_one(
+                    client[DB_NAME][USER_COLLECTION].update_one(
                         myquery, updatevalues)
                     flash("Profile successfully updated", category='success')
                     return render_template("/users/edit.template.html",
@@ -784,14 +786,14 @@ def manage_users():
         # remove the selected user from the database
         elif form.get('action') == "delete-process":
             myquery = {'_id': ObjectId(form.get('id'))}
-            client[DB_NAME][USER_COLLECTION_NAME].delete_one(myquery)
+            client[DB_NAME][USER_COLLECTION].delete_one(myquery)
             flash('User successfully deleted', category='success')
             return redirect("/users/manage")
         else:
             return redirect(url_for('error_encountered'))
     else:
         # display the search box and list out the users in the databasse
-        user_data = client[DB_NAME][USER_COLLECTION_NAME].find().sort(
+        user_data = client[DB_NAME][USER_COLLECTION].find().sort(
             'nickname', pymongo.ASCENDING)
         return render_template("/users/manage.template.html",
                                user_data=user_data)
