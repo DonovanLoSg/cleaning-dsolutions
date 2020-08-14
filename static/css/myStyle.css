@@ -349,3 +349,10 @@ background=color: green
     
 }
 
+.message-panel{
+    z-index: 20;
+}
+
+header {
+    z-index: -10;
+}
