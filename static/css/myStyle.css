@@ -1,5 +1,6 @@
 html {
   font-size: 1rem;
+  height: 100%;
 }
 
 @include media-breakpoint-up(sm) {
@@ -21,28 +22,32 @@ html {
 }
 
 body {
+background: url("../img/dining-room-3108037.jpg") no-repeat center center;
   font-family: "Roboto", sans-serif;
-  background-image: url("../img/common/grass-background3.png"),
-    url("../img/common/white-background.png");
-  background-position: bottom left, top left;
-  background-attachment: fixed;
-  background-repeat: repeat-x, repeat;
+  height: 100%;
 }
 
-
 .container {
-    padding-left: 0;
-    padding-right: 0;
-    column-gap: 40px;
+  padding-left: 0;
+  padding-right: 0;
+  column-gap: 40px;
 }
 
 /* Heading */
+
+.fixed-top {
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
 
 h1 {
   display: block;
   font-family: "Roboto", sans-serif;
   position: static;
   margin: 0.5rem;
+  text-shadow: 2px 2px 8px white;
 }
 
 h2 {
@@ -52,7 +57,6 @@ h2 {
   text-transform: uppercase;
   color: darkred;
   font-size: 1.4rem;
-
 }
 
 h2::first-letter {
@@ -60,8 +64,9 @@ h2::first-letter {
 }
 
 hr.title-divider {
-    border: 1px solid darkred;
-    box-shadow: 0 0 12px 0 rgba(255, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 0, 0, 0.19);
+  border: 1px solid darkred;
+  box-shadow: 0 0 12px 0 rgba(255, 0, 0, 0.2),
+    0 6px 20px 0 rgba(255, 0, 0, 0.19);
 }
 
 .no-gutters {
@@ -160,7 +165,7 @@ button {
 }
 
 .rating-column {
-    width: 1rem
+  width: 1rem;
 }
 
 /* - font of article titles */
@@ -208,8 +213,6 @@ button {
   display: inline-block;
 }
 
-
-
 .random_articles p {
   padding: 0;
   margin: 0;
@@ -219,4 +222,113 @@ button {
   font-size: 2rem;
 }
 
+/* hero image */
 
+#hero-image {
+  height: 100%;
+  width: 100%;
+
+  background: url("../img/dining-room-3108037.jpg") no-repeat center center;
+  animation-name: hero-zoom;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+}
+
+#hero-outer {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#hero-inner {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: white;
+  opacity: 0.5;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+#cover-text {
+  font-size: 200%;
+  letter-spacing: 4px;
+  background-color: whitesmoke;
+  border-radius: 30px 30px 0 0;
+  width: 480px;
+  height: 220px;
+  padding: 20px;
+
+  top: 20vh;
+  left: 10vw;
+  display: block;
+  position: absolute;
+}
+
+#cover-text > h3 {
+  font-family: "Baloo Tamma 2", cursive;
+  font-size: 3rem;
+  text-shadow: 2px 2px 8px black;
+  color: white;
+}
+
+#cover-text > h4 {
+  font-family: "Baloo Tamma 2", cursive;
+  font-size: 1.5rem;
+
+  color: black;
+}
+#cover-text .glass {
+    left: -1vw ;
+}
+
+.glass {
+  /* background styles */
+  position: relative;
+  display: inline-block;
+  padding: 15px 25px;
+  letter-spacing: 2px;
+  background-color: blue; /*for compatibility with older browsers*/
+  background-image: linear-gradient(blue, lightblue);
+  width: 480px;
+  left: -10vw;
+
+  /* text styles */
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-family: lato, sans-serif;
+  font-weight: 100;
+
+  border-radius: 3px;
+  box-shadow: 0px 1px 4px -2px #333;
+  text-shadow: 0px -1px #333;
+}
+
+.glass:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: 50%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
+  );
+}
+
+.glass:hover {
+  background: linear-gradient(rgb(43, 81, 187), rgb(47, 0, 255));
+  text-decoration: none;
+  color: white;
+}

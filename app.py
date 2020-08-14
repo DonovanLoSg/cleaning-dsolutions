@@ -76,8 +76,13 @@ def load_user(_id):
 # --------------------------------------------------
 @app.route('/')
 def index():
-    pass
-    return redirect(url_for("home"))
+    location_data = client[DB_NAME]['cleaning_locations'].find().sort(
+        "location")
+    random_articles = client[DB_NAME]['articles'].aggregate(
+        [{"$sample": {"size": 5}}])
+
+    return render_template("/index.template.html", location_data=location_data, random_articles=random_articles)
+
 
 
 @app.route('/home', methods=['GET', 'POST'])

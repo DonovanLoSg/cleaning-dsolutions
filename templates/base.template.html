@@ -18,8 +18,9 @@
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,600&family=Roboto&display=swap" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&family=Lora:ital,wght@1,500&family=Roboto+Condensed&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
+
     
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/reset/reset.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"/>
@@ -44,7 +45,7 @@
     <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   </head>
 
-  <body>
+  <body >
     {% with messages = get_flashed_messages(with_categories=True) %} {% if
     messages %} {% for message in messages %}
     <div class="alert alert-{{message[0]}} alert-dismissible fade show" role="alert" >
@@ -59,10 +60,10 @@
     PAGE HEADER
     ========================================================== -->
     <header>
-        <div class="container black-border blur-shadow">
+        <div class="container black-border blur-shadow fixed-top">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <!-- Branding -->
-                <a class="navbar-brand" href="{{url_for('home')}}">
+                <a class="navbar-brand" href="{{url_for('index')}}">
                     <img src="http://resume.donovanlo.sg/images/donovanlogo150x131.png" 
                     height="50" class="d-inline-block align-middle" alt="Logo" /> 
                     <span class="font-weight-bold">Cleaning d'Solutions&nbsp;&nbsp;&nbsp;</span>
@@ -136,6 +137,7 @@
             </nav>
         </div>
     </header>
+    <div><br><br><br><br></div>    
     <!-- ==========================================================
     MAIN
     ========================================================== -->
