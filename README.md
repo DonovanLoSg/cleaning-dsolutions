@@ -41,6 +41,12 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Logo](#logo)
         - [Main Navigation](#main-navigation)
         - [Collapsible Hamburger Mobile Menu](#collapsible-hamburger-mobile-menu)
+    - [Interface Design](#interface-design)
+        - [Site Map](#site-map)
+    - [Information Design](#information-design)
+- [Designing Graphics User Interface (Surface)](#designing-graphics-user-interface-surface)
+    - [Visual Design](#visual-design)
+
 
 
 ## Defining the Project (Strategy)
@@ -206,7 +212,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 #### Logo
 
-Logo on every page, clicking on it will bring the visitor to the Home Page. [Bootstrap Component - Navbar]
+Logo on every page, clicking on it will bring the visitor to the Splash Page. [Bootstrap Component - Navbar]
 
 #### Main Navigation
 
@@ -221,6 +227,10 @@ The top navigation will be minimised into a hamburger menu when displayed in mob
 ### Interface Design
 
 
+
+#### Site Map
+
+<img src="/readme/sitemap.png" style="margin: 0; width: 100%" alt="Site Map>
 
 ### Information Design
 
