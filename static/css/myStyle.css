@@ -282,8 +282,7 @@ button {
 #splash-text h3 {
 	font-family: "Baloo Tamma 2", cursive;
 	font-size: 2rem;
-	color: grey;
-	text-shadow: 2px 2px 8px black;
+	color: black;
 }
 #splash-text button {
 	opacity: 1;
