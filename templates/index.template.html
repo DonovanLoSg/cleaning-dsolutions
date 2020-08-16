@@ -45,18 +45,18 @@
       type="text/css"
       href="{{ url_for('static', filename='css/lib/dataTables/datatables.min.css') }}"
     />
-
-    <link
+     <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static', filename='css/splash.css') }}"
-    />
-
-    <link
+    />   <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static', filename='css/myStyle.css') }}"
     />
+
+
+
 
     <link
       rel="shortcut icon"
@@ -103,20 +103,20 @@
       <div id="body-content-clone "></div>
     </div>
 
-    <div id="splash-text">
+    <div class="splash-text-box">
       <div>
-        <h1>Cleaning d'Solutions</h1>
-        <h3>Solutions to griminess and messiness.</h3>
+        <span class="splash-text-title">Cleaning d'Solutions</span>
+        <span class="splash-text-sub">Solutions to griminess and messiness.</span>
       </div>
-      <div>
+      <div class="d-flex justify-content-between">
         <a
           href="{{ url_for('home')}}#search-panel"
-          class="btn btn-primary btn-md"
+          class="btn btn-primary btn-md splash-text-button"
           >Search<br />Article</a
         >
         <a
           href="{{ url_for('home')}}#random-read"
-          class="btn btn-primary btn-md"
+          class="btn btn-primary btn-md splash-text-button"
           >Read<br />Article</a
         >
       </div>

@@ -802,7 +802,7 @@ def manage_users():
 # inbuilt function which handles exception like file not found
 @app.errorhandler(404)
 def not_found(e):
-    flash('File not found. We will redirect you to the home page in a moment.'+e, category='success')
+    flash('File not found. We will redirect you to the home page in a moment.', category='success')
     return redirect(url_for("home"))
 
 
