@@ -8,6 +8,7 @@ body {
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
+    background-color: white;
 	font-family: "Roboto", sans-serif;
 	height: 100%;
 	width: 100vw;
@@ -20,9 +21,9 @@ body {
 	body {
 		background: url("../img/dining-room-3108037-small.jpg") no-repeat center center;
 		background-attachment: fixed;
-		background-color: blue;
 		background-repeat: no-repeat;
 		background-size: cover;
+        background-color: white;
 		font-family: "Roboto", sans-serif;
 		height: 100%;
 		width: 100vw;

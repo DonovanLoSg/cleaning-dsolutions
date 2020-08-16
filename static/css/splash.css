@@ -5,7 +5,7 @@
 	border: #ffffff63 solid 3px;
 	border-radius: 1em;
 	box-shadow: 6px 7px 5px #00000075;
-	height: 350px;
+	height: 320px;
 	left: 50%;
 	margin-right: -50%;
 	opacity: 0.6;
@@ -14,8 +14,9 @@
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 420px;
+	width: 400px;
 }
+
 
 #frosted-glass-mask:after {
 	background: white;
@@ -40,23 +41,25 @@
 	border: #ffffff63 solid 3px;
 	border-radius: 1em;
 	box-shadow: 6px 7px 5px #00000075;
-	height: 350px;
+	height: 320px;
 	left: 50%;
+    right: 50%;
 	opacity: 1;
 	overflow: hidden;
 	padding: 1.5rem;
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 420px;
-	/* margin-right: -50%; */
+	width: 400px;
+	margin-right: -210px;
+    z-index: 30;
 }
 
 .splash-text-title {
 	font-family: "Baloo Tamma 2", cursive;
 	color: white;
 	font-size: 4rem;
-	line-height: 3.5rem;
+	line-height: 4rem;
 	text-shadow: 2px 2px 8px black;
 }
 
@@ -64,13 +67,103 @@
 	color: black;
 	font-family: "Baloo Tamma 2", cursive;
 	font-size: 2rem;
-	line-height: 2rem;
+    line-height: 1.5rem;
 	margin-top: 1.5rem;
 	margin-bottom: 1.5rem;
 	display: inline-block;
 }
 
-.splash-text-button {
+.splash-text-button .btn {
 	opacity: 1;
-	padding: 4px;
+	padding: 3px;
+    width: 100px;
+}
+
+
+/* Any devices that are 900px or less, use a smaller background image */
+
+@media screen and (max-width: 900px) {
+
+    /* frosted glass */
+
+    #frosted-glass-mask {
+        background: white;
+        border: #ffffff63 solid 3px;
+        border-radius: 1em;
+        box-shadow: 6px 7px 5px #00000075;
+        height: 250px;
+        left: 50%;
+        margin-right: -50%;
+        opacity: 0.6;
+        overflow: hidden;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+    }
+
+
+    #frosted-glass-mask:after {
+        background: white;
+        box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.05);
+        content: '';
+        filter: blur(10px);
+        height: 250px;
+        position: absolute;
+        width: 300px;
+    }
+
+    #body-content-clone {
+        background: url("../img/dining-room-3108037-small.jpg") no-repeat center center;
+        background-attachment: fixed;
+        filter: blur(10px);
+        overflow: hidden;
+        position: absolute;
+        text-shadow: 2px 2px 8px black;
+    }
+
+    .splash-text-box {
+        border: #ffffff63 solid 3px;
+        border-radius: 1em;
+        box-shadow: 6px 7px 5px #00000075;
+        height: 250px;
+        left: 50%;
+        right: 50%;
+        opacity: 1;
+        overflow: hidden;
+        padding: 1rem;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        margin-right: -210px;
+        z-index: 30;
+    }
+
+    .splash-text-title {
+        font-family: "Baloo Tamma 2", cursive;
+        color: white;
+        font-size: 2.8rem;
+        line-height: 2.8rem;
+        text-shadow: 2px 2px 8px black;
+    }
+
+    .splash-text-sub {
+        color: black;
+        font-family: "Baloo Tamma 2", cursive;
+        font-size: 1.2rem;
+        line-height: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    .splash-text-button .btn {
+        opacity: 1;
+        padding: 2px;
+        
+    }    
+    
+
 }

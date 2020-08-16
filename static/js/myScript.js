@@ -28,10 +28,6 @@ if (document.getElementById("myTable2")) {
 	});
 }
 
-$("#myTable").on("click", function () {
-	alert("x");
-});
-
 // HTML editor for article contribution and edition
 
 tinymce.init({
