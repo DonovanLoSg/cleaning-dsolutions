@@ -1,24 +1,19 @@
 <!-- Displaying a choice of action between adding another article 
-or going to the user's articles listing after submitting an article from contribute route  -->
-
+	or going to the user's articles listing after submitting an article from contribute route  -->
 <!doctype html>
 {% extends 'base.template.html' %}
-
 {% block header %}
 <h1>{% block title %}Contribute{% endblock %}</h1>
 {% endblock %}
-
 {% block content %}
 <div class="container black-border blur-shadow p-3 pb-5 mb-5">
-    <div class="container">
-        <a href="/articles/contribute" class="btn btn-primary btn-md btn2">
-            Add another article
-        </a>
-        <a href="/articles/my-list" class="btn btn-primary btn-md btn2">
-            Go to my article listing
-        </a>
-    </div>
+	<div class="container">
+		<a href="/articles/contribute" class="btn btn-primary btn-md btn2">
+		Add another article
+		</a>
+		<a href="/articles/my-list" class="btn btn-primary btn-md btn2">
+		Go to my article listing
+		</a>
+	</div>
 </div>
-
-
 {% endblock %}

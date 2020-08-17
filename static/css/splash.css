@@ -5,7 +5,7 @@
 	border: #ffffff63 solid 3px;
 	border-radius: 1em;
 	box-shadow: 6px 7px 5px #00000075;
-	height: 320px;
+	height: 400px;
 	left: 50%;
 	margin-right: -50%;
 	opacity: 0.6;
@@ -14,7 +14,7 @@
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 400px;
+	width: 600px;
 }
 
 
@@ -23,9 +23,9 @@
 	box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.05);
 	content: '';
 	filter: blur(10px);
-	height: 350px;
+	height: 400px;
 	position: absolute;
-	width: 420px;
+	width: 620px;
 }
 
 #body-content-clone {
@@ -38,10 +38,8 @@
 }
 
 .splash-text-box {
-	border: #ffffff63 solid 3px;
-	border-radius: 1em;
-	box-shadow: 6px 7px 5px #00000075;
-	height: 320px;
+
+	height: 400px;
 	left: 50%;
     right: 50%;
 	opacity: 1;
@@ -50,7 +48,7 @@
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 400px;
+	width: 500px;
 	margin-right: -210px;
     z-index: 30;
 }
@@ -58,25 +56,27 @@
 .splash-text-title {
 	font-family: "Baloo Tamma 2", cursive;
 	color: white;
-	font-size: 4rem;
-	line-height: 4rem;
+	font-size: 5rem;
+	line-height: 5rem;
 	text-shadow: 2px 2px 8px black;
+    padding:2 rem;
 }
 
 .splash-text-sub {
 	color: black;
 	font-family: "Baloo Tamma 2", cursive;
 	font-size: 2rem;
-    line-height: 1.5rem;
-	margin-top: 1.5rem;
-	margin-bottom: 1.5rem;
+    line-height: 2rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 	display: inline-block;
 }
 
 .splash-text-button .btn {
 	opacity: 1;
-	padding: 3px;
-    width: 100px;
+	padding: 10px;
+    width: 160px;
+    font-size: 1.5rem
 }
 
 
@@ -124,9 +124,7 @@
     }
 
     .splash-text-box {
-        border: #ffffff63 solid 3px;
-        border-radius: 1em;
-        box-shadow: 6px 7px 5px #00000075;
+
         height: 250px;
         left: 50%;
         right: 50%;
