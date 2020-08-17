@@ -1,47 +1,44 @@
-<!DOCTYPE html>
 {% extends 'base.template.html' %} 
-
 {% block header %}
 <h1>{% block title %}Users{% endblock %}</h1>
 {% endblock %} 
-
 {% block content %}
 <div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
-    <table id="myTable" class="display" data-page-length='10'>
-        <thead>
-            <tr>
-                <th>Nickname</th>
-                <th>Email</th>
-                <th>Admin?</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in user_data %}
-            <tr>
-                <td>{{user.nickname}}</td>
-                <td>{{user.email}}</td>
-                <td>{% if user.admin %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <form method="post" name="form" target="_self">
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                        <input type="hidden" name="action" value="edit">
-                        <input type="hidden" name="source" value="user-listing">
-                        <input type="hidden" name="id" value="{{user._id}}">
-                    </form>
-                </td>
-                <td>
-                    <form method="post" name="form" target="_self">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="source" value="user-listing">
-                        <input type="hidden" name="id" value="{{user._id}}">
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table id="myTable" class="display" data-page-length="10">
+		<thead>
+			<tr>
+				<th>Nickname</th>
+				<th>Email</th>
+				<th>Admin?</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in user_data %}
+			<tr>
+				<td>{{user.nickname}}</td>
+				<td>{{user.email}}</td>
+				<td>{% if user.admin %}Yes{% else %}No{% endif %}</td>
+				<td>
+					<form method="post" name="form" target="_self">
+						<button type="submit" class="btn btn-primary">Edit</button>
+						<input type="hidden" name="action" value="edit">
+						<input type="hidden" name="source" value="user-listing">
+						<input type="hidden" name="id" value="{{user._id}}">
+					</form>
+				</td>
+				<td>
+					<form method="post" name="form" target="_self">
+						<button type="submit" class="btn btn-danger">Delete</button>
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="source" value="user-listing">
+						<input type="hidden" name="id" value="{{user._id}}">
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
 {% endblock %}

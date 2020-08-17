@@ -1,24 +1,20 @@
 <!doctype html>
-
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+{% if messages %}
+<ul class="flashes">
+	{% for message in messages %}
+	<li>{{ message }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
 {% endwith %}
 {% block body %}{% endblock %}
-
-
 {%if messages %}
-    <div id="fade5" class="alert alert-success text-center">
-        {%for message in messages}
-        <div>
-            {{ message}}
-        </div>
-        {%end for%}
-    </div>
+<div id="fade5" class="alert alert-success text-center">
+	{%for message in messages}
+	<div>
+		{{ message}}
+	</div>
+	{%end for%}
+</div>
 {%endif%}
-

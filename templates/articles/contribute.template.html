@@ -1,5 +1,4 @@
 <!-- Displaying a form for accepting article info, supporting the contribute route. -->
-<!doctype html>
 {% extends 'base.template.html' %}
 {% block header %}
 <h1>{% block title %}Contribute Article{% endblock %}</h1>
@@ -36,47 +35,46 @@
 		</select>
 	</div>
 	<!-- content -->
-	<div>
 	<div class="form-group ">
 		<label for="input-content" class="thick">Content:</label>
 		<textarea class="form-control" id="input-content" name="input-content" rows="10">{% if (form) %} {{form.get('input-content') }}{% endif %}
 		</textarea>
 	</div>
-	<div>
-		<!-- cleaning items -->
-		<div class="form-group">
-			<label for="input-items" class="thick">Cleaning Items: <small>(seperated by commas)</small></label>
-			{% if (form) %}
-			<input type="text" class="form-control" id="input-items" name="input-items" rows="2"
-				placeholder="i.e. tools and equipment" />
-			{% else %}
-			<input type="text" class="form-control" id="input-items" name="input-items" rows="2"
-				placeholder="i.e. tools and equipment" value = "{{form.get('input-items') }}"/>
-			{% endif %}
-			<!-- cleaning supplies -->
-			<div class="form-group">
-				<label for="input-supplies" class="thick">Cleaning Supplies: <small>(seperated by commas)</small></label>
-				{% if (form) %}
-				<input type="text" class="form-control" id="input-supplies" name="input-supplies"
-					placeholder="i.e. consumables" value = "{{form.get('input-supplies') }}"/>
-				{% elese %}
-				<input type="text" class="form-control" id="input-supplies" name="input-supplies"
-					placeholder="i.e. consumables" />
-				{% endif %}
-			</div>
-			<!-- Tags -->
-			<div class="form-group">
-				<label for="input-tags" class="thick">Tags: </label>
-				{% if (form) %}
-				<input type="text" class="form-control" id="input-tags" name="input-tags"
-					placeholder="enter tags, seperated by commas" 
-					value = "{{form.get('input-tags') }}"/>
-				{% else %}
-				<input type="text" class="form-control" id="input-tags" name="input-tags"
-					placeholder="enter tags, seperated by commas" />
-				{% endif %}
-			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+    <!-- cleaning items -->
+    <div class="form-group">
+        <label for="input-items" class="thick">Cleaning Items: <small>(seperated by commas)</small></label>
+        {% if (form) %}
+        <input type="text" class="form-control" id="input-items" name="input-items" rows="2"
+            placeholder="i.e. tools and equipment" />
+        {% else %}
+        <input type="text" class="form-control" id="input-items" name="input-items" rows="2"
+            placeholder="i.e. tools and equipment" value = "{{form.get('input-items') }}"/>
+        {% endif %}
+        <!-- cleaning supplies -->
+        <div class="form-group">
+            <label for="input-supplies" class="thick">Cleaning Supplies: <small>(seperated by commas)</small></label>
+            {% if (form) %}
+            <input type="text" class="form-control" id="input-supplies" name="input-supplies"
+                placeholder="i.e. consumables" value = "{{form.get('input-supplies') }}"/>
+            {% elese %}
+            <input type="text" class="form-control" id="input-supplies" name="input-supplies"
+                placeholder="i.e. consumables" />
+            {% endif %}
+        </div>
+        <!-- Tags -->
+        <div class="form-group">
+            <label for="input-tags" class="thick">Tags: </label>
+            {% if (form) %}
+            <input type="text" class="form-control" id="input-tags" name="input-tags"
+                placeholder="enter tags, seperated by commas" 
+                value = "{{form.get('input-tags') }}"/>
+            {% else %}
+            <input type="text" class="form-control" id="input-tags" name="input-tags"
+                placeholder="enter tags, seperated by commas" />
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 </div>
 </div>
