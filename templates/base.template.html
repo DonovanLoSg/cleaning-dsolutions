@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/jquery.dataTables.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal-spinner.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/myStyle.css') }}" />
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon/favicon.ico') }}" />
@@ -46,6 +47,9 @@
   </head>
 
   <body >
+
+<!-- Flask Flush Messages -->
+
     <div class="message-panel  ">
     {% with messages = get_flashed_messages(with_categories=True) %} {% if
     messages %} {% for message in messages %}
@@ -57,6 +61,35 @@
     </div>
     {% endfor %} {% endif %} {% endwith %}
     </div>
+
+ <!-- Model Spinner -->
+  <div id="myModal" class="modal fade loading-modal d-none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="d-flex align-items-center">
+          <div class="loader text-center ">
+          <div class="loader-inner-clone">
+            </div>
+            <div class="loader-inner ">
+              <!-- Animated Spinner -->
+              <div class="lds-roller mb-3">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            <h4 class="text-uppercase font-weight-bold">Loading...</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
 
     <!-- ========================================================== 
     PAGE HEADER
@@ -156,3 +189,4 @@
     <footer></footer>
   </body>
 </html>
+

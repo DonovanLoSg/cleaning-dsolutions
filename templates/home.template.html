@@ -65,7 +65,7 @@
                             {% if (form) %} value="{{form.get('search-tags')}}"{% endif %} />
                     </div> 
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary showSpinner">Search</button>
             </form>
         </div>
 
@@ -88,7 +88,7 @@
                         {% for each_article in random_articles %}
                         <tr>
                             <td style="width: 95%">
-                                <div><a href="/articles/{{each_article._id}}">{{each_article.article_title}}</a></div>
+                                <div><a href="/articles/{{each_article._id}}" class="showSpinner">{{each_article.article_title}}</a></div>
                                 <div class="text-right">- ({{each_article.cleaning_location}}})</div>
                                 <br>
                             </td>
@@ -101,7 +101,7 @@
         </div>
 
 </div>
-
+<button class="showSpinner">x</button>
 
 {% endblock %}
 
