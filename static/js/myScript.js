@@ -6,7 +6,7 @@ $(document).ready(function () {
 		searching: true,
 		ordering: true,
 		info: true,
-		stateSave: true,
+		stateSave: false,
 	});
 
 	// Tooltip

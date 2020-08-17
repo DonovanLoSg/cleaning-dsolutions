@@ -19,6 +19,7 @@
 {% block content %} 
 {% if (listtype == "search") %}
 <div class="black-border blur-shadow search-param px-0">
+<div class="comtainer">
 	Searched for articles which fulfil the following conditions:<br />
 	<ul>
 		{% if (form.getlist('check-search-titles')) %} 
@@ -60,6 +61,7 @@
 		    {% endif %} {% endif %}
 	    </ul>
     </div>
+</div>
 {% endif %}
 <!-- This section display a list of requested articles. -->
 <div class="container black-border blur-shadow p-3 pb-5 mb-5">

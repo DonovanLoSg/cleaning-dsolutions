@@ -133,8 +133,9 @@ def home():
                     flash('Please key in the tags you looking for.', 'info')
                     return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
         else:
-            flash('Please select at least one of the criteria to search on.', 'info')
+            flash('Please select at least one search criteria.', 'info')
             return render_template("/home.template.html", location_data=location_data, form=form, random_articles=random_articles)
+            
         article_data = client[DB_NAME][ARTICLE_COLLECTION].find(myQuery)
         return render_template("/articles/article-list.template.html", articles=article_data, listtype="search", form=form, tagsArray=tagsArray, locationArray=locationArray)
         # return render_template("home.template.html", form=form, location_data=location_data, myQuery = myQuery, article_data=article_data, tagsArray=tagsArray)
