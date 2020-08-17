@@ -99,9 +99,9 @@ def home():
         myQuery = {}
         tagsArray = []
         locationArray = []
-        if (form.getlist('check-search-titles') and (form.get('search-title') != '')) or 
+        if ((form.getlist('check-search-titles') and (form.get('search-title') != '')) or 
         (form.getlist('check-search-locations') and (form.getlist('check-search-locations') != '')) or
-        (form.getlist('check-search-tags') and (form.getlist('check-search-tags') != '')):
+        (form.getlist('check-search-tags') and (form.getlist('check-search-tags') != ''))):
             if form.getlist('check-search-titles'):
                 if form.getlist('check-search-titles') != '':
                     search_article_string = re.escape(form.get('search-title'))
