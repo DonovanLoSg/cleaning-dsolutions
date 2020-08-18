@@ -536,7 +536,7 @@ def show_article(_id):
             user_comments = ''
             for post in user_postings:
                 if current_user:
-                    if post['user_id'] == current_user._id:
+                    if post['user_id'] == ObjectId(current_user._id):
                         if post['good_rating']:
                             user_rated = 'good'
                         elif post['neutral_rating']:
@@ -640,16 +640,16 @@ def rate(_id, rating):
                 'comments': ''}}}
         client[DB_NAME][DB_ARTICLE].update_one({
             '_id': ObjectId(_id)}, set_user)
-        reset_rating = {'$set': {
-            'user_postings.$.good_rating': False,
-            'user_postings.$.neutral_rating': False,
-            'user_postings.$.bad_rating': False}}
-        client[DB_NAME][DB_ARTICLE].update_one({
-            '_id': ObjectId(_id),
-            'user_postings': {
-                '$elemMatch': {
-                    'user_id': ObjectId(current_user._id)}}},
-            reset_rating)
+    reset_rating = {'$set': {
+        'user_postings.$.good_rating': False,
+        'user_postings.$.neutral_rating': False,
+        'user_postings.$.bad_rating': False}}
+    client[DB_NAME][DB_ARTICLE].update_one({
+        '_id': ObjectId(_id),
+        'user_postings': {
+            '$elemMatch': {
+                'user_id': ObjectId(current_user._id)}}},
+        reset_rating)
     if rating == 'good':
         set_rating = {'$set': {'user_postings.$.good_rating': True}}
     elif rating == 'neutral':

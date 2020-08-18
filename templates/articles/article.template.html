@@ -27,27 +27,24 @@
 				<div class="col-12 col-md-6">
 					<!-- Validation/Ratings -->
 					<p class="thick">Does it works? </p>
-					<div class="row">
+					<div class="row ">
 						<div class="col text-center">
-							<img src="{{ url_for('static', filename='img/faces/noun_Smile_2472187.svg') }}" 
-								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Smile_2472187.png') }}'" 
-								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+							<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}"
+                            data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
 							<span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
 						</div>
 						<div class="col text-center">
-							<img src="{{ url_for('static', filename='img/faces/noun_Face_2472188.svg') }} "
-								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Face_2472188.png') }}'" 
-								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
+                            data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
 							<span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
 						</div>
 						<div class="col text-center">
-							<img src="{{ url_for('static', filename='img/faces/noun_Face_2472189.svg') }}" 
-								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Face_2472189.png') }}'" 
-								class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
+							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
+                            data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
 							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
 						</div>
 					</div>
-					<a href="/comment/view/{{article_data._id}}"> View Comments</a>
+					<a href="/comment/view/{{article_data._id}}" class="btn btn-info"> View Comments</a>
 				</div>
 			</div>
 		</div>
@@ -102,28 +99,37 @@
 		</div>
 		{% if current_user.is_authenticated %}
 		<div class="container mt-5">
-			<div class="row">
+			<div class="row ">
 				<div class="col-12 col-md-6">
-					<!-- User's rating -->
+					<!-- User's rating -->{{user_rated}}
 					<p class="thick">Rate the method(s) in this article:</p>
 					<a href="/rate/{{article_data._id}}/good">
-					<img src="../static/img/faces/noun_Smile_2472187.svg" 
-						onerror="this.onerror=null; this.src='noun_Smile_2472187.png'" 
-						class="faces rated"
-						data-toggle="tooltip" data-placement="top" title="It works !">
+                    {% if user_rated == 'good' %}
+					<img src="{{ url_for('static', filename='img/faces/face_smile_color.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
+                    {% else %}
+					<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
+                    {% endif %}
 					</a>
 					<a href="/rate/{{article_data._id}}/neutral">
-					<img src="../static/img/faces/noun_Face_2472188.svg" 
-						onerror="this.onerror=null; this.src='noun_Face_2472188.png'" 
-						class="faces {% if user_rated == 'neutral' %} rated {% endif %}" 
-						data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                    {% if user_rated == 'neutral' %}
+                    <img src="{{ url_for('static', filename='img/faces/face_blank_color.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
+                    {% else %}
+					<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
+                    {% endif %}
 					</a>
 					<a href="/rate/{{article_data._id}}/bad">
-					<img src="../static/img/faces/noun_Face_2472189.svg" 
-						onerror="this.onerror=null; this.src='noun_Face_2472189.png'" 
-						class="faces {% if user_rated == 'bad' %}rated{% endif %}"
-						data-toggle="tooltip" data-placement="top" title="Doesn't work !">
+					{% if user_rated == 'bad' %}
+                    <img src="{{ url_for('static', filename='img/faces/face_frown_color.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="Doesn't work !">
+					{% else %}
+					<img src="{{ url_for('static', filename='img/faces/face_frown.png')}}"
+						data-toggle="tooltip" data-placement="top" class="faces" title="Doesn't work !">
 					</a>
+                    {% endif %}
 				</div>
 				<div class="col-12 col-md-6">
 					<!-- User's comments -->
