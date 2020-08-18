@@ -19,9 +19,16 @@
                 <div>
                     <div class="form-check">
                         <label class="form-check-label">
+                            {% if form and form.getlist('check-search-titles') %}checked
                             <input type="checkbox" class="form-check-input"
                                 id="check-search-titles" name="check-search-titles"
-                                value="titles" {% if form and form.getlist('check-search-titles') %}checked{% endif %}>
+                                value="titles"  checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input"
+                                id="check-search-titles" name="check-search-titles"
+                                value="titles">
+                            {% endif %}
+                            
                         </label>
                     </div>
                     <div class="form-group ml-4">
@@ -35,8 +42,13 @@
                     <div class="form-check">
                         <div class="form-check-label">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
-                                    value="locations"  {% if form and form.getlist('check-search-locations') %}checked{% endif %}>
+                                {% if form and form.getlist('check-search-locations') %}
+                                    <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
+                                        value="locations" checked>
+                                {% else %}
+                                    <input type="checkbox" class="form-check-input" id="check-search-locations" name="check-search-locations" 
+                                        value="locations">
+                                {% endif %}
                             </label>
                         </div>
                     </div>
@@ -44,9 +56,11 @@
                         <label for="search-title">Targeted any of these cleaning locations..</label>
                         <select class="custom-select" id="search-location" name="search-location" size="3" multiple>
                             {% for each_location in location_data %}
-                                <option value="{{each_location.location}}" 
-                                    {% if form and each_location.location in form.getlist('search-location') %} selected {% endif %}
-                                >{{each_location.location}}</option>
+                                {% if form and each_location.location in form.getlist('search-location') %}
+                                    <option value="{{each_location.location}}" selected >{{each_location.location}}</option>
+                                {% else %}
+                                    <option value="{{each_location.location}}" >{{each_location.location}}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -55,8 +69,13 @@
                 <div>
                     <div class="form-check">
                         <label class="form-check-label">
+                            {% if form and form.getlist('check-search-tags') %}checked
                             <input type="checkbox" class="form-check-input" id="check-search-tags" name="check-search-tags" 
-                                value="tags" {% if form and form.getlist('check-search-tags') %}checked{% endif %}>
+                                value="tags" checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input" id="check-search-tags" name="check-search-tags" 
+                                value="tags" >
+                            {% endif %}
                         </label>
                     </div>
                     <div class="form-group ml-4">

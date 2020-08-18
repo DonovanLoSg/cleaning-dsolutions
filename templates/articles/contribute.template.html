@@ -12,12 +12,11 @@
 	<div class="form-group">
 		<label for="input-title" class="thick">Title: </label>
 		{% if form and form.get('input-title') != '' %}
-		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus
-			value="{{form.get('input-title') }}">
+		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus 
+			value="{{form.get('input-title') }}"/>
 		{% else %}
-		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus value="">
+		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus value="" />
 		{% endif %}
-		{% if form and form.get('input-title') != "" %} value="{{form.get('input-title') }}" {% endif %} />
 	</div>
 	<!-- cleaning location -->
 	<div class="form-group">
@@ -25,12 +24,11 @@
 		<select class="custom-select" id="input-location" name="input-location" required>
 			<option value="" disabled selected>Select your option</option>
 			{% for each_location in location_data %}
-			{% if (form) and form.get('input-location') == each_location.location %}
-			<option value="{{each_location.location}}" selected>{% each_location.location %}</option>
-			{% else %}
-			<option value="{{each_location.location}}" >{% each_location.location %}</option>
-			{% endif %}
-			{% endfor %}
+                {% if (form) and (form.get('input-location') == each_location.location) %}
+                    <option value="{{each_location.location}}" selected>{{ each_location.location }}</option>
+                {% else %}
+                    <option value="{{each_location.location}}" >{{ each_location.location }}</option>
+                {% endif %}
 			{% endfor %}
 		</select>
 	</div>
@@ -45,10 +43,10 @@
         <label for="input-items" class="thick">Cleaning Items: <small>(seperated by commas)</small></label>
         {% if (form) %}
         <input type="text" class="form-control" id="input-items" name="input-items" rows="2"
-            placeholder="i.e. tools and equipment" />
+            placeholder="i.e. tools and equipment" value = "{{form.get('input-items') }}"/>
         {% else %}
         <input type="text" class="form-control" id="input-items" name="input-items" rows="2"
-            placeholder="i.e. tools and equipment" value = "{{form.get('input-items') }}"/>
+            placeholder="i.e. tools and equipment" />
         {% endif %}
         <!-- cleaning supplies -->
         <div class="form-group">
@@ -56,7 +54,7 @@
             {% if (form) %}
             <input type="text" class="form-control" id="input-supplies" name="input-supplies"
                 placeholder="i.e. consumables" value = "{{form.get('input-supplies') }}"/>
-            {% elese %}
+            {% else %}
             <input type="text" class="form-control" id="input-supplies" name="input-supplies"
                 placeholder="i.e. consumables" />
             {% endif %}

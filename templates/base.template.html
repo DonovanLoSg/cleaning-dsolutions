@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Cleaning d'Solutions - Solutions to griminess and messiness.</title>
+		<title>{% block title %}{% endblock %} - Cleaning d'Solutions - Solutions to griminess and messiness.</title>
 		<meta http-equiv="cache-control" content="max-age=0" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
@@ -11,7 +11,7 @@
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta name="description"
 			content="Crowdsourced information, guides, recipes, tips and hacks on cleaning."/>
-		<title>{% block title %}{% endblock %}</title>
+		
 		<meta name="robots" content="index,follow" />
 		<meta name="googlebot" content="index,follow" />
 		<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&family=Lora:ital,wght@1,500&family=Roboto+Condensed&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -20,9 +20,9 @@
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/bootstrap/bootstrap.min.css') }}"/>
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/jquery.dataTables.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/dataTables/datatables.min.css') }}" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal-spinner.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/myStyle.css') }}" />
 		<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon/favicon.ico') }}" />
+        
 		<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}" />
 		<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}" />
 		<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}" />
@@ -32,9 +32,14 @@
 		<script src="{{ url_for('static', filename='js/lib/bootstrap/popper.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/lib/bootstrap/bootstrap.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/lib/dataTables/datatables.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='js/lib/tinymce/tinymce.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/lib/tinymce/tinymce.min.js') }}"></script>
+        
 		<script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
 	</head>
+
+
+        
+  
 	<body >
 		<!-- Flask Flush Messages -->
 		<div class="message-panel  ">

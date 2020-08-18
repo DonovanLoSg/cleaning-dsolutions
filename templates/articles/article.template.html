@@ -29,20 +29,20 @@
 					<p class="thick">Does it works? </p>
 					<div class="row">
 						<div class="col text-center">
-							<img src="../static/img/faces/noun_Smile_2472187.svg" 
-								onerror="this.onerror=null; this.src='../static/img/faces/noun_Smile_2472187.png'" 
+							<img src="{{ url_for('static', filename='img/faces/noun_Smile_2472187.svg') }}" 
+								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Smile_2472187.png') }}'" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
 							<span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
 						</div>
 						<div class="col text-center">
-							<img src="../static/img/faces/noun_Face_2472188.svg" 
-								onerror="this.onerror=null; this.src='../static/img/faces/noun_Face_2472188.png'" 
+							<img src="{{ url_for('static', filename='img/faces/noun_Face_2472188.svg') }} "
+								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Face_2472188.png') }}'" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
 							<span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
 						</div>
 						<div class="col text-center">
-							<img src="../static/img/faces/noun_Face_2472189.svg" 
-								onerror="this.onerror=null; this.src='../static/img/faces/noun_Face_2472189.png'" 
+							<img src="{{ url_for('static', filename='img/faces/noun_Face_2472189.svg') }}" 
+								onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/faces/noun_Face_2472189.png') }}'" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
 							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
 						</div>
@@ -109,7 +109,7 @@
 					<a href="/rate/{{article_data._id}}/good">
 					<img src="../static/img/faces/noun_Smile_2472187.svg" 
 						onerror="this.onerror=null; this.src='noun_Smile_2472187.png'" 
-						class="faces {% if user_rated == 'good' %} rated {% endif %}"
+						class="faces rated"
 						data-toggle="tooltip" data-placement="top" title="It works !">
 					</a>
 					<a href="/rate/{{article_data._id}}/neutral">

@@ -19,46 +19,47 @@
 {% block content %} 
 {% if (listtype == "search") %}
 <div class="black-border blur-shadow search-param px-0">
-<div class="comtainer">
-	Searched for articles which fulfil the following conditions:<br />
-	<ul>
-		{% if (form.getlist('check-search-titles')) %} 
-            {% if (form.get('search-title').strip() == "") %}
-		        <li>any words</li>
-		    {% else %}
-		        <li>titles contain '{{form.get('search-title')}}'</li>
-		    {% endif %} 
-        {% endif %} 
-        {% if (form.getlist('check-search-locations')) and locationArray|length > 0 %}
-		    <li>
-			    cleaning:
-			    <ul>
-				    {% for each_location in locationArray %}
-				    <li>{{each_location}}</li>
-				    {% endfor %}
-			    </ul>
-		    </li>
-		{% endif %} 
-        {% if (form.getlist('check-search-tags')) and tagsArray|length > 0 %} 
-            {% if (tagsArray|length) > 1 %}
-		        <li>
-			        with one or more of these tags:
-			        <ul>
-				        {% for each_tag in tagsArray %}
-				            <li>{{each_tag}}</li>
-				        {% endfor %}
-			        </ul>
-		        </li>
-		    {% else %}
-		        <li>
-			        with this tag:
-			        <ul>
-				        {% for each_tag in tagsArray %}
-				            <li>{{each_tag}}</li>
-				        {% endfor %}
-			        </ul>
-		        </li>
-		    {% endif %} {% endif %}
+    <div class="container p-3">
+        Searched for articles which fulfil the following conditions:<br />
+        <ul>
+            {% if (form.getlist('check-search-titles')) %} 
+                {% if (form.get('search-title').strip() == "") %}
+                    <li>any words</li>
+                {% else %}
+                    <li>titles contain '{{form.get('search-title')}}'</li>
+                {% endif %} 
+            {% endif %} 
+            {% if (form.getlist('check-search-locations')) and (locationArray|length > 0) %}
+                <li>
+                    cleaning:
+                    <ul>
+                        {% for each_location in locationArray %}
+                        <li>{{each_location}}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %} 
+            {% if (form.getlist('check-search-tags')) and tagsArray|length > 0 %} 
+                {% if (tagsArray|length) > 1 %}
+                    <li>
+                        with one or more of these tags:
+                        <ul>
+                            {% for each_tag in tagsArray %}
+                                <li>{{each_tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>
+                        with this tag:
+                        <ul>
+                            {% for each_tag in tagsArray %}
+                                <li>{{each_tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %} 
+            {% endif %}
 	    </ul>
     </div>
 </div>
@@ -94,14 +95,11 @@
 					{{article.cleaning_location}}
 				</td>
 				<td class="mx-auto">
-					<a href="/articles/{{article._id}}" class="btn btn-primary btn-md">
+					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn-primary btn-md">
 					View
 					</a>
 					{% if listtype=='my' or current_user.admin %}
-					<a
-						href="/articles/delete/{{article._id}}/list"
-						class="btn btn-danger btn-md"
-						>
+					<a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn-danger btn-md" >
 					Delete
 					</a>
 					{% endif %}

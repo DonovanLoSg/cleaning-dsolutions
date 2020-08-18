@@ -43,15 +43,15 @@
 				</div>
 				<!-- content -->
 				<div class="form-group ">
-					<label for="input-content">Content:</label>
-					<textarea class="form-control" id="input-content" name="input-content" rows="10">{{form.get('input-content')}}
+					<label for="input-content2">Content:</label>
+					<textarea class="form-control" id="input-content2" name="input-content2" rows="10">{{form.get('input-content')}}
 					</textarea>
 				</div>
 				<!-- cleaning items -->
 				<div class="form-group">
 					<label for="input-items">Cleaning Items: </label>
 					<input type="text" class="form-control" id="input-items" name="input-items"
-						placeholder="enter cleaning items, seperated by commas" value = '{{form.get("input-item") }}' />
+						placeholder="enter cleaning items, seperated by commas" value = "{{form.get('input-item') }}" />
 				</div>
 				<!-- cleaning supplies -->
 				<div class="form-group">
@@ -64,7 +64,7 @@
 					<label for="input-tags">Tags: </label>
 					<input type="text" class="form-control" id="input-tags" name="input-tags"
 						placeholder="enter tags, seperated by commas" 
-						value = '{{form.get("input-tags")}}' />
+						value = "{{form.get('input-tags')}}" />
 				</div>
 				{% else %}
 				<!-- title -->
@@ -99,20 +99,20 @@
 				<div class="form-group">
 					<label for="input-items">Cleaning Items: </label>
 					<input type="text" class="form-control" id="input-items" name="input-items"
-						placeholder="enter cleaning items, seperated by commas" value = '{{ ", ".join(article_data.cleaning_items) }}'/>
+						placeholder="enter cleaning items, seperated by commas" value = "{{ ', '.join(article_data.cleaning_items) }}"/>
 				</div>
 				<!-- cleaning supplies -->
 				<div class="form-group">
 					<label for="input-supplies">Cleaning Items: </label>
 					<input type="text" class="form-control" id="input-supplies" name="input-supplies"
 						placeholder="enter cleaning supplies (consumables), seperated by commas" 
-						value = '{{ ", ".join(article_data.cleaning_supplies) }}'/>
+						value = "{{ ', '.join(article_data.cleaning_supplies) }}"/>
 				</div>
 				<!-- Tags -->
 				<div class="form-group">
 					<label for="input-tags">Tags: </label>
 					<input type="text" class="form-control" id="input-tags" name="input-tags"
-						placeholder="enter tags, seperated by commas" value = '{{ ", ".join(article_data.tag) }}'/>
+						placeholder="enter tags, seperated by commas" value = "{{ ', '.join(article_data.tag) }}"/>
 				</div>
 				{% endif %}
 				<p>Creation date: {{article_data.date_created[0:12]}}</p>
