@@ -15,7 +15,7 @@ $(document).ready(function() {
             "removeformat | help",
     });
 
-
+ 
     // DataTables
     $("#myTable").DataTable({
         responsive: true,
@@ -23,6 +23,7 @@ $(document).ready(function() {
         ordering: true,
         info: true,
         columnDefs: [{ "orderable": false, "targets": -1 }],
+
     });
 
     // Tooltip

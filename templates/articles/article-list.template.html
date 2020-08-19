@@ -67,15 +67,16 @@
 <!-- This section display a list of requested articles. -->
 <div class="container black-border blur-shadow p-5 mb-5">
 	<table
-		id="myTable"
-		class="table table-sm table-striped table-hover article-title"  data-page-length="10" style="width: 100%">
-
+		id="myTable" class="table table-sm table-striped table-hover article-title  display  dtr-inline collapsed"
+		 data-page-length="10" style="width: 100%">
+<!-- class="table table-sm table-striped table-hover article-title nowrap display  dtr-inline collapsed"  -->
+<!-- class="display nowrap dataTable dtr-inline collapsed"  -->
 		<thead class="thead-dark">
 			<tr>
 				<th>
 					<strong>Article Title</strong>
 				</th>
-				<th>
+				<th class="narrow">
 					<strong>Cleaning Location</strong>
 				</th>
 				<th class="narrow">
@@ -92,7 +93,7 @@
 				<td class="align-middle">
 					{{article.cleaning_location}}
 				</td>
-				<td class="mx-auto text-nowrap align-middle  m-0 p-0 text-nowrap">
+				<td class="mx-auto text-nowrap align-middle  m-0 p-0 ">
 					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn-primary btn-md">
 					View
 					</a>
