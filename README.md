@@ -254,7 +254,7 @@ Administrators are advice to use a wider screen to access it when accessing the 
 
 #### Site Map
 
-<img src="/readme/sitemap.png" style="margin: 0; width: 100%" alt="Site Map>
+<img src="/readme/sitemap.png" style="margin: 0; width: 100%" alt="Site Map">
 
 ### Information Design
 
