@@ -65,36 +65,34 @@
 </div>
 {% endif %}
 <!-- This section display a list of requested articles. -->
-<div class="container black-border blur-shadow p-3 pb-5 mb-5">
+<div class="container black-border blur-shadow p-5 mb-5">
 	<table
 		id="myTable"
-		class="display dataTable article-title"
-		data-page-length="10"
-		style="width: 100%;"
-		>
-		<thead>
+		class="table table-sm table-striped table-hover article-title"  data-page-length="10" style="width: 100%">
+
+		<thead class="thead-dark">
 			<tr>
-				<td>
+				<th>
 					<strong>Article Title</strong>
-				</td>
-				<td>
+				</th>
+				<th>
 					<strong>Cleaning Location</strong>
-				</td>
-				<td>
-					View
-				</td>
+				</th>
+				<th class="narrow">
+					Action
+				</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for article in articles %}
 			<tr>
-				<td>
+				<td class="align-middle pl-3">
 					{{article.article_title}}
 				</td>
-				<td>
+				<td class="align-middle">
 					{{article.cleaning_location}}
 				</td>
-				<td class="mx-auto">
+				<td class="mx-auto text-nowrap align-middle  m-0 p-0 text-nowrap">
 					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn-primary btn-md">
 					View
 					</a>

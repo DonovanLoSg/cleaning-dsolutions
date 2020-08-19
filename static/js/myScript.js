@@ -19,12 +19,10 @@ $(document).ready(function() {
     // DataTables
     $("#myTable").DataTable({
         responsive: true,
-        paging: true,
         searching: true,
         ordering: true,
         info: true,
-        stateSave: false,
-        rowReorder: true
+
     });
 
     // Tooltip
@@ -44,6 +42,9 @@ $(document).ready(function() {
                 searching: false,
                 ordering: false,
                 info: false,
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+]
             });
         }
     });

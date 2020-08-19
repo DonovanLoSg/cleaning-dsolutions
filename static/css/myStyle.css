@@ -161,6 +161,10 @@ button {
 
 /* DataTables */
 
+#myTable {
+    width: 100%;
+}
+
 #myTable .btn {
 	margin: 0.5rem;
 	padding: 0.2rem;
@@ -174,6 +178,11 @@ button {
 .rating-column {
 	width: 1rem;
 }
+
+.narrow {
+    width: 50px !important;
+}
+
 
 
 /* - font of article titles */
