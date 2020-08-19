@@ -22,7 +22,7 @@ $(document).ready(function() {
         searching: true,
         ordering: true,
         info: true,
-
+        columnDefs: [{ "orderable": false, "targets": -1 }],
     });
 
     // Tooltip
@@ -42,9 +42,6 @@ $(document).ready(function() {
                 searching: false,
                 ordering: false,
                 info: false,
-                columnDefs: [
-                    { orderable: false, targets: -1 }
-]
             });
         }
     });
