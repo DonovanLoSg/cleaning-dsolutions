@@ -1,61 +1,63 @@
 {% extends 'base.template.html' %} {% block header %}
 <h1>{% block title %}Login{% endblock %}</h1>
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 <div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
-  <div class="container">
-    <form method="POST" name="form" target="_self">
-      <div class="form-group">
-        <label for="input-email">Email address</label>
-        {% if form %}
-        <input
-          id="input-email"
-          name="input-email"
-          type="email"
-          class="form-control"
-          aria-describedby="emailHelp"
-          placeholder="enter your email"
-          value="{{form.get('input-email')}}"
-          required
-        />
-        {% else %}
-        <input
-          id="input-email"
-          name="input-email"
-          type="email"
-          class="form-control"
-          aria-describedby="emailHelp"
-          placeholder="enter your email"
-          required
-        />
-        {% endif %}
-        <small id="emailHelp" class="form-text text-muted">
-          We'll never share your email with anyone else.
-        </small>
-      </div>
-      <div class="form-group">
-        <label for="input-password">Password</label>
-        {% if form %}
-        <input
-          type="password"
-          name="input-password"
-          class="form-control"
-          id="input-password"
-          value="{{form.get('input-password')}}"
-          placeholder="enter your password"
-          required
-        />
-        {% else %}
-        <input
-          type="password"
-          name="input-password"
-          class="form-control"
-          id="input-password"
-          placeholder="enter your password"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+	<div class="container">
+		<form method="POST" name="form" target="_self">
+			<div class="form-group">
+				<label for="input-email">Email address</label>
+				{% if form %}
+				<input
+					id="input-email"
+					name="input-email"
+					type="email"
+					class="form-control"
+					aria-describedby="emailHelp"
+					placeholder="enter your email"
+					value="{{form.get('input-email')}}"
+					required
+					/>
+				{% else %}
+				<input
+					id="input-email"
+					name="input-email"
+					type="email"
+					class="form-control"
+					aria-describedby="emailHelp"
+					placeholder="enter your email"
+					required
+					/>
+				{% endif %}
+				<small id="emailHelp" class="form-text text-muted">
+				    We'll never share your email with anyone else.
+				</small>
+			</div>
+			<div class="form-group">
+				<label for="input-password">Password</label>
+				{% if form %}
+                    <input
+                        type="password"
+                        name="input-password"
+                        class="form-control"
+                        id="input-password"
+                        value="{{form.get('input-password')}}"
+                        placeholder="enter your password"
+                        required
+                        />
+				{% else %}
+                    <input
+                        type="password"
+                        name="input-password"
+                        class="form-control"
+                        id="input-password"
+                        placeholder="enter your password"
+                        required
+                        />
+                {% endif %}
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
 </div>
 {% endblock %}

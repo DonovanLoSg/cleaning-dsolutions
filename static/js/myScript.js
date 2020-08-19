@@ -24,6 +24,7 @@ $(document).ready(function() {
         ordering: true,
         info: true,
         stateSave: false,
+        rowReorder: true
     });
 
     // Tooltip

@@ -1,12 +1,13 @@
 {% extends 'base.template.html' %} {% block header %}
 <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 <div class="container black-border blur-shadow p-3 pt-5 pb-5 mb-5">
 	<div class="container">
 		<form method="post" name="form" target="_self">
 			<div class="form-group">
 				<label for="input-email">Email address</label>
-				{% if form %}
+				{% if (form) %}
 				<input
 					type="email"
 					class="form-control"
@@ -28,13 +29,13 @@
 					required
 					/>
 				{% endif %}
-				<small id="emailHelp" class="form-text text-muted"
-					>We'll never share your email with anyone else.</small
-					>
+				<small id="emailHelp" class="form-text text-muted">
+				We'll never share your email with anyone else.
+				</small>
 			</div>
 			<div class="form-group">
 				<label for="input-nickname">Nickname</label>
-				{% if form %}
+				{% if (form) %}
 				<input
 					type="text"
 					class="form-control"
@@ -45,25 +46,23 @@
 					value="{{form.get('input-nickname')}}"
 					/>
 				{% else %}
-				<input
-				type="text"
-				class="form-control"
-				id="input-nickname"
-				name="input-nickname"
-				aria-describedby="nicknameHelp"
-				placeholder="enter your nickname"
-				{%
-				endif
-				%}
-				required
-				/>
-				<small id="nicknameHelp" class="form-text text-muted"
-					>This will be the name displayed on the site.</small
-					>
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="input-nickname"
+                    name="input-nickname"
+                    aria-describedby="nicknameHelp"
+                    placeholder="enter your nickname"
+                    required
+                    />
+                {% endif %}
+				<small id="nicknameHelp" class="form-text text-muted">
+				This will be the name displayed on the site.
+				</small>
 			</div>
 			<div class="form-group">
 				<label for="input-password" class="mr-sm-2">Password:</label>
-				{% if form %}
+				{% if (form) %}
 				<input
 					type="password"
 					class="form-control mb-2 mr-sm-2"
@@ -75,7 +74,7 @@
 					value="{{form.get('input-password')}}"
 					required
 					/>
-				{% else%}
+				{% else %}
 				<input
 					type="password"
 					class="form-control mb-2 mr-sm-2"
@@ -86,14 +85,15 @@
 					aria-describedby="passwordHelpBlock"
 					required
 					/>
+				{% endif %}
 				<small id="passwordHelpBlock" class="form-text text-muted">
-				Your password must be 8-20 characters long, contain only alphabets and
-				digits.</small
-					>
+                    Your password must be 8-20 characters long, contain only alphabets and
+                    digits.
+                </small>
 			</div>
 			<div class="form-group">
 				<label for="input-verify" class="mr-sm-2">Verify:</label>
-				{% if form %}
+				{% if (form) %}
 				<input
 					type="password"
 					class="form-control mb-2 mr-sm-2"
@@ -115,20 +115,11 @@
 					aria-describedby="verifypasswordHelpBlock2"
 					required/>
 				{% endif %}
-				<input
-				type="password"
-				class="form-control mb-2 mr-sm-2"
-				pattern="^[A-Za-z\d]{8,20}$"
-				placeholder="Enter password again"
-				id="input-verify"
-				name="input-verify"
-				aria-describedby="verifypasswordHelpBlock2"
-				value="{{form.get('input-verify')}}"
-				required/>
+
 				<small id="verifypasswordHelpBlock" class="form-text text-muted">
 				Your password must be 8-20 characters long, contain only alphabets and
-				digits.</small
-					>
+				digits.
+                </small>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
