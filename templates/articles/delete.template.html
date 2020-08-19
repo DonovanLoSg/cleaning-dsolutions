@@ -23,9 +23,9 @@
 					<button type="submit" class="btn btn-danger">Confirm Deletion</button>
 				</form>
 				{% if listtype=="page" %}
-				<a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+				<a href="{{url_for('show_article', _id =article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
 				{% else %}
-				<a href="/articles/my-list" class="btn btn-primary btn-md">Cancel Deletion</a>
+				<a href="{{url_for('my_articles')}}" class="btn btn-primary btn-md">Cancel Deletion</a>
 				{% endif %}
 				{% endif %}<br><br>
 				{% endif %}
@@ -50,20 +50,17 @@
 					<p class="thick">Does it works? </p>
 					<div class="row">
 						<div class="col text-center">
-							<img src="../../../static/img/faces/noun_Smile_2472187.svg" 
-								onerror="this.onerror=null; this.src='..//static/img/faces/noun_Smile_2472187.png'" 
+							<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
 							<span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
 						</div>
 						<div class="col text-center">
-							<img src="../../../static/img/faces/noun_Face_2472188.svg" 
-								onerror="this.onerror=null; this.src='..//static/img/faces/noun_Face_2472188.png'" 
+							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
 							<span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
 						</div>
 						<div class="col text-center">
-							<img src="../../../static/img/faces/noun_Face_2472189.svg" 
-								onerror="this.onerror=null; this.src='../static/img/faces/noun_Face_2472189.png'" 
+							<img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Doesn't work !">
 							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
 						</div>
@@ -137,9 +134,9 @@
 						<button type="submit" class="btn btn-danger">Confirm Deletion</button>
 					</form>
 					{% if listtype=="page" %}
-					<a href="/articles/{{article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+					<a href="{{url_for(show_article), _id=article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
 					{% else %}
-					<a href="/articles/my-list" class="btn btn-primary btn-md">Cancel Deletion</a>
+					<a href="{{url_for(my_articles), _id=article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
 					{% endif %}
 					{% endif %}
 				</div>

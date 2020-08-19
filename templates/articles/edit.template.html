@@ -124,10 +124,10 @@
 				{% endif %}
 				<input type="hidden" name="created_by" value="{{article_data.created_by}}">
 				<button type="submit" class="btn btn-success">Save</button>
-				<a href="/articles/edit/{{article_data._id}}" class="btn btn-primary btn-md">
+				<a href="{{url_for('edit_article'), _id=article_data.id'}}" class="btn btn-primary btn-md">
 				Reset
 				</a>
-				<a href="/articles/my-list" class="btn btn-danger btn-md">Cancel</a>
+				<a href="{{url_for('/my_articles')" class="btn btn-danger btn-md">Cancel</a>
 			</div>
 		</form>
 	</div>

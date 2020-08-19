@@ -347,7 +347,7 @@ def my_profile():
 
 @app.route('/articles/list')
 def list_articles():
-    return redirect(url_for("all_articles"))
+    return redirect(url_for('all_articles'))
 
 
 @app.route('/articles/list-all')
@@ -488,7 +488,7 @@ def edit_article(_id):
                         'tags': input_tags,
                         'last_modified': input_modified}})
                 flash('Article saved', category='success')
-                return redirect('/articles/'+_id)
+                return redirect(url_for('show_article', _id=_id))
         else:
             flash('Unauthorised access', category='danger')
             return redirect(url_for('home'))
@@ -773,7 +773,7 @@ def manage_cleaning_locations():
             client[DB_NAME][DB_LOCATION].update_one(
                 myquery, updatevalues)
             flash('Location successfully updated', category='success')
-            return redirect("/cleaning-locations/manage")
+            return redirect(url_for("manage_cleaning_locations"))
         # display the record mark for deletion to ask for confirmation
         elif form.get('action') == "delete":
             return render_template("/cleaning-locations/delete.template.html",
@@ -783,13 +783,13 @@ def manage_cleaning_locations():
             myquery = {'_id': ObjectId(form.get('id'))}
             client[DB_NAME][DB_LOCATION].delete_one(myquery)
             flash('Location successfully deleted', category='success')
-            return redirect("/cleaning-locations/manage")
+            return redirect(url_for("manage_cleaning_locations"))
         # Insert the new cleaning location into the database
         elif form.get('action') == "add":
             client[DB_NAME][DB_LOCATION].insert_one(
                 {'location': form.get('input-new-location')})
             flash("New cleaning location added.")
-            return redirect("/cleaning-locations/manage")
+            return redirect(url_for("manage_cleaning_locations"))
         else:
             return redirect(url_for('error_encountered'))
     else:
@@ -866,7 +866,7 @@ def manage_users():
             myquery = {'_id': ObjectId(form.get('id'))}
             client[DB_NAME][DB_USER].delete_one(myquery)
             flash('User successfully deleted', category='success')
-            return redirect("/users/manage")
+            return redirect(url_for("manage_users"))
         else:
             return redirect(url_for('error_encountered'))
     else:
