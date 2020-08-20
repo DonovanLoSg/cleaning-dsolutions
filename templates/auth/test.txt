@@ -1,0 +1,209 @@
+{% extends 'base.template.html' %} 
+    {% block header %}
+        <h1>{% block title %}Home{% endblock %}</h1>
+    {% endblock %} 
+{% block content %}
+
+<div class="container">
+    <div class="row no-gutters">
+        <div id="search-panel" class="col-12 col-md black-border blur-shadow p-3 py-5 mt-0 ml-0 mx-0 mr-md-3">
+    {<diff}
+</div class="container">
+  
+    
+      <h2>Search</h2>
+      <hr class="title-divider" />
+      Conditions include:
+      <form method="post" name="form" target="_self">
+        <!-- search text in title -->
+        <div>
+          <div class="form-check">
+            <label class="form-check-label">
+              {% if form and form.getlist('check-search-titles') %}checked
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="check-search-titles"
+                name="check-search-titles"
+                value="titles"
+                checked
+              />
+              {% else %}
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="check-search-titles"
+                name="check-search-titles"
+                value="titles"
+              />
+              {% endif %}
+            </label>
+          </div>
+          <div class="form-group ml-4">
+            <label for="search-title">Article Title containing..</label>
+            {% if (form) %}
+            <input
+              type="text"
+              class="form-control"
+              id="search-title"
+              name="search-title"
+              placeholder="words appearing in titles"
+              value="{{form.get('search-title')}}"
+            />
+            {% else %}
+            <input
+              type="text"
+              class="form-control"
+              id="search-title"
+              name="search-title"
+              placeholder="words appearing in titles"
+            />
+            {% endif %}
+          </div>
+        </div>
+        <!-- search location using dropdown list -->
+        <div>
+          <div class="form-check">
+            <div class="form-check-label">
+              <label class="form-check-label">
+                {% if form and form.getlist('check-search-locations') %}
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="check-search-locations"
+                  name="check-search-locations"
+                  value="locations"
+                  checked
+                />
+                {% else %}
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="check-search-locations"
+                  name="check-search-locations"
+                  value="locations"
+                />
+                {% endif %}
+              </label>
+            </div>
+          </div>
+          <div class="form-group ml-4">
+            <label for="search-title"
+              >Targeted any of these cleaning locations..</label
+            >
+            <select
+              class="custom-select"
+              id="search-location"
+              name="search-location"
+              size="3"
+              multiple
+            >
+              {% for each_location in location_data %} {% if form and
+              each_location.location in form.getlist('search-location') %}
+              <option value="{{each_location.location}}" selected
+                >{{each_location.location}}</option
+              >
+              {% else %}
+              <option value="{{each_location.location}}"
+                >{{each_location.location}}</option
+              >
+              {% endif %} {% endfor %}
+            </select>
+          </div>
+        </div>
+        <!-- search tags using csv -->
+        <div>
+          <div class="form-check">
+            <label class="form-check-label">
+              {% if form and form.getlist('check-search-tags') %}checked
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="check-search-tags"
+                name="check-search-tags"
+                value="tags"
+                checked
+              />
+              {% else %}
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="check-search-tags"
+                name="check-search-tags"
+                value="tags"
+              />
+              {% endif %}
+            </label>
+          </div>
+          <div class="form-group ml-4">
+            <label for="search-tags">with Tags...</label>
+            {% if (form) %}
+            <input
+              type="text"
+              class="form-control"
+              id="search-tags"
+              name="search-tags"
+              placeholder="tags sepearated by commas"
+              value="{{form.get('search-tags')}}"
+            />
+            {% else %}
+            <input
+              type="text"
+              class="form-control"
+              id="search-tags"
+              name="search-tags"
+              placeholder="tags sepearated by commas"
+            />
+            {% endif %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+
+    <div
+      id="random-read"
+      class="col-12 col-md black-border blur-shadow p-3 py-5 mb-5 mb-md-0 mt-5 mt-md-0 mr-0 mx-0 ml-md-3"
+    >
+      <h2>Today's Random Articles</h2>
+      <hr class="title-divider" />
+
+      <table
+        id="myTable2"
+        class="article-title random_articles display"
+        data-page-length="5"
+        style="width: 100%;"
+      >
+        <thead>
+          <tr>
+            <td>
+              <div class="float-left"><strong>Article Title</strong></div>
+              <div class="float-right">
+                -<strong> (Cleaning Location)</strong>
+              </div>
+              <br />
+              <hr />
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for each_article in random_articles %}
+          <tr>
+            <td style="width: 95%;">
+              <div>
+                <a href="{{url_for('show_article',_id=each_article._id)}}">{{each_article.article_title}}</a>
+              </div>
+              <div class="text-right">
+                - ({{each_article.cleaning_location}})
+              </div>
+              <br />
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

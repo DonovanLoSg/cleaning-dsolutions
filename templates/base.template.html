@@ -26,13 +26,13 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}" />
 		<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}" />
 		<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}"/>
-		<link rel="manifest" href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}" />
-		<script src="{{ url_for('static', filename='js/lib/bootstrap/jquery-3.5.1.js') }}"></script>
+        <link rel="manifest" href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}" />
+		
+        <script src="{{ url_for('static', filename='js/lib/bootstrap/jquery-3.5.1.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/lib/bootstrap/popper.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/lib/bootstrap/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='lib/DataTables/datatables.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/lib/tinymce/tinymce.min.js') }}"></script>
-
 		<script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
 	</head>
 
@@ -131,7 +131,13 @@
 						</div>
 					</div>
 				</nav>
-			</div>
+
+            </div>
+            <div class="container">
+                <div class="deck-text blur-shadow">
+                    Crowdsourced information, guides, recipes, tips and hacks on cleaning.
+                </div> 
+            </div>
 		</header>
 		<!-- ==========================================================
 			MAIN
@@ -139,7 +145,8 @@
 		<div class="container-fluid">
 			<main>
 				<div class="container">
-					{% block header %}{% endblock %} {% block content %}{% endblock %}
+					<div class="page-title">{% block header %}{% endblock %}</div>
+                    {% block content %}{% endblock %}
 				</div>
 			</main>
 		</div>

@@ -90,15 +90,15 @@
 				<td class="align-middle pl-3">
 					{{article.article_title}}
 				</td>
-				<td class="align-middle">
+				<td class="align-middle ">
 					{{article.cleaning_location}}
 				</td>
-				<td class="mx-auto text-nowrap align-middle  m-0 p-0 ">
-					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn-primary btn-md">
+				<td class="mx-auto text-nowrap align-middle  m-0 p-0 narrow">
+					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn6 btn-primary btn-md">
 					View
 					</a>
 					{% if listtype=='my' or current_user.admin %}
-					<a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn-danger btn-md" >
+					<a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-danger btn-md" >
 					Delete
 					</a>
 					{% endif %}

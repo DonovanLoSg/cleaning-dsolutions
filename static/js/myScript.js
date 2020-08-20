@@ -26,18 +26,11 @@ $(document).ready(function() {
 
     });
 
-    // Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-
-
-
-    // DataTables
     $("myTable").on("click", function(event) {
         event.preventDefault();
 
-        if (document.getElementById("myTable2")) {
-            $("#myTable2").DataTable({
+        if (document.getElementById("tableHomePage")) {
+            $("#tableHomePage").DataTable({
                 responsive: true,
                 paging: false,
                 searching: false,
@@ -46,6 +39,34 @@ $(document).ready(function() {
             });
         }
     });
+
+    if (document.getElementById("tableUsers")) {
+        $("#tableUsers").DataTable({
+            responsive: true,
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false,
+        });
+    }
+
+    if (document.getElementById("tableLocations")) {
+        $("#tableLocations").DataTable({
+            responsive: true,
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false,
+        });
+    }
+
+    // Tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+
+
+
+
+
 
 
     // auto close alert message

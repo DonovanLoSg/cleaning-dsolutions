@@ -20,7 +20,7 @@
 <!-- include edit and delete button for the respective actions -->
 <div class="container black-border blur-shadow p-5 mb-5">
     <div class="container datatable_wrap">
-        <table id="myTable" class="table table-sm table-striped table-hover"  data-page-length="10" style="width: 100%">
+        <table id="tableLocations" class="table table-sm table-striped table-hover"  data-page-length="10" style="width: 100%">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Locations</th>
@@ -33,12 +33,12 @@
                     <td class="align-middle pl-3" scope="row">{{each_location.location}}</td>
                     <td class="align-middle text-nowrap  m-0 p-0 text-nowrap">
                         <form method="post" name="form" target="_self" class="d-inline">
-                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <button type="submit" class="btn btn6 btn-primary">Edit</button>
                             <input type="hidden" name="action" value="edit" />
                             <input type="hidden" name="id" value="{{each_location._id}}" />
                         </form>
                         <form method="post" name="form" target="_self" class="d-inline">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn6  btn-danger">Delete</button>
                             <input type="hidden" name="action" value="delete" />
                             <input type="hidden" name="id" value="{{each_location._id}}" />
                         </form>

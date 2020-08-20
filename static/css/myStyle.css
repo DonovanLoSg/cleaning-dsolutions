@@ -58,6 +58,11 @@ body {
 	/* Position the navbar at the top of the page */
 	width: 100%;
 	/* Full width */
+    opacity: 100%
+}
+
+.navbarNavDropdown {
+    opacity: 100%
 }
 
 h1 {
@@ -66,6 +71,16 @@ h1 {
 	margin: 0.5rem 0.5rem;
 	position: static;
 	text-shadow: 2px 2px 8px white;
+}
+
+
+.page-title>h1 {
+	color: white;
+    display: block;
+    font-family: "Baloo Tamma 2", cursive;
+	margin: 1rem 1rem;
+	position: static;
+	text-shadow: 2px 2px 8px black;
 }
 
 h2 {
@@ -84,6 +99,22 @@ h2:first-letter {
 	border: 1px solid darkred;
 	box-shadow: 0 0 12px 0 rgba(255, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 0, 0, 0.19);
 }
+
+
+
+.deck-text {
+    background : grey;
+    border-radius: 0 0 2rem 2rem;
+    box-shadow: 0 0 12px 0 grey;
+    color: white;
+    display: block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    z-index: 20;
+
+}
+
 
 
 /* Text */
@@ -128,10 +159,6 @@ ul.items li {
 	max-width: 50px;
 }
 
-.button-selected {
-	border: 3px solid red;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 .faces{
     width: 100px;
@@ -146,16 +173,28 @@ button {
 	padding: 10px;
 }
 
-.btn {
+.btn6{
 	margin: 0.5rem;
 	padding: 0;
-	width: 10rem;
+    width: 6rem;
 }
 
-.btn2 {
+.btn8{
 	margin: 0.5rem;
 	padding: 0;
-	width: 12rem;
+    width: 8rem;
+}
+
+
+.btn10{
+	margin: 0.5rem;
+	padding: 0;
+    width: 10rem;
+}
+.btn12{
+	margin: 0.5rem;
+	padding: 0;
+    width: 12rem;
 }
 
 
@@ -235,7 +274,8 @@ button {
 
 #search-panel, 
 #random-read {
-    z-index: -10;
+    z-index: 30;
+    border-radius: 2rem 2rem 0 0;
 }
 
 
