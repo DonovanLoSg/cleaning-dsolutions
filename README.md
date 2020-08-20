@@ -227,9 +227,13 @@ The top navigation will be minimised into a hamburger menu when displayed in mob
 
 The site consists of pages that are easily to recognised.
 
-The landing page / splash page have two call to actions buttons, informing the users that  to enter the site.
+The landing page / splash page have two call to actions buttons, inviting user to either search for an article or read and article.
+
+<img src="/readme/splash-page.png" style="margin: 0; width: 100%" alt="Splash page">
 
 In the site, each pages are made up of three section, the header, the title and the main content.
+
+<img src="/readme/three-sections.png" style="margin: 0; width: 100%" alt="three sections of the page: header, title and main content">
 
 Header: 
 - The header will include a logo, name of this app and the navigation menu.
