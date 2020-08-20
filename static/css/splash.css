@@ -72,7 +72,7 @@
 	display: inline-block;
 }
 
-.splash-text-button .btn {
+.splash-text-button {
 	opacity: 1;
 	padding: 10px;
     font-size: 1.5rem
@@ -156,10 +156,11 @@
         display: inline-block;
     }
 
-    .splash-text-button .btn {
+    .splash-text-button {
         opacity: 1;
         padding: 2px;
-        
+        font-size: 0.8rem;
+        width: 120px;
     }    
     
 
