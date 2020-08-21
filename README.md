@@ -44,6 +44,10 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [Interface Design](#interface-design)
         - [Site Map](#site-map)
     - [Information Design](#information-design)
+        - [Accessing the information](#accessing-the-information)
+        - [Contributing knowledge](#contributing-knowledge)
+        - [Validating the information](#validating-the-information)
+        - [Managing information submitted](#managing-information-submitted)
 - [Designing Graphics User Interface (Surface)](#designing-graphics-user-interface-surface)
     - [Visual Design](#visual-design)
 
@@ -306,7 +310,7 @@ After a user logged in,
 he can click on the 'Articles' on the navigation menu and select 'My Articles' from the submenu
 to access to the list of articles he has contributed to the database.
 
-### Contributing knowledge
+#### Contributing knowledge
 A loggin user can add his knowledge to the database by selecting 'Contribute Articles' 
 under the 'Articles' navigation menu.
 
@@ -318,15 +322,41 @@ The user will need to fill up an online form which include:
 - Cleaning supplies: consumabls items which may be used up in the process.
 - Tags: labels that helps users to locate the articles. They can be name of the item being cleaned (e.g. oven, refrigerator), the problems encountered (e.g. choke, stains) etc.
 
-### Validating the information 
+#### Validating the information 
 
-Rating and Commenting
+_Ratings_
+The user can validate the methods suggested in the article by rating it.
+There three ratings are:
+1. It works! (smiling face)
+2. Works somewhat.. (blank face)
+3. It doesn't work ! (frowning face)
 
-### Managing information submitted
+A logged in user will be able to rate on the Article Page.
+They can change their mind and rate the article differently at a later time.
+They can also see the total number of the each rating given by other users.
+To see who are the user giving the rating, click on the view comments button.
 
-Deleting
+_Comments_
+A logged in user can also be able leave their comments on the Article Page.
+They can also edit their comments if they have leave it previously.
+They can see what other users commented by clicking on the view comments button.
 
+#### Managing information submitted
 
+_Editing Articles_
+The contributer of an article can click on the "Edit" button on the article to make changes.
+The administrator also have the ability to amend any article to rid of inappropirate content.
+
+_Deleting_
+An article can also be deleted by the contribute using the "Delete" button on the article page.
+He can also click delete to the right of the corresponding article titles from "My Articles" listing.
+The administrator can delete any articles using the same methods as above, as well as doing it at the "All articles" listing.
+When a "Delete" button is click, the article will be displayed to seek confirmation of deletion.
+
+_Adding and deleting cleaning location_
+An administrator can add or delete a cleaning location from a managed list.
+The list acts as a reference to the the droped down selection in other pages.
+Deleting any entries from this list does not affect articles with the deleted location.
 
 ## Designing Graphics User Interface (Surface)
 

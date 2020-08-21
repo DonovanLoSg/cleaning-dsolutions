@@ -40,7 +40,7 @@
 						</div>
 						<div class="col text-center">
 							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
-                            data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
+                            data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
 							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
 						</div>
 					</div>
@@ -124,10 +124,10 @@
 					<a href="{{url_for('rate',_id=article_data._id, rating='bad')}}">
 					{% if user_rated == 'bad' %}
                     <img src="{{url_for('static', filename='img/faces/face_frown_color.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="Doesn't work !">
+						data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
 					{% else %}
 					<img src="{{url_for('static', filename='img/faces/face_frown.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="Doesn't work !">
+						data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
 					</a>
                     {% endif %}
 				</div>

@@ -63,7 +63,6 @@ body {
 
 .navbarNavDropdown {
     opacity: 100%;
-    z-index: 50;
 }
 
 h1 {
@@ -113,8 +112,6 @@ h2:first-letter {
     padding-left: 1rem;
     padding-right: 1rem;
     text-align: center;
-    z-index: 20;
-
 }
 
 
@@ -276,7 +273,6 @@ button {
 
 #search-panel, 
 #random-read {
-    z-index: -40;
     border-radius: 2rem 2rem 0 0;
 }
 
