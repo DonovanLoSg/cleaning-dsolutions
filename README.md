@@ -53,6 +53,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Colour](#colour)
         - [Fonts](#fonts)
         - [Images](#images)
+- [Features](#features)
 
 
 
@@ -404,6 +405,7 @@ To differentiate article titles from other text, 'Lora' fonts are used.
 <hr>
 
 # Features
+
 
 
 
