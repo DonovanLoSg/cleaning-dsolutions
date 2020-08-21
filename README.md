@@ -252,15 +252,79 @@ Main Content:
 - The home page left panel is a search panel allowing the user to input the criteria for the search.
 - The home page right panel display up to 5 random articles which the user can view by clicking on the article titles.
 
-Most parts of the site is responsive and will arrange the the panel according to what device is used to access it.
-There will be some tables used by Administrator which may need horizontal scrolling.
-Administrators are advice to use a wider screen to access it when accessing the administrative features.
-
 #### Site Map
 
 <img src="/readme/sitemap.png" style="margin: 0; width: 100%" alt="Site Map">
 
 ### Information Design
+
+#### Accessing the information
+The purpose of the system is allow public users to find a solutions to their cleaning issues.
+There are different ways of accessing the articles stored in the database.
+
+##### Search Articles
+The user can search:
+- for articles which titles contain certain words
+- for articles which targetted at a selected cleaning location
+- for articles that are tagged with certain words
+- on a combination of two or even all the conditions above
+The result of the search will be displayed in the format similar to the one listing all the articles.
+
+##### Random Articles 
+The system randomly generate a list of 5 articles from the database and 
+display them on the right panel of the home page.
+Clicking on the article titles will allow users to access the articles directly
+
+##### All Articles
+The system will present the list of articles in a table form.
+
+_Pagination_
+If the list is long, it will be divided into pages.
+The default number of articles listed per page is ten, 
+but the user can choose to how many articles to show by adjusting the number of show entries.
+There is an indicator between the displayed list to show the user which are the entries listed.
+The user can navigator through the pages using the page navigator on the bottom right of the table.
+
+_Enhanced Search_
+The user can do an enhanced search on the list using the search field above the table.
+
+_Sorting_
+In the table, there are three columns, namely, Article Title, Cleaning Locations and Action.
+User can sort the Article Title and Cleaning Location by clicking on the column headings.
+Clicking on the same heading toggles between ascending sort and descending sort.
+
+_Viewing_
+The user can access the article by clicking on the corresponding 'View' button.
+
+_Deleting_
+This option will only appears to the adminstrator. 
+Clicking on the 'Delete' button will allow administrator to see the page he selected 
+to confirm his decision.
+
+##### User's Own Articles
+After a user logged in,
+he can click on the 'Articles' on the navigation menu and select 'My Articles' from the submenu
+to access to the list of articles he has contributed to the database.
+
+### Contributing knowledge
+A loggin user can add his knowledge to the database by selecting 'Contribute Articles' 
+under the 'Articles' navigation menu.
+
+The user will need to fill up an online form which include:
+- Article Title: The title of the article will be shown in listings and search results.
+- Targeted cleaning location: The location which the methods describe in the article is applied to.
+- Content: This allows user enter the content he likes share. Formatting like styling, bolding, italics, highlighting, text justifying, indentation can be applied.
+- Cleaning items: equipments used in the content described.
+- Cleaning supplies: consumabls items which may be used up in the process.
+- Tags: labels that helps users to locate the articles. They can be name of the item being cleaned (e.g. oven, refrigerator), the problems encountered (e.g. choke, stains) etc.
+
+### Validating the information 
+
+Rating and Commenting
+
+### Managing information submitted
+
+Deleting
 
 
 
