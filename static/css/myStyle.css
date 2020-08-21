@@ -209,10 +209,12 @@ button {
 
 }
 
-#myTable td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 300px;
+@@media all{
+    #myTable td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 300px;
+    }
 }
 
 .datatable_wrap {
