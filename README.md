@@ -50,6 +50,10 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Managing information submitted](#managing-information-submitted)
 - [Designing Graphics User Interface (Surface)](#designing-graphics-user-interface-surface)
     - [Visual Design](#visual-design)
+        - [Colour](#colour)
+        - [Fonts](#fonts)
+        - [Images](#images)
+
 
 
 
@@ -362,10 +366,45 @@ Deleting any entries from this list does not affect articles with the deleted lo
 
 ### Visual Design
 
+#### Images
+
+_background image_
+A background iamge is specially selected to project a clean home image.
+The image is able to cover the whole screen with it's high resolutions.
+
+A smaller version of the image is used when displaying on mobile devices.
+
+_faces icons_
+The face icons are used for showing the ratings as well as during the user's selection.
+The smiling face showing "It works", the blank or neutral face indicating "works somewhat', and the frowning face says 'it doesn't work'.
+
+#### Colour
+
+The background of all the panel are in white to aids readability.
+
+The different colored button are used to indicate highlight different things.
+Most of the buttons are in blue (e.g. 'Search', 'Edit Articles')
+
+Some actions requires a bit more of user's attention to prevent unwanted results.
+They are in yellow as warnings. (e.g. 'Delete') and those in red (e.g. 'Confirm Deletion').
+
+Others colors, like green, are used to provide positive affirmation (e.g. Save) and 
+cyan for indicating more information ('View Comments')
+
+#### Fonts
+
+Google fonts are used for this project.
+
+The 'Roboto' font is chosen as the main font of the site due to it's readability and neatness.
+
+'Baloo Tamma 2' is selected for the splash page wordings as well as for the page title due to it's clean look.
+
+To differentiate article titles from other text, 'Lora' fonts are used.
 
 <hr>
-
 # Features
+
+
 
 <hr>
 

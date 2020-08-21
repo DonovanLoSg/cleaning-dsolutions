@@ -98,7 +98,7 @@
 					View
 					</a>
 					{% if listtype=='my' or current_user.admin %}
-					<a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-danger btn-md" >
+					<a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-warning btn-md" >
 					Delete
 					</a>
 					{% endif %}

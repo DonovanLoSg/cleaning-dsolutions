@@ -33,15 +33,15 @@
 							{% if each_comment.user_postings.good_rating %}
 							<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-							<span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
+							<span class="badge badge-pill badge-info">{{ good_rating_count|default('0')}}</span>
 							{% elif each_comment.user_postings.neutral_rating %}
 							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-							<span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
+							<span class="badge badge-pill badge-info">{{ neutral_rating_count|default('0') }}</span>
 							{% else %}
 								<img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title=It doesn't work !">
-							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
+							<span class="badge badge-pill badge-info">{{ bad_rating_count|default('0') }}</span>
 							{% endif %}
 						</td>
 						<td>

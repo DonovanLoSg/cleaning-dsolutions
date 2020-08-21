@@ -20,12 +20,12 @@
 				{% if (article_owner_id == current_user.id) or current_user.admin %}
 				<!-- Confirm deletion -->
 				<form method="post" name="form" target="_self">
-					<button type="submit" class="btn btn-danger">Confirm Deletion</button>
+					<button type="submit" class="btn btn-danger  btn10">Confirm Deletion</button>
 				</form>
 				{% if listtype=="page" %}
-				<a href="{{url_for('show_article', _id =article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
-				{% else %}
-				<a href="{{url_for('my_articles')}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+				<a href="{{url_for('show_article', _id=article_data._id)}}" class="btn btn-primary  btn10 btn-md">Cancel Deletion</a>
+                {% else %}
+				<a href="{{url_for('my_articles')}}" class="btn btn-primary btn10 btn-md">Cancel Deletion</a>
 				{% endif %}
 				{% endif %}<br><br>
 				{% endif %}
@@ -52,17 +52,17 @@
 						<div class="col text-center">
 							<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-							<span class="badge badge-pill badge-info">{{ good_rating_count}}</span>
+							<span class="badge badge-pill badge-info">{{good_rating_count|default('0')}}</span>
 						</div>
 						<div class="col text-center">
 							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-							<span class="badge badge-pill badge-info">{{ neutral_rating_count }}</span>
+							<span class="badge badge-pill badge-info">{{ neutral_rating_count|default('0')}}</span>
 						</div>
 						<div class="col text-center">
 							<img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
 								class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
-							<span class="badge badge-pill badge-info">{{ bad_rating_count }}</span>
+							<span class="badge badge-pill badge-info">{{ bad_rating_count|default('0')}}</span>
 						</div>
 					</div>
 				</div>
@@ -131,12 +131,12 @@
 					{% if (article_owner_id == current_user.id) or current_user.admin %}
 					<!-- Confirm deletion -->
 					<form method="post" name="form" target="_self">
-						<button type="submit" class="btn btn-danger">Confirm Deletion</button>
+						<button type="submit" class="btn btn-danger mb-3 btn10" >Confirm Deletion</button>
 					</form>
 					{% if listtype=="page" %}
-					<a href="{{url_for(show_article), _id=article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+					<a href="{{url_for('show_article', _id=article_data._id)}}" class="btn btn-primary btn-md btn10">Cancel Deletion</a>
 					{% else %}
-					<a href="{{url_for(my_articles), _id=article_data._id}}" class="btn btn-primary btn-md">Cancel Deletion</a>
+					<a href="{{url_for('my_articles', _id=article_data._id)}}" class="btn btn-primary btn-md btn10">Cancel Deletion</a>
 					{% endif %}
 					{% endif %}
 				</div>
