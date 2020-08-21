@@ -275,7 +275,7 @@ button {
 
 #search-panel, 
 #random-read {
-    z-index: 30;
+    z-index: 40;
     border-radius: 2rem 2rem 0 0;
 }
 
