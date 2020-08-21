@@ -236,6 +236,13 @@ button {
 	font-style: italic;
 }
 
+/* - article page */
+.grey-box{
+    background: #EEEEEE;
+    border-radius: 15px;
+    padding: 1rem;
+
+}
 
 /* - borders and shadows */
 

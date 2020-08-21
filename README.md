@@ -402,7 +402,10 @@ The 'Roboto' font is chosen as the main font of the site due to it's readability
 To differentiate article titles from other text, 'Lora' fonts are used.
 
 <hr>
+
 # Features
+
+
 
 
 

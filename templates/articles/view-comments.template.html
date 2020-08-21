@@ -11,50 +11,51 @@
 			<h1>{{article_data.article_title}}</h1>
 			<hr>
 		</div>
-		<div>
-			<table id="myTable2" class=" display dataTable article-title" data-page-length="10" style="width:100%">
-				<thead>
-					<tr>
-						<th>
-							Rating
-						</th>
-						<th>
-							Nickname
-						</th>
-						<th>
-							Comments
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for each_comment in joint_list %} 
-					<tr>
-						<td class="rating-column">
-							{% if each_comment.user_postings.good_rating %}
-							<img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
-								class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-							<span class="badge badge-pill badge-info">{{ good_rating_count|default('0')}}</span>
-							{% elif each_comment.user_postings.neutral_rating %}
-							<img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
-								class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-							<span class="badge badge-pill badge-info">{{ neutral_rating_count|default('0') }}</span>
-							{% else %}
-								<img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
-								class="faces" data-toggle="tooltip" data-placement="top" title=It doesn't work !">
-							<span class="badge badge-pill badge-info">{{ bad_rating_count|default('0') }}</span>
-							{% endif %}
-						</td>
-						<td>
-							{% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
-						</td>
-						<td>
-							{% if (each_comment.user_postings.comments) %}{{each_comment.user_postings.comments}}{% endif %}
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
+        <div class="container  p-5 mb-5">
+            <div class="container datatable_wrap">
+                <table id="tableComments" class="table table-sm table-striped table-hover display dtr-inline collapsed"  data-page-length="10" style="width: 100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="d-none"></th>
+                            <th  class="narrow">
+                                Rating
+                            </th>
+                            <th scope="col">
+                                Nickname
+                            </th>
+                            <th scope="col">
+                                Comments
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for each_comment in joint_list %} 
+                        <tr>
+                            <td class="d-none"></td>
+                            <td class="rating-column">
+                                {% if each_comment.user_postings.good_rating %}
+                                <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
+                                    class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+                                {% elif each_comment.user_postings.neutral_rating %}
+                                <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
+                                    class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                                {% else %}
+                                <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
+                                    class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
+                            </td>
+                            <td>
+                                {% if (each_comment.user_postings.comments) %}{{each_comment.user_postings.comments}}{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 	</div>
 </div>
 {% endblock %}

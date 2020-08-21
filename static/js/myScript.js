@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     // DataTables
 
-	if (document.getElementById("tableHomePage")) {
+	if (document.getElementById("myTable")) {
         $("#myTable").DataTable({
             responsive: true,
             searching: true,
@@ -45,10 +45,14 @@ $(document).ready(function () {
 	if (document.getElementById("tableUsers")) {
 		$("#tableUsers").DataTable({
 			responsive: true,
-			paging: false,
-			searching: false,
-			ordering: false,
-			info: false,
+			paging: true,
+			searching: true,
+			ordering: true,
+            info: false,
+            columnDefs: [{
+                "orderable": false,
+                "targets": -1
+            }],
 		});
 	}
 
@@ -60,7 +64,20 @@ $(document).ready(function () {
 			ordering: false,
 			info: false,
 		});
-	}
+    }
+    
+	if (document.getElementById("tableComments")) {
+		$("#tableComments").DataTable({
+			responsive: true,
+			paging: true,
+			searching: true,
+			ordering: true,
+            info: false,
+            columnDefs: [{
+                "orderable": false,
+                "targets": -3
+            }],
+            })};
 
 	// Tooltip
 	$('[data-toggle="tooltip"]').tooltip();
