@@ -517,11 +517,92 @@ Tags can be part of the searching criteria, helping with the accuracy of the sea
 
 To give users have a glimpse of the content of the database, up to five random articles are listed on the home page
 
-
-
 <hr>
 
 # Technologies Used
+
+In this project I used *HTML5* to structure the webpages and *CSS3* for front end development 
+*Python* and *Flask *for the back end.
+
+I uses *Git* for Versioning Control System and *GitHub* for development repositories.
+
+Heroku is used for hosting Production files.
+
+Database is hosted on *MongoDB*.
+
+Gitpod, an online IDE, is my main coding platform. I do sometimes test out codes in Repl.it
+
+I use Bootstrap 4, including its compoents and utilities for layout (e.g.NavBar is used for the main navigation)
+
+The interativity is enabled by Javascript and it's libraries (DataTables, jQuery, TinyMCE), taking advantages of DOM.
+
+A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/) is used in additional to Code Institues templates (https://github.com/Code-Institute-Org/gitpod-full-template) to start the coding. The template used for Readme.md is also from Code Institute (https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
+
+
+For Favicons:
+Favicon & App Icon Generator (https://www.favicon-generator.org/)
+
+For codes formatting
+JavaScript Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
+CSS Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
+
+For Code Validation
+
+
+Favicon Checker (https://www.seoptimer.com/favicon-checker)
+<!-- W3C Markup Validation Service (https://validator.w3.org/) -->
+<!-- W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/) -->
+<!-- W3C Link Checker (https://validator.w3.org/checklink) -->
+<!-- W3C Spell Checker (https://www.w3.org/2002/01/spellchecker) -->
+<!-- JSLint (https://jslint.com/) -->
+<!-- Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/) -->
+<!-- Typosaurus (https://typosaur.us/) -->
+<!-- Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0) -->
+<!-- For responsiveness checking -->
+<!--  -->
+
+<!-- 
+
+
+
+Responsive Design Checker (https://responsivedesignchecker.com/)
+
+For user flow diagram and mindmaping
+Xmind (https://www.xmind.net/)
+
+For fonts
+Font Awesome 4 (https://fontawesome.com/v4.7.0/)
+
+For wireframe
+MockFlow (https://www.mockflow.com/)
+
+For sitemap
+GlooMaps (https://www.gloomaps.com/)
+Draw.io (https://www.draw.io/)
+
+For viewing JSON document
+JSON Path Finder (https://jsonpathfinder.com/)
+
+For use case Diagram
+Creately (https://creately.com/)
+
+For image editing
+Pixlr (https://pixlr.com)
+Paint.NET (https://www.getpaint.net)
+
+For placeholder before real content are inserted
+Placeholder.com (http://placeholder.com)
+PlaceIMG (http://placeimg.com)
+Lorem Ipsum Generator (https://loremipsum.io/)
+Lipsum Generator (https://www.lipsum.com/)
+
+For grammer and spell check
+Grammer Checker - Online Editor (https://grammarchecker.io/)
+Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
+
+
+
+
 
 <hr>
 

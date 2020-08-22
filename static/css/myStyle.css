@@ -104,17 +104,22 @@ h2:first-letter {
 
 
 .deck-text {
-    background : grey;
+    background : rgb(65, 57, 57);
     border: 1px solid grey;
     box-shadow: 0 0 12px 0 rgba(255, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 0, 0, 0.19);
     color: white;
     display: block;
+    font-weight: bold;
     padding-left: 1rem;
     padding-right: 1rem;
     text-align: center;
+    
 }
 
-
+/* Hyperlink */
+a {
+        color: darkblue
+        }
 
 /* Text */
 

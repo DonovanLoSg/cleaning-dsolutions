@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
-	// HTML editor for article contribution and edition
+    if (document.getElementsByClassName("message-panel")) {
+        document.getElementsByClassName("message-panel").focus()
+    }
+
+    // HTML editor for article contribution and edition
 	tinymce.init({
 		selector: 'textarea#input-content',
 		menubar: false,

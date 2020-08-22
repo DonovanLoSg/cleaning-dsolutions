@@ -16,25 +16,25 @@
 				<!-- search text in title -->
 				<div>
 					<div class="form-check">
-						<label class="form-check-label">
-						{% if form and form.getlist('check-search-titles') %}checked
-						<input
-							type="checkbox"
-							class="form-check-input"
-							id="check-search-titles"
-							name="check-search-titles"
-							value="titles"
-							checked
-							/>
-						{% else %}
-						<input
-							type="checkbox"
-							class="form-check-input"
-							id="check-search-titles"
-							name="check-search-titles"
-							value="titles"
-							/>
-						{% endif %}
+						<label class="form-check-label" for="check-search-titles">
+                            {% if form and form.getlist('check-search-titles') %}checked
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="check-search-titles"
+                                    name="check-search-titles"
+                                    value="titles"
+                                    checked
+                                    />
+                                {% else %}
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="check-search-titles"
+                                    name="check-search-titles"
+                                    value="titles"
+                                    />
+                            {% endif %}
 						</label>
 					</div>
 					<div class="form-group ml-4">
@@ -63,32 +63,32 @@
 				<div>
 					<div class="form-check">
 						<div class="form-check-label">
-							<label class="form-check-label">
-							{% if form and form.getlist('check-search-locations') %}
-							<input
-								type="checkbox"
-								class="form-check-input"
-								id="check-search-locations"
-								name="check-search-locations"
-								value="locations"
-								checked
-								/>
-							{% else %}
-							<input
-								type="checkbox"
-								class="form-check-input"
-								id="check-search-locations"
-								name="check-search-locations"
-								value="locations"
-								/>
-							{% endif %}
-							</label>
+                            <label for="check-search-locations">
+                                {% if form and form.getlist('check-search-locations') %}
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="check-search-locations"
+                                    name="check-search-locations"
+                                    value="locations"
+                                    checked
+                                    />
+                                {% else %}
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="check-search-locations"
+                                    name="check-search-locations"
+                                    value="locations"
+                                    />
+                                {% endif %}
+                            </label>
 						</div>
 					</div>
 					<div class="form-group ml-4">
 						<label for="search-title"
-							>Targeted any of these cleaning locations..</label
-							>
+							>Targeted any of these cleaning locations..
+                        </label>
 						<select
 							class="custom-select"
 							id="search-location"
