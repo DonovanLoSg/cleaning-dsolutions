@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     if (document.getElementbyId("flashmessage")) {
-        document.getElementsByClassName("flashmessage").focus();
+        document.getElementsByClassName("flashmessage").scrollTop(0);
     }
 
     // HTML editor for article contribution and edition
