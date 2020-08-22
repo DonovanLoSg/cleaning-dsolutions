@@ -54,7 +54,13 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Fonts](#fonts)
         - [Images](#images)
 - [Features](#features)
-
+	- [Three Level of Access Rights](#three-level-of-access-rights)
+	- [Article Library](#article-library)
+	- [Reference Table for the Cleaning Location](#reference-table-for-the-cleaning-location)
+	- [Online HTML Editor](#online-html-editor)
+	- [Article Commenting](#article-commenting)
+	- [Article Rating](#article-rating)
+	- [Tagging](#tagging)
 
 
 
@@ -268,10 +274,12 @@ Main Content:
 ### Information Design
 
 #### Accessing the information
+
 The purpose of the system is allow public users to find a solutions to their cleaning issues.
 There are different ways of accessing the articles stored in the database.
 
 ##### Search Articles
+
 The user can search:
 - for articles which titles contain certain words
 - for articles which targetted at a selected cleaning location
@@ -280,11 +288,13 @@ The user can search:
 The result of the search will be displayed in the format similar to the one listing all the articles.
 
 ##### Random Articles 
+
 The system randomly generate a list of 5 articles from the database and 
 display them on the right panel of the home page.
 Clicking on the article titles will allow users to access the articles directly
 
 ##### All Articles
+
 The system will present the list of articles in a table form.
 
 _Pagination_
@@ -311,11 +321,13 @@ Clicking on the 'Delete' button will allow administrator to see the page he sele
 to confirm his decision.
 
 ##### User's Own Articles
+
 After a user logged in,
 he can click on the 'Articles' on the navigation menu and select 'My Articles' from the submenu
 to access to the list of articles he has contributed to the database.
 
 #### Contributing knowledge
+
 A loggin user can add his knowledge to the database by selecting 'Contribute Articles' 
 under the 'Articles' navigation menu.
 
@@ -406,6 +418,72 @@ To differentiate article titles from other text, 'Lora' fonts are used.
 
 # Features
 
+## Three Level of Access Rights
+
+In additional to public access, this application allows user to register as a member to access to more features.
+An administrator can also assign administrator rights to a user to manage the application.
+
+_Public Access_
+Any visitors are allowed to browse or search through the list of titles for articles he is interested in.
+He can access to view the articles by clicking 'View' from the list.
+He can register as a members to access more features.
+
+_Member Access_
+Once an user logged in as a members, he will be able to rate and leave comments to articles he views.
+He can also contribute his own articles.
+He can access the list of articles to update or even delete them at a later time.
+He can also update his own profile, which includes the change of passwords.
+
+_Administrator_
+Administors can assign an user admnistrative rights.
+When an administrator logged in, he will be able to update and delete any articles.
+He will be able to manage the users as well as the reference table of cleaning locations.
+
+## Article Library
+
+This application function is to crowdsource and share information on cleaning.
+It allows unrestricted viewing access to the public.
+It also allows a member (registered users) to contribute or store articles.
+The member can also access a page which only list articles he has contributed.
+He can decide to edit or delete as deem necessary.
+
+In every articles, they are made up of a article title, targeted cleaning location, main content, cleaning items list, cleaning supplies list, and tags.
+
+## Reference Table for the Cleaning Location
+
+The cleaning locations uses a reference table to limit variations of entries.
+This helps to group the articles easily without much data cleaning.
+The reference table can be access and managed in the Administrator Access area.
+Deleting entries from the reference tables will not affect the existing entries.
+This table provide options to select from during creation, edition and search.
+The user can only selected one cleaning locations for each articles.
+More than one options can be selected to be criteria of performing a search.
+
+## Online HTML Editor
+
+The main content of the article can be formmatted.
+An online HTML editor is embeded in the page for creation and edition of the articles.
+
+## Article Commenting
+
+A member will be able to leave a comments on the article he viewing.
+He can also edit his own comments at a later time.
+The comments given by different uses for an article are kept in a list accessible by clicking "View Comments'.
+
+## Article rating
+
+A member can validate the methods or items is workable by rating.
+There are three ratings: "It works!" (smiling face), "Works somewhat.. (blank face) and "It doesn't work !" (frowning face).
+The member can rate on the bottom of the article by clicking on the faces.
+He can also update the rating anytime using the same methods.
+The number of each type of ratings are counted and total displayed on top of the article.
+To see the individual's ratings, the member can click on 'View Comments'.
+
+## Tagging
+
+This system allows users to provide a list of tags. 
+The tags can include names of targetted items to be cleaned (e.g. Sink) and problems encounter (e.g. choke ).
+Tags can be part of the searching criteria, helping with the accuracy of the search result.
 
 
 
