@@ -56,12 +56,14 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - [Features](#features)
 	- [Three Level of Access Rights](#three-level-of-access-rights)
 	- [Article Library](#article-library)
+    - [Article Listing](#article-listing)
+    - [Advanced Article Search](#advanced-article-sort)
 	- [Reference Table for the Cleaning Location](#reference-table-for-the-cleaning-location)
 	- [Online HTML Editor](#online-html-editor)
 	- [Article Commenting](#article-commenting)
 	- [Article Rating](#article-rating)
 	- [Tagging](#tagging)
-
+	- [Random Articles](#random-articles)
 
 
 ## Defining the Project (Strategy)
@@ -449,6 +451,32 @@ He can decide to edit or delete as deem necessary.
 
 In every articles, they are made up of a article title, targeted cleaning location, main content, cleaning items list, cleaning supplies list, and tags.
 
+## Advanced Article Search
+
+The search panel on the home page allows users to search for articles in the database.
+Search can be performed for 
+- article titles which contain a certain word.
+- articles which target at one or more specific cleaning location.
+- articles which has a certain tag.
+The search can also be a combination of two or even three crtieria by just ticking the criteria to include in the search.
+e.g. Searching for titles taht include words like "How to" and the cleaning target being the kitchen and having the tags like "sink, choke".
+
+
+## Article Listing
+
+Regardless of whether the user select to browse all articles, search for articles, listing his own articles, 
+the result will be a list of articles titles.
+This list is sortable by clicking on the column header.
+Clicking on the column header currently sorted by will change the order of sorting.
+It will toggle between ascending sort and descending sort.
+Pagination is also applied to the table.
+By default, it will show 10 entries per page, but users can choose to increase it or decrease it,
+by changing the options on the top left hand corner of the table.
+The bottom left of the table indicates which are teh entries showing.
+bottom right of teh table shows which page the users are on and the users can navigator through thte pages here.
+There is a search field on the top right of the table, this allows user to do a refined search within the entries listed.
+
+
 ## Reference Table for the Cleaning Location
 
 The cleaning locations uses a reference table to limit variations of entries.
@@ -485,7 +513,9 @@ This system allows users to provide a list of tags.
 The tags can include names of targetted items to be cleaned (e.g. Sink) and problems encounter (e.g. choke ).
 Tags can be part of the searching criteria, helping with the accuracy of the search result.
 
+## Random Articles
 
+To give users have a glimpse of the content of the database, up to five random articles are listed on the home page
 
 
 
