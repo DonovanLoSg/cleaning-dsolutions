@@ -744,7 +744,8 @@ def view_comment(_id):
             joint_list = list(joint_data)
         return render_template('/articles/view-comments.template.html',
                                joint_list=joint_list,
-                               article_data=article_data)
+                               article_data=article_data,
+                               _id=_id)
     else:
         flash('No such article found', category='danger')
         return redirect(url_for('home'))

@@ -5,6 +5,11 @@
 {% endblock %}
 {% block content %}
 <div class="container black-border blur-shadow p-3 pb-5 mb-5">
+	<div class="container text-right">
+        <a href="{{url_for('show_article',_id=_id)}}" class="btn btn6 btn-primary btn12">
+            Back to Article
+        </a>
+    </div>
 	<div class="container">
 		<!-- title -->
 		<div class="container mt-2">
@@ -57,5 +62,10 @@
             </div>
         </div>
 	</div>
+	<div class="container text-right">
+        <a href="{{url_for('show_article',_id=_id)}}" class="btn btn6 btn-primary btn12">
+            Back to Article
+        </a>
+    </div>
 </div>
 {% endblock %}
