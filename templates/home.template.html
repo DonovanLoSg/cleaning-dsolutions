@@ -201,6 +201,11 @@
 		</div>
 	</div>
 </div>
-
-
+{% if (goto) %}
+<script>
+ $('html, body').animate({
+        scrollTop: $("#{{goto}}").offset().top
+    }, 1000);
+</script>
+{% endif %}
 {% endblock %}

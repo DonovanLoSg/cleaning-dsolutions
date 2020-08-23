@@ -161,7 +161,8 @@ def home():
     else:
         return render_template("/home.template.html",
                                location_data=location_data,
-                               random_articles=random_articles)
+                               random_articles=random_articles,
+                               )
 
 
 @app.route('/about')
