@@ -92,17 +92,13 @@
 					{{article.cleaning_location}}
 				</td>
 				<td class="mx-auto text-nowrap align-middle  m-0 p-0 narrow">
-					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn6 btn-primary btn-md">
-					View
-					</a>
+					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn6 btn-primary btn-md">View</a>
 					{% if listtype=='my' or current_user.admin %}
                         {% if listtype=="my" %}
-                            <a href="{{url_for('delete_article',_id=article._id, listtype='my')}}" class="btn btn6 btn-warning btn-md" >
+                            <a href="{{url_for('delete_article',_id=article._id, listtype='my')}}" class="btn btn6 btn-warning btn-md">Delete</a>
                         {% else %}
-					        <a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-warning btn-md" >
+					        <a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-warning btn-md">Delete</a>
                         {% endif %}
-					Delete
-					</a>
 					{% endif %}
 				</td>
 			</tr>
