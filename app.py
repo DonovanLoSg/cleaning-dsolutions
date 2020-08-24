@@ -7,8 +7,6 @@ import flask_login
 from flask import Flask, render_template, request
 from flask import session, redirect, url_for, flash
 import re
-import csv
-
 
 # load in the variables in the .env file into our operating system environment
 load_dotenv()
@@ -153,12 +151,10 @@ def home():
                                    random_articles=random_articles)
 
         article_data = client[DB_NAME][DB_ARTICLE].find(myQuery)
-        article_data.cleaning_items = " ".join(article_data.cleaning_items)
-        article_data.cleaning_items = article_data.cleaning_items.split()
-        article_data.cleaning_supplies = " ".join(article_data.cleaning_supplies)
-        article_data.cleaning_supplies = article_data.cleaning_supplies.split()
-
-
+        cleaning_items = " ".join(article_data.cleaning_items)
+        article_data.cleaning_items = cleaning_items.split()
+        cleaning_supplies = " ".join(article_data.cleaning_supplies)
+        article_data.cleaning_supplies = cleaning_supplies.split()
 
         return render_template("/articles/article-list.template.html",
                                articles=article_data,
@@ -591,7 +587,6 @@ def show_article(_id):
 @flask_login.login_required
 def delete_article(_id, listtype):
     current_user = load_user(flask_login.current_user.get_id())
-    referral = request.referrer
     if request.method == 'GET':
         if not(_id is None) and ObjectId.is_valid(_id):
             myQuery1 = {'_id': ObjectId(_id)}

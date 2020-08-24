@@ -64,6 +64,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 	- [Article Rating](#article-rating)
 	- [Tagging](#tagging)
 	- [Random Articles](#random-articles)
+- [Technologies Used](#technologies-used)
+
 
 
 ## Defining the Project (Strategy)
@@ -540,48 +542,46 @@ A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishable
 
 
 For Favicons:
-Favicon & App Icon Generator (https://www.favicon-generator.org/)
+- Favicon & App Icon Generator (https://www.favicon-generator.org/)
 
-For codes formatting
-JavaScript Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
-CSS Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
+For Code formatting
+- JavaScript Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
+- CSS Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
 
 For Code Validation
-W3C Markup Validation Service (https://validator.w3.org/) 
-W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/)
-W3C Link Checker (https://validator.w3.org/checklink)
-Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0)
-JSLint (https://jslint.com/)
-W3C Spell Checker (https://www.w3.org/2002/01/spellchecker)
-Typosaurus (https://typosaur.us/) 
-Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
-Favicon Checker (https://www.seoptimer.com/favicon-checker)
+- W3C Markup Validation Service (https://validator.w3.org/) 
+- W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/)
+- W3C Link Checker (https://validator.w3.org/checklink)
+- Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0)
+- JSLint (https://jslint.com/)
+- W3C Spell Checker (https://www.w3.org/2002/01/spellchecker)
+- Typosaurus (https://typosaur.us/) 
+- Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
+- Favicon Checker (https://www.seoptimer.com/favicon-checker)
 
-For Favicons
-Responsive Design Checker (https://responsivedesignchecker.com/)
+For Responsive Checks
+- Responsive Design Checker (https://responsivedesignchecker.com/)
 
-For mindmaping
-Xmind (https://www.xmind.net/)
+For Mindmapping
+- Xmind (https://www.xmind.net/)
 
-For fonts
-Google Fonts (https://fonts.google.com/)
+For Fonts
+- Google Fonts (https://fonts.google.com/)
 
-For wireframe
-MockFlow (https://www.mockflow.com/)
+For Wireframe
+- MockFlow (https://www.mockflow.com/)
 
-For use case Diagram, user flow diagram, ER diagram, sitemap
-Diagrams.net (https://www.diagrams.net/)
+For Diagrams (Use Case Diagrams, User Flow Diagrams, ER Diagrams and Site Map)
+- Diagrams.net (https://www.diagrams.net/)
 
 For image editing
-Paint.NET (https://www.getpaint.net)
+- Paint.NET (https://www.getpaint.net)
 
 For grammer and spell check
-Grammer Checker - Online Editor (https://grammarchecker.io/)
-Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
+- Grammer Checker - Online Editor (https://grammarchecker.io/)
+- Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
 
 <hr>
-
-
 
 # Testing
 
@@ -589,7 +589,15 @@ Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
 
 ### Link Testing
 
+Using W3C Link Checker (https://validator.w3.org/checklink)
+
+
+
+
 ### Form Testing
+
+Manual User Testing are documented in this Google Sheet:
+https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
 
 ### HTML Testing
 
