@@ -9,29 +9,28 @@
 			<label for="input-email">Email address</label>
 			{% if form %}  
                 <input type="email" class="form-control" id="input-email" name="input-email" 
-                    aria-describedby="emailHelp" placeholder="enter your email" 
+                    placeholder="enter your email" 
                     value="{{form.get('input-email')}}" 
                     readonly/>
 			{% else %}
                 <input type="email" class="form-control" id="input-email" name="input-email" 
-                    aria-describedby="emailHelp" placeholder="enter your email" 
+                    placeholder="enter your email" 
                     value="{{current_user.email}}"
                     readonly/>
             {% endif %}
-			<small id="emailHelp" class="form-text text-muted">
-			    We'll never share your email with anyone else.
-			</small>
 		</div>
 		<div class="form-group">
 			<label for="input-nickname">Nickname</label>
 			{% if form %}
                 <input type="nickname" class="form-control" id="input-nickname" name="input-nickname" 
                     aria-describedby="nicknameHelp" placeholder="enter your nickname" 
+                    pattern="^(\w| )*[0-9A-Za-z](\w| )*$"
                     value="{{form.get('input-nickname')}}"
                     required />
             {% else %}
                 <input type="nickname" class="form-control" id="input-nickname" name="input-nickname" 
                     aria-describedby="nicknameHelp" placeholder="enter your nickname" 
+                    pattern="^(\w| )*[0-9A-Za-z](\w| )*$"
                     value="{{current_user.nickname}}"
                     required />
 			{%endif %}
@@ -49,11 +48,10 @@
                     placeholder="Leave this blank if no change to password." id="input-password" name="input-password"
                     aria-describedby="passwordHelpBlock"/>
 			{% endif %}
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                Your password must be 8-20 characters long, contain only alphabets and digits. Leave it blank if blank if thee's no change to password.
+            </small>
 		</div>
-		<small id="passwordHelpBlock" class="form-text text-muted">
-            Your password must be 8-20 characters long, contain only alphabets and
-            digits.<br />Leave it blank if blank if thee's no change to password.
-		</small>
 		<div class="form-group">
 			<label for="input-verify" class="mr-sm-2">Verify:</label>
 			{% if form %} 
@@ -66,12 +64,8 @@
                     id="input-verify" name="input-verify" aria-describedby="verifyPasswordBlock"
                     placeholder="Leave this blank if no change to password." />
             {% endif %}
-			<small id="verifyPasswordBlock" class="form-text text-muted">
-			Your password must be 8-20 characters long, contain only alphabets and
-			digits.<br />Leave it blank if blank if thee's no change to password.
-			</small>
 		</div>
-		<button type="submit" class="btn btn-primary">Update</button>
+		<button type="submit" class="btn btn-success btn12">Save</button>
 	</form>
 </div>
 {% endblock %}

@@ -12,10 +12,10 @@
 	<div class="form-group">
 		<label for="input-title" class="thick">Title: </label>
 		{% if form and form.get('input-title') != '' %}
-		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus 
+		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus pattern="^(\w| )*[0-9A-Za-z](\w| )*$"
 			value="{{form.get('input-title') }}"/>
 		{% else %}
-		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus value="" />
+		<input type="text" class="form-control" id="input-title" name="input-title" placeholder="enter an article title" required autofocus value="" pattern="^(\w| )*[0-9A-Za-z](\w| )*$"/>
 		{% endif %}
 	</div>
 	<!-- cleaning location -->

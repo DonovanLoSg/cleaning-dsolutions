@@ -25,27 +25,27 @@
                             {% endif %}
                         </p>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 text-center">
                         <!-- Validation/Ratings -->
                         <p class="thick">Does it works? </p>
                         <div class="row ">
-                            <div class="col text-center">
+                            <div class="col text-right p-0">
                                 <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}"
                                 data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
                                 <span class="badge badge-pill badge-info">{{ good_rating_count|default('0')}}</span>
                             </div>
-                            <div class="col text-center">
+                            <div class="col text-center p-0">
                                 <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
                                 data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
                                 <span class="badge badge-pill badge-info">{{ neutral_rating_count|default('0')}}</span>
                             </div>
-                            <div class="col text-center">
-                                <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}"
+                            <div class="col text-left p-0">
+                                <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}"
                                 data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
                                 <span class="badge badge-pill badge-info">{{ bad_rating_count|default('0')}}</span>
                             </div>
                         </div>
-                        <a href="{{url_for('view_comment', _id=article_data._id)}}" class="btn btn-info"> View Comments</a>
+                        <a href="{{url_for('view_comment', _id=article_data._id)}}" class="btn btn-info view-comment-btn"> View Comments</a>
                     </div>
                 </div>
             </div>
@@ -108,32 +108,32 @@
 					<!-- User's rating -->
 					<p class="thick">Rate the method(s) in this article:</p>
 					<a href="{{url_for('rate', _id=article_data._id, rating='good')}}">
-                    {% if user_rated == 'good' %}
-					<img src="{{url_for('static', filename='img/faces/face_smile_color.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
-                    {% else %}
-					<img src="{{url_for('static', filename='img/faces/face_smile.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
-                    {% endif %}
+                        {% if user_rated == 'good' %}
+					        <img src="{{url_for('static', filename='img/faces/face_smile_color.png')}}"
+						        data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
+                        {% else %}
+					        <img src="{{url_for('static', filename='img/faces/face_smile.png')}}"
+						        data-toggle="tooltip" data-placement="top" class="faces" title="It works !">
+                        {% endif %}
 					</a>
 					<a href="{{url_for('rate',_id=article_data._id, rating='neutral')}}">
-                    {% if user_rated == 'neutral' %}
-                    <img src="{{url_for('static', filename='img/faces/face_blank_color.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
-                    {% else %}
-					<img src="{{url_for('static', filename='img/faces/face_blank.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
-                    {% endif %}
-					</a>
+                        {% if user_rated == 'neutral' %}
+                            <img src="{{url_for('static', filename='img/faces/face_blank_color.png')}}"
+			        			data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
+                        {% else %}
+					        <img src="{{url_for('static', filename='img/faces/face_blank.png')}}"
+						        data-toggle="tooltip" data-placement="top" class="faces" title="Works somewhat..">
+                        {% endif %}
+                    </a>
 					<a href="{{url_for('rate',_id=article_data._id, rating='bad')}}">
-					{% if user_rated == 'bad' %}
-                    <img src="{{url_for('static', filename='img/faces/face_frown_color.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
-					{% else %}
-					<img src="{{url_for('static', filename='img/faces/face_frown.png')}}"
-						data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
-					</a>
-                    {% endif %}
+					    {% if user_rated == 'bad' %}
+                            <img src="{{url_for('static', filename='img/faces/face_frown_color.png')}}"
+                                data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
+					    {% else %}
+					        <img src="{{url_for('static', filename='img/faces/face_frown.png')}}"
+						        data-toggle="tooltip" data-placement="top" class="faces" title="It doesn't work !">
+                        {% endif %}
+                    </a>
 				</div>
 				<div class="col-12 col-md-6">
 					<!-- User's comments -->
@@ -141,10 +141,9 @@
 					<form method="post" name="form" target="_self" action="/comment/add/{{article_data._id}}">
 						<div class="form-group ">
 							<label for="input-comments">Your comments:</label>
-							<textarea class="form-control" id="input-comments" name="input-comments" rows="3">{% if (user_comments) %}{{user_comments}}{% endif %}
-							</textarea>
+							<textarea class="form-control" id="input-comments" name="input-comments" rows="3">{% if (user_comments) %}{{user_comments}}{% endif %}</textarea>
 						</div>
-						<button type="submit" class="btn btn-success">Save Comments</button>
+						<button type="submit" class="btn btn-success btn12">Save Comments</button>
 					</form>
 				</div>
 			</div>
@@ -163,8 +162,8 @@
 				<div class="col-12 col-md-6">
 					{% if (article_owner_id) and ((article_owner_id == current_user._id) or current_user.admin) %}
 					<!-- Action panel for article's owner and administrator -->
-					<a href="{{url_for('edit_article', _id=article_data._id)}}" class="btn btn-primary btn-md">Edit Article</a>
-					<a href="{{url_for('delete_article', _id=article_data._id, listtype='page')}}" class="btn btn-warning btn-md">Delete Article</a>
+					<a href="{{url_for('edit_article', _id=article_data._id)}}" class="btn btn-primary btn-md btn12">Edit Article</a>
+					<a href="{{url_for('delete_article', _id=article_data._id, listtype='page')}}" class="btn btn-warning btn-md btn12">Delete Article</a>
 					{% endif %}
 				</div>
 			</div>

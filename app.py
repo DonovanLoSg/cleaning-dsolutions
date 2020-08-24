@@ -15,7 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 
 
-# connect to mongo
+# connect to mongoa
 MONGO_URI = os.environ.get('MONGO_URI')
 client = pymongo.MongoClient(MONGO_URI)
 
@@ -413,6 +413,7 @@ def contribute_articles():
         input_user_postings = [{'_id': ObjectId(), 'user_id': '0',
                                 'good_rating': False, 'neutral_rating': False,
                                 'bad_rating': False, 'comments': ""}]
+        input_user_postings = []
         client[DB_NAME][DB_ARTICLE].insert_one({
             'article_title': input_title,
             'cleaning_location': input_location,
@@ -582,6 +583,7 @@ def show_article(_id):
 @flask_login.login_required
 def delete_article(_id, listtype):
     current_user = load_user(flask_login.current_user.get_id())
+    referral = request.referrer
     if request.method == 'GET':
         if not(_id is None) and ObjectId.is_valid(_id):
             myQuery1 = {'_id': ObjectId(_id)}
@@ -611,6 +613,7 @@ def delete_article(_id, listtype):
     else:
         myQuery1 = {'_id': ObjectId(_id)}
         article_data = client[DB_NAME][DB_ARTICLE].delete_one(myQuery1)
+        flash('Article deleted.', category='danger')
         return redirect(url_for('my_articles'))
 
 
@@ -790,7 +793,7 @@ def manage_cleaning_locations():
         elif form.get('action') == "add":
             client[DB_NAME][DB_LOCATION].insert_one(
                 {'location': form.get('input-new-location')})
-            flash("New cleaning location added.")
+            flash("New cleaning location added.", category='success')
             return redirect(url_for("manage_cleaning_locations"))
         else:
             return redirect(url_for('error_encountered'))

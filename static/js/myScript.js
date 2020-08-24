@@ -1,16 +1,5 @@
 $(document).ready(function () {
 
-   
-
-    
-    
-
-
-
-
-
-
-
     // HTML editor for article contribution and edition
 	tinymce.init({
 		selector: 'textarea#input-content',

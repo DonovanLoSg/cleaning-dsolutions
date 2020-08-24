@@ -34,29 +34,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for each_comment in joint_list %} 
-                        <tr>
-                            <td class="d-none"></td>
-                            <td class="rating-column">
-                                {% if each_comment.user_postings.good_rating %}
-                                <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
-                                    class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-                                {% elif each_comment.user_postings.neutral_rating %}
-                                <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
-                                    class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-                                {% else %}
-                                <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
-                                    class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
-                            </td>
-                            <td>
-                                {% if (each_comment.user_postings.comments) %}{{each_comment.user_postings.comments}}{% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        {% if (joint_list|length > 0) %}
+                            {% for each_comment in joint_list %} 
+                            <tr>
+                                <td class="d-none"></td>
+                                <td class="rating-column">
+                                    {% if each_comment.user_postings['good_rating'] %}
+                                    <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+                                    {% elif each_comment.user_postings['neutral_rating'] %}
+                                    <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                                    {% elif each_comment.user_postings['bad_rating'] %}
+                                    <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
+                                </td>
+                                <td>
+                                    {% if (each_comment.user_postings['comments']) %}{{each_comment.user_postings['comments']}}{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td >
+                                    No comments or ratings found.
+                                </td>
+                            </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
