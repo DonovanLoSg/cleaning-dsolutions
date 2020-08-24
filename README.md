@@ -75,22 +75,22 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 ### Users
 
-- General Users – the consist of first-time visitor and repeated visitors who are looking for solutions to their cleaning issues.
+- General Users – this consist of first-time visitor and repeated visitors who are looking for solutions to their cleaning issues.
 - Contributors – they are users who are interested to validate the article contents, leave comments to the articles or contribute their own insights, tips and hacks. They will have to register as members.
 - Administrators – they are the super user who are given authority to manage the users.
 
 ### Users' stories
 - As a general user,
-    - I will like to locate a relevant article in the system, so that I can have the solutions to my cleaning problems.
+    - I would like to locate a relevant article in the system, so that I can have the solutions to my cleaning problems.
 
 - As a contributor (member),
-    - I will like to store the article in the library, so that I can access them easily later.
-    - I will like to contribute an article so that I can share it with the community.
-    - I will like to leave a comment on an article so that I feedback the result of trying out the written methods.
+    - I would like to store the article in the library, so that I can access them easily later.
+    - I would like to contribute an article so that I can share it with the community.
+    - I would like to leave a comment on an article so that I provide feedback with result after trying out the written methods.
 
 - As an administrator,
-    - I will like to access the user tables, so that I can mange the users and resetting password.
-    - I will like to access the articles, so that I can manage or delete undesirable articles.
+    - I would like to access the user tables, so that I can mange the users and resetting password.
+    - I would like to access the articles, so that I can manage or delete undesirable articles.
 
 ### Users' goals
 - General Users’ goals 
@@ -134,8 +134,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Display a list of all articles the member contributed.
 - Allow member to select one of the articles by clicking on the article titles from the list to view the article.
 - Allow member to select one of the articles by clicking on the corresponding delete button.
-- Allow member to delete the article by clicking on the delete confirmation button on the article itself.
-- Allow member to edit the article by clicking on the edit button on the article itself.
+- Allow member to delete the article by clicking on the "delete confirmation" button on the article itself.
+- Allow member to edit the article by clicking on the "edit" button on the article itself.
 - Allow member to add a comment on the article page.
 - Allow member to edit the comment he left on the article page
 - Allow member to validate the article content by voting whether it works, somewhat works, or doesn’t work.
@@ -143,16 +143,16 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Allow member to edit articles they contributed.
 - Allow member to delete articles they contributed.
 - Include an article creation page accepting article titles, cleaning location, article content, cleaning items, cleaning supplies and tags.
-- Allow member to view their own profile comprising of nickname, email address and password.
+- Allow member to view their own profile containing of nickname, email address and password.
 - Allow member to update their nickname or reset their password.
 
 #### Administrator Access
 - Display a search panel to allow administrator to search using different methods: search by article titles, search by cleaning location or search by tags.
 - When a search is executed, it will return the result in a list containing article titles and cleaning locations.
 - Allow administrator to select one of article by clicking on the article titles from the search results to view the article.
-- Allow administrator to delete an article by clicking on the corresponding delete button.
-- Allow administrator to delete an article by clicking on the delete button on the article itself.
-- Allow administrator to edit an article by clicking on the edit button on the article itself.
+- Allow administrator to delete an article by clicking on the corresponding "delete" button.
+- Allow administrator to delete an article by clicking on the "delete button" on the article itself.
+- Allow administrator to edit an article by clicking on the "edit" button on the article itself.
 - Allow administrator to add a comment on the article page.
 - Allow administrator to edit the comment he left on the article page.
 - Allow administrator to validate the article content by voting whether it works, somewhat works, or doesn’t work.
@@ -186,7 +186,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - Validating the content
     - Changing nickname
     - Resetting password
-- Content for stepy by step instructions for administrator
+- Content for step by step instructions for administrator
     - Search for user profiles
     - Modifying/Deleting user profiles
     - Assigning admin rights
@@ -194,10 +194,10 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 #### Dynamic Content
 
-- Records of articles comprising of article id, article title, cleaning location, article content, cleaning items, cleaning supplies, tags, creator, date created, date modified, count of the three different type of validated results.
+- Records of articles includes article id, article title, cleaning location, article content, cleaning items, cleaning supplies, tags, creator, date created, date modified, count of the three different type of validated results.
 - Comments attached to the articles record (maximum one per user per article)
 - Validation (i.e. working, somewhat working, not working) (maximum one per user per article)
-- Records of users comprising of user id, nickname, email address, password and a flag indicating whether he has administration rights.
+- Records of users includes user id, nickname, email address, password and a flag indicating whether he has administration rights.
 - List of cleaning locations
 
 ## Developing the Site Structure and Organize Information (Structure)
@@ -238,17 +238,17 @@ Main Navigation is a fixed position menu at the top of every web page. They are 
 
 #### Collapsible Hamburger Mobile Menu
 
-The top navigation will be minimised into a hamburger menu when displayed in mobile screens or other small screens. Clicking on it will display the familiar 3 choices. [Bootstrap Component - Navbar]
+The top navigation will be minimized into a hamburger menu when displayed in mobile screens or other small screens. Clicking on it will display the familiar 3 choices. [Bootstrap Component - Navbar]
 
 ### Interface Design
 
-The site consists of pages that are easily to recognised.
+The site consists of pages that are easily to recognise.
 
 The landing page / splash page have two call to actions buttons, inviting user to either search for an article or read and article.
 
 <img src="/readme/splash-page.png" style="margin: 0; width: 100%" alt="Splash page">
 
-In the site, each pages are made up of three section, the header, the title and the main content.
+In the site, each page are made up of three sections, the header, the title and the main content.
 
 <img src="/readme/three-sections.png" style="margin: 0; width: 100%" alt="three sections of the page: header, title and main content">
 
@@ -277,14 +277,14 @@ Main Content:
 
 #### Accessing the information
 
-The purpose of the system is allow public users to find a solutions to their cleaning issues.
+The purpose of the system is to allow public users to find solutions to their cleaning issues.
 There are different ways of accessing the articles stored in the database.
 
 ##### Search Articles
 
 The user can search:
 - for articles which titles contain certain words
-- for articles which targetted at a selected cleaning location
+- for articles which targeted at a selected cleaning location
 - for articles that are tagged with certain words
 - on a combination of two or even all the conditions above
 The result of the search will be displayed in the format similar to the one listing all the articles.
@@ -315,11 +315,11 @@ User can sort the Article Title and Cleaning Location by clicking on the column 
 Clicking on the same heading toggles between ascending sort and descending sort.
 
 _Viewing_
-The user can access the article by clicking on the corresponding 'View' button.
+The user can access the article by clicking on the corresponding 'view' button.
 
 _Deleting_
-This option will only appears to the adminstrator. 
-Clicking on the 'Delete' button will allow administrator to see the page he selected 
+This option will only appears to the administrator. 
+Clicking on the "delete" button will allow administrator to see the page he selected 
 to confirm his decision.
 
 ##### User's Own Articles
@@ -330,16 +330,16 @@ to access to the list of articles he has contributed to the database.
 
 #### Contributing knowledge
 
-A loggin user can add his knowledge to the database by selecting 'Contribute Articles' 
+A logged in user can add his knowledge to the database by selecting 'Contribute Articles' 
 under the 'Articles' navigation menu.
 
 The user will need to fill up an online form which include:
 - Article Title: The title of the article will be shown in listings and search results.
 - Targeted cleaning location: The location which the methods describe in the article is applied to.
 - Content: This allows user enter the content he likes share. Formatting like styling, bolding, italics, highlighting, text justifying, indentation can be applied.
-- Cleaning items: equipments used in the content described.
-- Cleaning supplies: consumabls items which may be used up in the process.
-- Tags: labels that helps users to locate the articles. They can be name of the item being cleaned (e.g. oven, refrigerator), the problems encountered (e.g. choke, stains) etc.
+- Cleaning items: equipment and appliances used in the content described.
+- Cleaning supplies: consumables, items which may be used up in the process.
+- Tags: labels that helps users to locate the articles. They can be names of the item being cleaned (e.g. oven, refrigerator), the problems encountered (e.g. choke, stains) etc.
 
 #### Validating the information 
 
@@ -352,29 +352,29 @@ There three ratings are:
 
 A logged in user will be able to rate on the Article Page.
 They can change their mind and rate the article differently at a later time.
-They can also see the total number of the each rating given by other users.
-To see who are the user giving the rating, click on the view comments button.
+They can also see the total number of each rating given by other users.
+To see who are the user giving the rating, click on the "view comments" button.
 
 _Comments_
 A logged in user can also be able leave their comments on the Article Page.
-They can also edit their comments if they have leave it previously.
-They can see what other users commented by clicking on the view comments button.
+They can also edit their comments if they have left it previously.
+They can see what other users commented by clicking on the "view comments" button.
 
 #### Managing information submitted
 
 _Editing Articles_
 The contributer of an article can click on the "Edit" button on the article to make changes.
-The administrator also have the ability to amend any article to rid of inappropirate content.
+The administrator also have the ability to amend any article to rid of inappropriate content.
 
 _Deleting_
-An article can also be deleted by the contribute using the "Delete" button on the article page.
+An article can also be deleted by the contributor using the "Delete" button on the article page.
 He can also click delete to the right of the corresponding article titles from "My Articles" listing.
 The administrator can delete any articles using the same methods as above, as well as doing it at the "All articles" listing.
 When a "Delete" button is click, the article will be displayed to seek confirmation of deletion.
 
 _Adding and deleting cleaning location_
 An administrator can add or delete a cleaning location from a managed list.
-The list acts as a reference to the the droped down selection in other pages.
+The list acts as a reference to the the dropdown selection in other pages.
 Deleting any entries from this list does not affect articles with the deleted location.
 
 ## Designing Graphics User Interface (Surface)
@@ -384,8 +384,8 @@ Deleting any entries from this list does not affect articles with the deleted lo
 #### Images
 
 _background image_
-A background iamge is specially selected to project a clean home image.
-The image is able to cover the whole screen with it's high resolutions.
+A background image is specially selected to project a clean home image.
+The image is able to cover the whole screen with its high resolutions.
 
 A smaller version of the image is used when displaying on mobile devices.
 
@@ -393,7 +393,7 @@ _faces icons_
 The face icons are used for showing the ratings as well as during the user's selection.
 The smiling face showing "It works", the blank or neutral face indicating "works somewhat', and the frowning face says 'it doesn't work'.
 
-#### Colour
+#### Color
 
 The background of all the panel are in white to aids readability.
 
@@ -403,16 +403,16 @@ Most of the buttons are in blue (e.g. 'Search', 'Edit Articles')
 Some actions requires a bit more of user's attention to prevent unwanted results.
 They are in yellow as warnings. (e.g. 'Delete') and those in red (e.g. 'Confirm Deletion').
 
-Others colors, like green, are used to provide positive affirmation (e.g. Save) and 
+Other colors, like green, are used to provide positive affirmation (e.g. Save) and 
 cyan for indicating more information ('View Comments')
 
 #### Fonts
 
 Google fonts are used for this project.
 
-The 'Roboto' font is chosen as the main font of the site due to it's readability and neatness.
+The 'Roboto' font is chosen as the main font of the site due to its readability and neatness.
 
-'Baloo Tamma 2' is selected for the splash page wordings as well as for the page title due to it's clean look.
+'Baloo Tamma 2' is selected for the splash page wordings as well as for the page title due to its clean look.
 
 To differentiate article titles from other text, 'Lora' fonts are used.
 
@@ -428,16 +428,16 @@ An administrator can also assign administrator rights to a user to manage the ap
 _Public Access_
 Any visitors are allowed to browse or search through the list of titles for articles he is interested in.
 He can access to view the articles by clicking 'View' from the list.
-He can register as a members to access more features.
+He can register as a member to access more features.
 
 _Member Access_
-Once an user logged in as a members, he will be able to rate and leave comments to articles he views.
+Once an user logged in as a member, he will be able to rate and leave comments to articles he views.
 He can also contribute his own articles.
 He can access the list of articles to update or even delete them at a later time.
-He can also update his own profile, which includes the change of passwords.
+A member can also update his own profile, which includes the change of passwords.
 
 _Administrator_
-Administors can assign an user admnistrative rights.
+Administrators can assign a user admnistrative rights.
 When an administrator logged in, he will be able to update and delete any articles.
 He will be able to manage the users as well as the reference table of cleaning locations.
 
@@ -459,7 +459,7 @@ Search can be performed for
 - articles which target at one or more specific cleaning location.
 - articles which has a certain tag.
 The search can also be a combination of two or even three crtieria by just ticking the criteria to include in the search.
-e.g. Searching for titles taht include words like "How to" and the cleaning target being the kitchen and having the tags like "sink, choke".
+e.g. Searching for titles that include words like "How to" and the cleaning target being the kitchen and having the tags like "sink, choke".
 
 
 ## Article Listing
@@ -471,30 +471,30 @@ Clicking on the column header currently sorted by will change the order of sorti
 It will toggle between ascending sort and descending sort.
 Pagination is also applied to the table.
 By default, it will show 10 entries per page, but users can choose to increase it or decrease it,
-by changing the options on the top left hand corner of the table.
-The bottom left of the table indicates which are teh entries showing.
-bottom right of teh table shows which page the users are on and the users can navigator through thte pages here.
+by changing the options on the top left-hand corner of the table.
+The bottom left of the table indicates which are the entries being displayed in the table.
+Bottom-right of the table shows which page the users are on and the users can navigator through the pages here.
 There is a search field on the top right of the table, this allows user to do a refined search within the entries listed.
 
 
 ## Reference Table for the Cleaning Location
 
 The cleaning locations uses a reference table to limit variations of entries.
-This helps to group the articles easily without much data cleaning.
+This helps to group the articles easily without rounds of data cleaning.
 The reference table can be access and managed in the Administrator Access area.
 Deleting entries from the reference tables will not affect the existing entries.
-This table provide options to select from during creation, edition and search.
-The user can only selected one cleaning locations for each articles.
+This table provides options to select from during creation, edition and search.
+The user can only selected one cleaning locations for each article.
 More than one options can be selected to be criteria of performing a search.
 
 ## Online HTML Editor
 
-The main content of the article can be formmatted.
-An online HTML editor is embeded in the page for creation and edition of the articles.
+The main content of the article can be format.
+An online HTML editor is embedded in the page for creation and edition of the articles.
 
 ## Article Commenting
 
-A member will be able to leave a comments on the article he viewing.
+A member will be able to leave a comments on the article he viewed.
 He can also edit his own comments at a later time.
 The comments given by different uses for an article are kept in a list accessible by clicking "View Comments'.
 
@@ -510,33 +510,33 @@ To see the individual's ratings, the member can click on 'View Comments'.
 ## Tagging
 
 This system allows users to provide a list of tags. 
-The tags can include names of targetted items to be cleaned (e.g. Sink) and problems encounter (e.g. choke ).
+The tags can include names of targeted items to be cleaned (e.g. Sink) and problems encounter (e.g. choke ).
 Tags can be part of the searching criteria, helping with the accuracy of the search result.
 
 ## Random Articles
 
-To give users have a glimpse of the content of the database, up to five random articles are listed on the home page
+To give users have a glimpse of the content of the database, up to five random articles are listed on the home page.
 
 <hr>
 
 # Technologies Used
 
-In this project I used *HTML5* to structure the webpages and *CSS3* for front end development 
+In this project I used *HTML5* to structure the web pages and *CSS3* for front end development 
 *Python* and *Flask *for the back end.
 
-I uses *Git* for Versioning Control System and *GitHub* for development repositories.
+I use *Git* for Versioning Control System and *GitHub* for development repositories.
 
 Heroku is used for hosting Production files.
 
 Database is hosted on *MongoDB*.
 
-Gitpod, an online IDE, is my main coding platform. I do sometimes test out codes in Repl.it
+Gitpod, an online IDE, is my main coding platform. I do sometimes test out my codes in Repl.it
 
-I use Bootstrap 4, including its compoents and utilities for layout (e.g.NavBar is used for the main navigation)
+I use Bootstrap 4, including its components and utilities for layout (e.g.NavBar is used for the main navigation)
 
-The interativity is enabled by Javascript and it's libraries (DataTables, jQuery, TinyMCE), taking advantages of DOM.
+The interactivity  is enabled by Javascript and it's libraries (DataTables, jQuery, TinyMCE), taking advantages of DOM.
 
-A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/) is used in additional to Code Institues templates (https://github.com/Code-Institute-Org/gitpod-full-template) to start the coding. The template used for Readme.md is also from Code Institute (https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
+A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/) is used in additional to Code Institues templates (https://github.com/Code-Institute-Org/gitpod-full-template) to start the coding. The template used for Readme.md is also from Code Institutes (https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
 
 
 For Favicons:
@@ -547,64 +547,41 @@ JavaScript Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
 CSS Beautifier (https://www.freeformatter.com/javascript-beautifier.html)
 
 For Code Validation
-
-
+W3C Markup Validation Service (https://validator.w3.org/) 
+W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/)
+W3C Link Checker (https://validator.w3.org/checklink)
+Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0)
+JSLint (https://jslint.com/)
+W3C Spell Checker (https://www.w3.org/2002/01/spellchecker)
+Typosaurus (https://typosaur.us/) 
+Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
 Favicon Checker (https://www.seoptimer.com/favicon-checker)
-<!-- W3C Markup Validation Service (https://validator.w3.org/) -->
-<!-- W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/) -->
-<!-- W3C Link Checker (https://validator.w3.org/checklink) -->
-<!-- W3C Spell Checker (https://www.w3.org/2002/01/spellchecker) -->
-<!-- JSLint (https://jslint.com/) -->
-<!-- Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/) -->
-<!-- Typosaurus (https://typosaur.us/) -->
-<!-- Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0) -->
-<!-- For responsiveness checking -->
-<!--  -->
 
-<!-- 
-
-
-
+For Favicons
 Responsive Design Checker (https://responsivedesignchecker.com/)
 
-For user flow diagram and mindmaping
+For mindmaping
 Xmind (https://www.xmind.net/)
 
 For fonts
-Font Awesome 4 (https://fontawesome.com/v4.7.0/)
+Google Fonts (https://fonts.google.com/)
 
 For wireframe
 MockFlow (https://www.mockflow.com/)
 
-For sitemap
-GlooMaps (https://www.gloomaps.com/)
-Draw.io (https://www.draw.io/)
-
-For viewing JSON document
-JSON Path Finder (https://jsonpathfinder.com/)
-
-For use case Diagram
-Creately (https://creately.com/)
+For use case Diagram, user flow diagram, ER diagram, sitemap
+Diagrams.net (https://www.diagrams.net/)
 
 For image editing
-Pixlr (https://pixlr.com)
 Paint.NET (https://www.getpaint.net)
-
-For placeholder before real content are inserted
-Placeholder.com (http://placeholder.com)
-PlaceIMG (http://placeimg.com)
-Lorem Ipsum Generator (https://loremipsum.io/)
-Lipsum Generator (https://www.lipsum.com/)
 
 For grammer and spell check
 Grammer Checker - Online Editor (https://grammarchecker.io/)
 Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
 
-
-
-
-
 <hr>
+
+
 
 # Testing
 

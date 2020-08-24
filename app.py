@@ -7,6 +7,7 @@ import flask_login
 from flask import Flask, render_template, request
 from flask import session, redirect, url_for, flash
 import re
+import csv
 
 
 # load in the variables in the .env file into our operating system environment
@@ -152,6 +153,13 @@ def home():
                                    random_articles=random_articles)
 
         article_data = client[DB_NAME][DB_ARTICLE].find(myQuery)
+        article_data.cleaning_items = " ".join(article_data.cleaning_items)
+        article_data.cleaning_items = article_data.cleaning_items.split()
+        article_data.cleaning_supplies = " ".join(article_data.cleaning_supplies)
+        article_data.cleaning_supplies = article_data.cleaning_supplies.split()
+
+
+
         return render_template("/articles/article-list.template.html",
                                articles=article_data,
                                listtype="search",

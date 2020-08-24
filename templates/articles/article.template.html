@@ -63,7 +63,7 @@
                         <!-- cleaning items -->
                         <p class="thick">Cleaning item:</p>
                         <ul class="items">
-                            {% if article_data.cleaning_items|length == 0 %}
+                            {% if  article_data.cleaning_items|length == 0 %}
                             <li>No item found.</li>
                             {% else %}
                             {% for each_cleaning_items in article_data.cleaning_items %}
