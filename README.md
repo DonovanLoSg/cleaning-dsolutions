@@ -587,6 +587,21 @@ For grammer and spell check
 
 ## Functionality Testing
 
+### HTML Testing
+
+Validated with W3C Markup Validation Service (https://validator.w3.org/) 
+
+Rectified all issues except three elements intentionally placed to prevent caching:
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+### CSS Testing
+
+Validated with W3C CSS Validator
+
+Rectified all issues.
+
 ### Link Testing
 
 Using W3C Link Checker (https://validator.w3.org/checklink)
@@ -599,9 +614,9 @@ Using W3C Link Checker (https://validator.w3.org/checklink)
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
 
-### HTML Testing
 
-### CSS Testing
+
+
 
 ### Color Contrast Accessibility Testing
 

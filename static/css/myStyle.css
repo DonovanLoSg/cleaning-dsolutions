@@ -221,7 +221,7 @@ button {
 
 }
 
-@@media all{
+@media all{
     #myTable td {
         overflow: hidden;
         text-overflow: ellipsis;
