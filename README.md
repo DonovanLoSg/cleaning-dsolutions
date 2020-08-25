@@ -598,16 +598,17 @@ Rectified all issues except three elements intentionally placed to prevent cachi
 
 ### CSS Testing
 
-Validated with W3C CSS Validator
+Validated with W3C CSS Validator (https://jigsaw.w3.org/css-validator/)
 
-Rectified all issues.
+Checking the 3 CSS files (myStyle.css, splash.css and articleContent.css) by direct input.
+
+No Error Found.
 
 ### Link Testing
 
 Using W3C Link Checker (https://validator.w3.org/checklink)
 
-
-
+<img src="/readme/w3c-link-check-result.png" style="margin: 0; width: 100%" alt="Result of W3C Link Checker on this site">
 
 ### Form Testing
 
