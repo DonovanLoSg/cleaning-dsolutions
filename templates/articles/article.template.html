@@ -65,6 +65,13 @@
                     <a href="{{url_for('view_comment', _id=article_data._id)}}" class="btn btn-info view-comment-btn">
                         View Comments
                     </a>
+                    <div class="container">
+                        {% if (article_owner_id) and ((article_owner_id == current_user._id) or current_user.admin) %}
+                            <small>You can submit your&nbsp;ratings and/or leave your&nbsp;comments at the bottom&nbsp;of&nbsp;this&nbsp;page</small>
+                        {% else %}
+                            <small>Join&nbsp;Us as a member to access to additional&nbsp;features such as 'Rate&nbsp;Article' and 'Leave&nbsp;Comments'</small>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,7 +90,7 @@
                 <!-- cleaning items -->
                     <p class="thick">Cleaning item:</p>
                     <ul class="items">
-                        {% if article_data.cleaning_items|length == 0 %}
+                        {% if (article_data.cleaning_items|length) == 0 %}
                             <li>No item found.</li>
                         {% else %} 
                             {% for each_cleaning_items in article_data.cleaning_items %}
@@ -97,7 +104,7 @@
                 <!-- cleaning supplies -->
                     <p class="thick">Cleaning supplies:</p>
                     <ul class="items">
-                        {% if article_data.cleaning_supplies|length == 0 %}
+                        {% if (article_data.cleaning_supplies|length) == 0 %}
                             <li>No item found.</li>
                         {% else %} 
                             {% for each_cleaning_supplies in article_data.cleaning_supplies %}
@@ -109,23 +116,25 @@
             </div>
         </div>
     </div>
-    <div class="container">
-    
-    <!-- Tags -->
-        <p class="thick">Tags:</p>
-        {% if (article_data.tags|length) == 0 %}
-            <ul class="items">
-                <li>No tag found.</li>
-            </ul>
-        {% else %} 
-            {% for each_tag in article_data.tags %}
-                <span class="badge badge-pill badge-secondary">{{each_tag}}</span>
-            {% endfor %} 
-        {% endif %}
+    <div class="grey-box mt-3">
+        <div class="container">
+        
+        <!-- Tags -->
+            <p class="thick">Tags:</p>
+            {% if (article_data.tags|length) == 0 %}
+                <ul class="items">
+                    <li>No tag found.</li>
+                </ul>
+            {% else %} 
+                {% for each_tag in article_data.tags %}
+                    <span class="badge badge-pill badge-secondary">{{each_tag}}</span>
+                {% endfor %} 
+            {% endif %}
+        </div>
     </div>
     {% if current_user.is_authenticated %} 
         <!-- </div> -->
-        <div class="container mt-5">
+        <div id="rating-submission" class="container mt-5">
             <div class="row">
                 <div class="col-12 col-md-6">
                 
@@ -208,12 +217,11 @@
                     <div class="form-group">
                         <label for="input-comments">Your comments:</label>
                         {% if (user_comments) %}
-                            <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
-                            {{user_comments}}
-                            </textarea>
+                            <textarea class="form-control" id="input-comments" 
+                            name="input-comments" rows="3">{{user_comments}}</textarea>
                         {% else %}
-                            <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
-                            </textarea>
+                            <textarea class="form-control" id="input-comments" 
+                            name="input-comments" rows="3"></textarea>
                         {% endif %}
                     </div>
                     <button type="submit" class="btn btn-success btn12">

@@ -35,8 +35,13 @@
 	<!-- content -->
 	<div class="form-group ">
 		<label for="input-content" class="thick">Content:</label>
-		<textarea class="form-control" id="input-content" name="input-content" rows="10">{% if (form) %} {{form.get('input-content') }}{% endif %}
-		</textarea>
+        {% if (form) %} 
+            <textarea class="form-control" id="input-content" name="input-content" 
+            rows="10">{{form.get('input-content') }}</textarea>
+        {% else %}
+            <textarea class="form-control" id="input-content" name="input-content" 
+            rows="10"></textarea>
+        {% endif %}
 	</div>
     <!-- cleaning items -->
     <div class="form-group">

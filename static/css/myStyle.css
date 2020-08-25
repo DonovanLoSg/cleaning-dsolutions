@@ -221,13 +221,24 @@ button {
 
 }
 
-@media all{
-    #myTable td {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        min-width: 300px;
-    }
+
+#myTable td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 200px;
+    padding-left: 5px;
 }
+
+#myTable th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 200px;
+    padding-left: 5px;
+    font-family: "Roboto", sans-serif;
+    color: grey; 
+}
+
+
 
 .datatable_wrap {
 	margin: 1rem 0;

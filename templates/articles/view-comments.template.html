@@ -1,8 +1,10 @@
 <!-- Display the comments and rating associated with this article. -->
 {% extends 'base.template.html' %}
+
 {% block header %}
 <h1>{% block title %}View Comments{% endblock %}</h1>
 {% endblock %}
+
 {% block content %}
 <div class="container black-border blur-shadow p-3 pb-5 mb-5">
 	<div class="container text-right">
@@ -34,39 +36,46 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         {% if (joint_list|length > 0) %}
-                            {% for each_comment in joint_list %} 
-                            <tr>
-                                <td class="d-none"></td>
-                                <td class="rating-column">
-                                    {% if each_comment.user_postings['good_rating'] %}
-                                    <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
-                                        class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
-                                    {% elif each_comment.user_postings['neutral_rating'] %}
-                                    <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
-                                        class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
-                                    {% elif each_comment.user_postings['bad_rating'] %}
-                                    <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
-                                        class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
-                                    {% else %}
-                                    <img src="{{ url_for('static', filename='img/faces/face_nothing.png')}}" 
-                                        class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
-                                </td>
-                                <td>
-                                    {% if (each_comment.user_postings['comments']) %}{{each_comment.user_postings['comments']}}{% endif %}
-                                </td>
-                            </tr>
+                            {% for each_comment in joint_list %}
+                                {% if each_comment.user_postings['user_id'] != "0"%}
+                                    <tr>
+                                        <td class="d-none"></td>
+                                        <td class="rating-column">
+                                            {% if each_comment.user_postings['good_rating'] %}
+                                            <img src="{{ url_for('static', filename='img/faces/face_smile.png')}}" 
+                                                class="faces" data-toggle="tooltip" data-placement="top" title="It works !">
+                                            {% elif each_comment.user_postings['neutral_rating'] %}
+                                            <img src="{{ url_for('static', filename='img/faces/face_blank.png')}}" 
+                                                class="faces" data-toggle="tooltip" data-placement="top" title="Works somewhat..">
+                                            {% elif each_comment.user_postings['bad_rating'] %}
+                                            <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
+                                                class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
+                                            {% else %}
+                                            <img src="{{ url_for('static', filename='img/faces/face_nothing.png')}}" 
+                                                class="faces" data-toggle="tooltip" data-placement="top" title="No Rating...">
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if (each_comment.user_details)%}{{each_comment.user_details[0]['nickname']}}{% endif %}
+                                        </td>
+                                        <td>
+                                            {% if (each_comment.user_postings['comments']) %}{{each_comment.user_postings['comments']}}{% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td >
-                                    No comments or ratings found.
+                                <td class="d-none"></td>
+                                <td class="rating-column">
+
+                                </td>
+                                <td>
+                                No comments or ratings found.
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                         {% endif %}

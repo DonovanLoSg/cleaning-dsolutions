@@ -541,33 +541,34 @@ def show_article(_id):
             user_rated = ''
             user_comments = ''
             for post in user_postings:
-                if current_user:
-                    if post['user_id'] == ObjectId(current_user._id):
+                if post['user_id'] != "0":
+                    if current_user:
+                        if post['user_id'] == ObjectId(current_user._id):
+                            if post['good_rating']:
+                                user_rated = 'good'
+                            if post['neutral_rating']:
+                                user_rated = 'neutral'
+                            if post['bad_rating']:
+                                user_rated = 'bad'
+                            user_comments = post['comments']
                         if post['good_rating']:
-                            user_rated = 'good'
-                        elif post['neutral_rating']:
-                            user_rated = 'neutral'
-                        else:
-                            user_rated = 'bad'
-                        user_comments = post['comments']
-                    if post['good_rating']:
-                        good_rating_count = good_rating_count + 1
-                    if post['neutral_rating']:
-                        neutral_rating_count = neutral_rating_count + 1
-                    if post['bad_rating']:
-                        bad_rating_count = bad_rating_count + 1
+                            good_rating_count = good_rating_count + 1
+                        if post['neutral_rating']:
+                            neutral_rating_count = neutral_rating_count + 1
+                        if post['bad_rating']:
+                            bad_rating_count = bad_rating_count + 1
             return render_template("/articles/article.template.html",
-                                   current_user=current_user,
-                                   article_data=article_data,
-                                   article_id=_id,
-                                   article_owner_id=article_owner_id,
-                                   article_owner_data=article_owner_data,
-                                   user_postings=user_postings,
-                                   good_rating_count=good_rating_count,
-                                   neutral_rating_count=neutral_rating_count,
-                                   bad_rating_count=bad_rating_count,
-                                   user_rated=user_rated,
-                                   user_comments=user_comments)
+                                    current_user=current_user,
+                                    article_data=article_data,
+                                    article_id=_id,
+                                    article_owner_id=article_owner_id,
+                                    article_owner_data=article_owner_data,
+                                    user_postings=user_postings,
+                                    good_rating_count=good_rating_count,
+                                    neutral_rating_count=neutral_rating_count,
+                                    bad_rating_count=bad_rating_count,
+                                    user_rated=user_rated,
+                                    user_comments=user_comments)
 
         else:
             flash('No such article found', category='danger')
@@ -742,12 +743,14 @@ def view_comment(_id):
                     'foreignField': "_id",
                     'as': "user_details"}},
                 {'$project': {
+                    'user_postings.user_id': 1,
                     'user_details.nickname': 1,
                     'user_postings.good_rating': 1,
                     'user_postings.neutral_rating': 1,
                     'user_postings.bad_rating': 1,
                     'user_postings.comments': 1}}])
             joint_list = list(joint_data)
+
         return render_template('/articles/view-comments.template.html',
                                joint_list=joint_list,
                                article_data=article_data,
