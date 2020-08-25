@@ -48,6 +48,9 @@
                                     {% elif each_comment.user_postings['bad_rating'] %}
                                     <img src="{{ url_for('static', filename='img/faces/face_frown.png')}}" 
                                         class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
+                                    {% else %}
+                                    <img src="{{ url_for('static', filename='img/faces/face_nothing.png')}}" 
+                                        class="faces" data-toggle="tooltip" data-placement="top" title="It doesn't work !">
                                     {% endif %}
                                 </td>
                                 <td>
