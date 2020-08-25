@@ -1,0 +1,52 @@
+.article-content {
+    font-family: "Roboto", sans-serif;
+
+}
+
+.article-content em {
+    font-style: italic
+}
+
+.article-content em {
+    font-style: italic
+}
+
+.article-content ol, 
+.article-content ul {
+	list-style: disc;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    list-style-position: outside;
+}
+
+
+.article-content blockquote, 
+.article-content q {
+	quotes: none;
+}
+.article-content blockquote:before, 
+.article-content blockquote:after,
+.article-content q:before, 
+.article-content q:after {
+	content: '';
+	content: none;
+}
+.article-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6{
+    color: black;
+    display: block;
+    font-family: "Baloo Tamma 2", cursive;
+    text-transform: none;
+
+    }
+.article-content h2:first-letter {
+
+}

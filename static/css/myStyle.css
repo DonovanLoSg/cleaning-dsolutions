@@ -67,7 +67,7 @@ body {
 
 h1 {
 	display: block;
-	font-family: Roboto, sans-serif;
+    font-family: "Baloo Tamma 2", cursive;
 	margin: 0.5rem 0.5rem;
 	position: static;
 	text-shadow: 2px 2px 8px white;
@@ -83,7 +83,7 @@ h1 {
 	text-shadow: 2px 2px 8px black;
 }
 
-h2 {
+/* h2 {
 	color: darkred;
 	display: block;
 	font-family: "Roboto", sans-serif;
@@ -94,7 +94,7 @@ h2 {
 
 h2:first-letter {
 	font-size: 2rem;
-}
+} */
 
 .title-divider {
 	border: 1px solid darkred;

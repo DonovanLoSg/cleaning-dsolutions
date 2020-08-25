@@ -70,7 +70,7 @@
         </div>
     </div>
     <!-- content -->
-    <div class="container">
+    <div class="container article-content">
         <hr />
             {{article_data.article_content|safe}}
         <hr />
@@ -92,19 +92,20 @@
                         {% endif %}
                     </ul>
                 </div>
-            <div class="col-12 col-md-6">
-            
-             <!-- cleaning supplies -->
-                <p class="thick">Cleaning supplies:</p>
-                <ul class="items">
-                    {% if article_data.cleaning_supplies|length == 0 %}
-                        <li>No item found.</li>
-                    {% else %} 
-                        {% for each_cleaning_supplies in article_data.cleaning_supplies %}
-                            <li>{{each_cleaning_supplies}}</li>
-                        {% endfor %} 
-                    {% endif %}
-                </ul>
+                <div class="col-12 col-md-6">
+                
+                <!-- cleaning supplies -->
+                    <p class="thick">Cleaning supplies:</p>
+                    <ul class="items">
+                        {% if article_data.cleaning_supplies|length == 0 %}
+                            <li>No item found.</li>
+                        {% else %} 
+                            {% for each_cleaning_supplies in article_data.cleaning_supplies %}
+                                <li>{{each_cleaning_supplies}}</li>
+                            {% endfor %} 
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -204,21 +205,22 @@
             <!-- User's comments -->
                 <p class="thick">Comments:</p>
                 <form method="post" name="form" target="_self" action="/comment/add/{{article_data._id}}">
-                <div class="form-group">
-                    <label for="input-comments">Your comments:</label>
-                    {% if (user_comments) %}
-                        <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
-                        {{user_comments}}
-                        </textarea>
-                    {% else %}
-                        <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
-                        </textarea>
-                    {% endif %}
-                </div>
-                <button type="submit" class="btn btn-success btn12">
-                    Save Comments
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label for="input-comments">Your comments:</label>
+                        {% if (user_comments) %}
+                            <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
+                            {{user_comments}}
+                            </textarea>
+                        {% else %}
+                            <textarea class="form-control" id="input-comments" name="input-comments" rows="3">
+                            </textarea>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-success btn12">
+                        Save Comments
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     </div>
