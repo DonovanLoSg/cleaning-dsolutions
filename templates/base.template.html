@@ -105,9 +105,7 @@
 								{% if current_user.is_authenticated %} 
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" ref="#" id="navbarArticleDropdownMenuLink" role="button"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-									Articles
-									</a>
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Articles</a>
 									<div class="dropdown-menu" aria-labelledby="navbarArticleDropdownMenuLink" >
 										<a class="dropdown-item" href="{{ url_for('my_articles') }}"> My Articles</a>
 										<a class="dropdown-item" href="{{ url_for('all_articles') }}"> All Articles</a>

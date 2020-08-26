@@ -149,13 +149,7 @@ def home():
                                    location_data=location_data,
                                    form=form,
                                    random_articles=random_articles)
-
         article_data = client[DB_NAME][DB_ARTICLE].find(myQuery)
-        cleaning_items = " ".join(article_data.cleaning_items)
-        article_data.cleaning_items = cleaning_items.split()
-        cleaning_supplies = " ".join(article_data.cleaning_supplies)
-        article_data.cleaning_supplies = cleaning_supplies.split()
-
         return render_template("/articles/article-list.template.html",
                                articles=article_data,
                                listtype="search",
