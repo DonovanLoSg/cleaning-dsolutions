@@ -225,17 +225,19 @@ button {
 #myTable td {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#myTable .title {
     min-width: 200px;
-    padding-left: 5px;
 }
 
 #myTable th {
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 200px;
-    padding-left: 5px;
     font-family: "Roboto", sans-serif;
-    color: grey; 
+    font-style:normal;
+    color: silver; 
+
 }
 
 
@@ -249,7 +251,7 @@ button {
 }
 
 .narrow {
-    width: 50px !important;
+    width: 40px !important;
 }
 
 
