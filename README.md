@@ -74,6 +74,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Spell Checking](#spell-checking)
         - [Alt Text Checking](#alt-text-checking)
     - [Manual Testing](#maual-testing)
+        - [Compatibility Testing](#compatibility-testing)
+        - [User Acceptance Testing](user-acceptance-testing)
 
 
 
@@ -563,7 +565,7 @@ For Code Validation
 - W3C Markup Validation Service (https://validator.w3.org/) 
 - W3C CSS Validation Service (https://jigsaw.w3.org/css-validator/)
 - W3C Link Checker (https://validator.w3.org/checklink)
-- Alt Text Checker (https://www.seoptimer.com/alt-tag-checker0)
+- Alt Text Checker (https://rushax.com/tools/alt-tag-checker/)
 - JSLint (https://jslint.com/)
 - W3C Spell Checker (https://www.w3.org/2002/01/spellchecker)
 - Typosaurus (https://typosaur.us/) 
@@ -655,13 +657,23 @@ Rectified color contrast issues of BootStrap's .btn-primary and DataTable's .pag
 
 Using Typosaurus (https://typosaur.us/)
 
-Check all pages without an content spelling issues.
+Check all pages without an content's spelling issues.
+Except some class name and the website title "d'Solutions"
 
 ### Alt Text Checking 
 
-Using Alt Text Checker (https://www.seoptimer.com/alt-tag-checker)
+Using Alt Text Checker (https://rushax.com/tools/alt-tag-checker/)
+
+Check all pages. 0 missing alt tags.
 
 ## Manual Testing
+
+### Compatibility Testing
+
+
+
+
+
 
 ### User Acceptance Testing
 

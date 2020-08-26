@@ -243,9 +243,7 @@ button {
     text-overflow: ellipsis;
 }
 
-#myTable .title {
-    min-width: 200px;
-}
+
 
 #myTable th {
     overflow: hidden;
