@@ -71,6 +71,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [W3C CSS Validaton](#w3c-css-validation)
         - [W3C Link Checking](#w3c-link-checking)
         - [Color Contrast Accessibility Validation](#color-contrast-accessibility-validation)
+        - [Spell Checking](#spell-checking)
+        - [Alt Text Checking](#alt-text-checking)
     - [Manual Testing](#maual-testing)
 
 
@@ -469,7 +471,7 @@ Search can be performed for
 - article titles which contain a certain word.
 - articles which target at one or more specific cleaning location.
 - articles which has a certain tag.
-The search can also be a combination of two or even three crtieria by just ticking the criteria to include in the search.
+The search can also be a combination of two or even three criteria by just ticking the criteria to include in the search.
 e.g. Searching for titles that include words like "How to" and the cleaning target being the kitchen and having the tags like "sink, choke".
 
 
@@ -547,7 +549,7 @@ I use Bootstrap 4, including its components and utilities for layout (e.g.NavBar
 
 The interactivity  is enabled by Javascript and it's libraries (DataTables, jQuery, TinyMCE), taking advantages of DOM.
 
-A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/) is used in additional to Code Institues templates (https://github.com/Code-Institute-Org/gitpod-full-template) to start the coding. The template used for Readme.md is also from Code Institutes (https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
+A CSS Reset style sheet from Killer Collection of CSS Resets (https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/) is used in additional to Code Institute templates (https://github.com/Code-Institute-Org/gitpod-full-template) to start the coding. The template used for Readme.md is also from Code Institutes (https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
 
 
 For Favicons:
@@ -589,6 +591,7 @@ For image editing
 For grammer and spell check
 - Grammer Checker - Online Editor (https://grammarchecker.io/)
 - Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
+- Typosaurus - (https://typosaur.us/)
 
 <hr>
 
@@ -624,31 +627,43 @@ Using W3C Link Checker (https://validator.w3.org/checklink)
 Using Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
 
 Tested all the following pages:
-    http://cleaning.dsolutions.sg/
-    http://cleaning.dsolutions.sg/home
-    http://cleaning.dsolutions.sg/auth/login
-    http://cleaning.dsolutions.sg/auth/logout
-    http://cleaning.dsolutions.sg/auth/register
-    http://cleaning.dsolutions.sg/users/my-profile
-    http://cleaning.dsolutions.sg/articles/list
-    http://cleaning.dsolutions.sg/articles/list-all
-    http://cleaning.dsolutions.sg/articles/my-list
-    http://cleaning.dsolutions.sg/articles/contribute
-    http://cleaning.dsolutions.sg/articles/edit/5f31248396c2aae837a48d0f
-    http://cleaning.dsolutions.sg/articles/5f31248396c2aae837a48d0f
-    http://cleaning.dsolutions.sg/articles/delete/5f31248396c2aae837a48d0f/my
-    http://cleaning.dsolutions.sg/rate/5f31248396c2aae837a48d0f/good
-    http://cleaning.dsolutions.sg/comment/add/5f31248396c2aae837a48d0f
-    http://cleaning.dsolutions.sg/comment/view/5f31248396c2aae837a48d0f
-    http://cleaning.dsolutions.sg/cleaning-locations/manage
-    http://cleaning.dsolutions.sg/users/manage
-    http://cleaning.dsolutions.sg/error-encountered
+    - http://cleaning.dsolutions.sg/
+    - http://cleaning.dsolutions.sg/home
+    - http://cleaning.dsolutions.sg/auth/login
+    - http://cleaning.dsolutions.sg/auth/logout
+    - http://cleaning.dsolutions.sg/auth/register
+    - http://cleaning.dsolutions.sg/users/my-profile
+    - http://cleaning.dsolutions.sg/articles/list
+    - http://cleaning.dsolutions.sg/articles/list-all
+    - http://cleaning.dsolutions.sg/articles/my-list
+    - http://cleaning.dsolutions.sg/articles/contribute
+    - http://cleaning.dsolutions.sg/articles/edit/5f31248396c2aae837a48d0f
+    - http://cleaning.dsolutions.sg/articles/5f31248396c2aae837a48d0f
+    - http://cleaning.dsolutions.sg/articles/delete/5f31248396c2aae837a48d0f/my
+    - http://cleaning.dsolutions.sg/rate/5f31248396c2aae837a48d0f/good
+    - http://cleaning.dsolutions.sg/comment/add/5f31248396c2aae837a48d0f
+    - http://cleaning.dsolutions.sg/comment/view/5f31248396c2aae837a48d0f
+    - http://cleaning.dsolutions.sg/cleaning-locations/manage
+    - http://cleaning.dsolutions.sg/users/manage
+    - http://cleaning.dsolutions.sg/error-encountered
 
 *Note: 5f31248396c2aae837a48d0f is an article id
 
 Rectified color contrast issues of BootStrap's .btn-primary and DataTable's .page-item buttons.
 
-## Manual Teting
+### Spell Checking
+
+Using Typosaurus (https://typosaur.us/)
+
+Check all pages without an content spelling issues.
+
+### Alt Text Checking 
+
+Using Alt Text Checker (https://www.seoptimer.com/alt-tag-checker)
+
+## Manual Testing
+
+### User Acceptance Testing
 
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
