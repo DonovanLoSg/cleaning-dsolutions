@@ -65,6 +65,15 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 	- [Tagging](#tagging)
 	- [Random Articles](#random-articles)
 - [Technologies Used](#technologies-used)
+- [Testing](#testing)
+    - [Automated Testing](#automated-testing)
+        - [W3C MarkUp Validation](#w3c-markup-validation)
+        - [W3C CSS Validaton](#w3c-css-validation)
+        - [W3C Link Checking](#w3c-link-checking)
+        - [Color Contrast Accessibility Validation](#color-contrast-accessibility-validation)
+    - [Manual Testing](#maual-testing)
+
+
 
 
 
@@ -585,9 +594,9 @@ For grammer and spell check
 
 # Testing
 
-## Functionality Testing
+## Automated Testing
 
-### HTML Testing
+### W3C Markup Validation
 
 Validated with W3C Markup Validation Service (https://validator.w3.org/) 
 
@@ -596,7 +605,7 @@ Rectified all issues except three elements intentionally placed to prevent cachi
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-### CSS Testing
+### W3C CSS Validation
 
 Validated with W3C CSS Validator (https://jigsaw.w3.org/css-validator/)
 
@@ -604,13 +613,42 @@ Checking the 3 CSS files (myStyle.css, splash.css and articleContent.css) by dir
 
 No Error Found.
 
-### Link Testing
+### W3C Link Checking
 
 Using W3C Link Checker (https://validator.w3.org/checklink)
 
 <img src="/readme/w3c-link-check-result.png" style="margin: 0; width: 100%" alt="Result of W3C Link Checker on this site">
 
-### Form Testing
+### Color Contrast Accessibility Validation
+
+Using Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
+
+Tested all the following pages:
+    http://cleaning.dsolutions.sg/
+    http://cleaning.dsolutions.sg/home
+    http://cleaning.dsolutions.sg/auth/login
+    http://cleaning.dsolutions.sg/auth/logout
+    http://cleaning.dsolutions.sg/auth/register
+    http://cleaning.dsolutions.sg/users/my-profile
+    http://cleaning.dsolutions.sg/articles/list
+    http://cleaning.dsolutions.sg/articles/list-all
+    http://cleaning.dsolutions.sg/articles/my-list
+    http://cleaning.dsolutions.sg/articles/contribute
+    http://cleaning.dsolutions.sg/articles/edit/5f31248396c2aae837a48d0f
+    http://cleaning.dsolutions.sg/articles/5f31248396c2aae837a48d0f
+    http://cleaning.dsolutions.sg/articles/delete/5f31248396c2aae837a48d0f/my
+    http://cleaning.dsolutions.sg/rate/5f31248396c2aae837a48d0f/good
+    http://cleaning.dsolutions.sg/comment/add/5f31248396c2aae837a48d0f
+    http://cleaning.dsolutions.sg/comment/view/5f31248396c2aae837a48d0f
+    http://cleaning.dsolutions.sg/cleaning-locations/manage
+    http://cleaning.dsolutions.sg/users/manage
+    http://cleaning.dsolutions.sg/error-encountered
+
+*Note: 5f31248396c2aae837a48d0f is an article id
+
+Rectified color contrast issues of BootStrap's .btn-primary and DataTable's .page-item buttons.
+
+## Manual Teting
 
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
@@ -619,8 +657,3 @@ https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6
 
 
 
-### Color Contrast Accessibility Testing
-
-## Usability Testing
-
-### Navigation Testing

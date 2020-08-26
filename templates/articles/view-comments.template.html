@@ -39,7 +39,7 @@
 
                         {% if (joint_list|length > 0) %}
                             {% for each_comment in joint_list %}
-                                {% if each_comment.user_postings['user_id'] != "0"%}
+                                {% if (each_comment.user_postings) and (each_comment.user_postings['user_id'] != "0") %}
                                     <tr>
                                         <td class="d-none"></td>
                                         <td class="rating-column">
