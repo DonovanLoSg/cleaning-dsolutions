@@ -45,6 +45,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Collapsible Hamburger Mobile Menu](#collapsible-hamburger-mobile-menu)
     - [Interface Design](#interface-design)
         - [Site Map](#site-map)
+        - [Wireframes](#wireframes)
     - [Information Design](#information-design)
         - [Accessing the information](#accessing-the-information)
         - [Contributing knowledge](#contributing-knowledge)
@@ -323,6 +324,29 @@ Main Content:
 #### Site Map
 
 <img src="/readme/sitemap.png" style="margin: 0; width: 100%" alt="Site Map">
+
+#### Wireframes
+
+Splash Page
+
+<img src="/readme/wireframe-splash.png" style="margin: 0; width: 100%" alt="Splash page wireframes">
+
+Home Page
+
+<img src="/readme/wireframe-home.png" style="margin: 0; width: 100%" alt="Home page wireframes">
+
+Page Containing tables
+
+<img src="/readme/wireframe-tables.png" style="margin: 0; width: 100%" alt="Wireframes of page containing tables">
+
+Page with One Column Layout
+
+<img src="/readme/wireframe-one-column.png" style="margin: 0; width: 100%" alt="Wireframes of page with one column layout">
+
+Article Page
+
+<img src="/readme/wireframe-one-column.png" style="margin: 0; width: 100%" alt="Wireframes of article page">
+
 
 ### Information Design
 
