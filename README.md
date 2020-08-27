@@ -65,6 +65,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 	- [Tagging](#tagging)
 	- [Random Articles](#random-articles)
     - [Responsiveness](#responsiveness)
+    - [Features to Implements](#features-to-implements)
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
     - [Automated Testing](#automated-testing)
@@ -97,6 +98,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [Background Image](#background-image)
 
 
+
+<hr>
 
 ## Defining the Project (Strategy)
 
@@ -450,9 +453,9 @@ To differentiate article titles from other text, 'Lora' fonts are used.
 
 <hr>
 
-# Features
+## Features
 
-## Three Level of Access Rights
+### Three Level of Access Rights
 
 In additional to public access, this application allows user to register as a member to access to more features.
 An administrator can also assign administrator rights to a user to manage the application.
@@ -473,7 +476,7 @@ Administrators can assign a user admnistrative rights.
 When an administrator logged in, he will be able to update and delete any articles.
 He will be able to manage the users as well as the reference table of cleaning locations.
 
-## Article Library
+### Article Library
 
 This application function is to crowdsource and share information on cleaning.
 It allows unrestricted viewing access to the public.
@@ -483,7 +486,7 @@ He can decide to edit or delete as deem necessary.
 
 In every articles, they are made up of a article title, targeted cleaning location, main content, cleaning items list, cleaning supplies list, and tags.
 
-## Advanced Article Search
+### Advanced Article Search
 
 The search panel on the home page allows users to search for articles in the database.
 Search can be performed for 
@@ -494,7 +497,7 @@ The search can also be a combination of two or even three criteria by just ticki
 e.g. Searching for titles that include words like "How to" and the cleaning target being the kitchen and having the tags like "sink, choke".
 
 
-## Article Listing
+### Article Listing
 
 Regardless of whether the user select to browse all articles, search for articles, listing his own articles, 
 the result will be a list of articles titles.
@@ -509,7 +512,7 @@ Bottom-right of the table shows which page the users are on and the users can na
 There is a search field on the top right of the table, this allows user to do a refined search within the entries listed.
 
 
-## Reference Table for the Cleaning Location
+### Reference Table for the Cleaning Location
 
 The cleaning locations uses a reference table to limit variations of entries.
 This helps to group the articles easily without rounds of data cleaning.
@@ -519,18 +522,18 @@ This table provides options to select from during creation, edition and search.
 The user can only selected one cleaning locations for each article.
 More than one options can be selected to be criteria of performing a search.
 
-## Online HTML Editor
+### Online HTML Editor
 
 The main content of the article can be format.
 An online HTML editor is embedded in the page for creation and edition of the articles.
 
-## Article Commenting
+### Article Commenting
 
 A member will be able to leave a comments on the article he viewed.
 He can also edit his own comments at a later time.
 The comments given by different uses for an article are kept in a list accessible by clicking "View Comments'.
 
-## Article rating
+### Article rating
 
 A member can validate the methods or items is workable by rating.
 There are three ratings: "It works!" (smiling face), "Works somewhat.. (blank face) and "It doesn't work !" (frowning face).
@@ -539,24 +542,28 @@ He can also update the rating anytime using the same methods.
 The number of each type of ratings are counted and total displayed on top of the article.
 To see the individual's ratings, the member can click on 'View Comments'.
 
-## Tagging
+### Tagging
 
 This system allows users to provide a list of tags. 
 The tags can include names of targeted items to be cleaned (e.g. Sink) and problems encounter (e.g. choke ).
 Tags can be part of the searching criteria, helping with the accuracy of the search result.
 
-## Random Articles
+### Random Articles
 
 To give users have a glimpse of the content of the database, up to five random articles are listed on the home page.
 
-## Responsiveness
+### Responsiveness
 
 This site embrace responsive web design.
 Its layout is coded to adapt to different screen size in order to make it look good on all devices (desktops, tablets, and phones)
+
+### Features to Implements
+
+Sign up for Google Partners in Google Ads
  
 <hr>
 
-# Technologies Used
+## Technologies Used
 
 In this project I used *HTML5* to structure the web pages and *CSS3* for front end development 
 *Python* and *Flask *for the back end.
@@ -620,14 +627,13 @@ For grammer and spell check
 For About and Instructions page
 - GitBook (https://www.gitbook.com/)
 
-
 <hr>
 
-# Testing
+## Testing
 
-## Automated Testing
+### Automated Testing
 
-### W3C Markup Validation
+#### W3C Markup Validation
 
 Validated with W3C Markup Validation Service (https://validator.w3.org/) 
 
@@ -636,7 +642,7 @@ Rectified all issues except three elements intentionally placed to prevent cachi
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-### W3C CSS Validation
+#### W3C CSS Validation
 
 Validated with W3C CSS Validator (https://jigsaw.w3.org/css-validator/)
 
@@ -644,13 +650,13 @@ Checking the 3 CSS files (myStyle.css, splash.css and articleContent.css) by dir
 
 No Error Found.
 
-### W3C Link Checking
+#### W3C Link Checking
 
 Using W3C Link Checker (https://validator.w3.org/checklink)
 
 <img src="/readme/w3c-link-check-result.png" style="margin: 0; width: 100%" alt="Result of W3C Link Checker on this site">
 
-### Color Contrast Accessibility Validation
+#### Color Contrast Accessibility Validation
 
 Using Color Contrast Accessibility Validator (https://color.a11y.com/Contrast/)
 
@@ -679,27 +685,27 @@ Tested all the following pages:
 
 Rectified color contrast issues of BootStrap's .btn-primary and DataTable's .page-item buttons.
 
-### Spell Checking
+#### Spell Checking
 
 Using Typosaurus (https://typosaur.us/)
 
 Check all pages without an content's spelling issues.
 Except some class name and the website title "d'Solutions"
 
-### Alt Text Checking 
+#### Alt Text Checking 
 
 Using Alt Text Checker (https://rushax.com/tools/alt-tag-checker/)
 
 Check all pages. 0 missing alt tags.
 
-## Manual Testing
+### Manual Testing
 
-### Compatibility Testing
+#### Compatibility Testing
 
 Compatibility Testing was done using Chrome DevTool's Mobile Simulation.
 The pages, graphics and tables are checked for it's responsiveness to ensure no codes are broken and no layout runs out of the screens.
 
-### User Acceptance Testing
+#### User Acceptance Testing
 
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
@@ -846,3 +852,11 @@ Value: {pointing it to heroku by entering the DNS Target you copy earlier.}
     - Pixabay
     - https://pixabay.com/photos/dining-room-living-room-modern-3108037/
 
+
+## Acknowledgements
+
+    - Mr Paul Chor - Mentor
+    - Ms Chia Ching Shyan - My classmate - For sharing of articles, youtubes and notes
+    - Mr Kevin Lee - My friend - For helping tedious mid project unit testing.
+    - Mr Jon Tan - My friend - For helping tedious with the user acceptance testing.
+ 
