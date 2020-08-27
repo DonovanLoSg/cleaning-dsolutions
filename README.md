@@ -78,14 +78,16 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Compatibility Testing](#compatibility-testing)
         - [User Acceptance Testing](#user-acceptance-testing)
 - [Deployment](#deployment)
-        - [GitHub](#github)
-        - [Git Bash](#git-bash)
-        - [Clone repository](#clone-repository)
-        - [MongoDB](#mongodb)
-        - [Default Administrator](#default-administrator)
-        - [Session Key](#session-key)
-        - [Heroku](#heroku)
-        - [App Deployment](#app-deployment)
+    - [GitHub](#github)
+    - [Git Bash](#git-bash)
+    - [Clone repository](#clone-repository)
+    - [MongoDB](#mongodb)
+    - [Default Administrator](#default-administrator)
+    - [Session Key](#session-key)
+    - [Heroku](#heroku)
+    - [App Deployment](#app-deployment)
+    - [Domain Name](#domain-name)
+    - [Domain Name Registrar](domain-name-registrar)
 
 
 
@@ -772,5 +774,20 @@ Key in these entries:
 On Heroku, go to Deply tab and choose a deployment method.
 Connect to Github repository you have created.
 Your app will be automaticalled deployed with the help fo 'requirements.txt' file which is in the repository ou have clone.
+
+### Domain Name
+
+If you have registered a domain name for the new app, you can go to Heroku to configure it.
+On Heroku, go to your app's Setting, scroll down to Domains
+Enter your domain name. (without the 'https://')
+You will see a DNS Target.
+Copy this string to be used to configure at your Domain NAme Registrar
+
+## Domain Name Registrar
+
+Add a new CNAME record and point it at Heroku
+Record: CNAME
+Name: { use a asterisk (*) if you are using your domain name. you can also use a subdomain name}
+Value: {pointing it to heroku by entering the DNS Target you copy earlier.}
 
 
