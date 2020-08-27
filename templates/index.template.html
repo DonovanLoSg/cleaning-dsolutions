@@ -50,23 +50,23 @@
 		<div id="frosted-glass-mask" class="center">
 			<div id="body-content-clonebody-content-clone"></div>
 		</div>
-		<div class="splash-text-box">
-			<div class="pb-3 pt-3">
-				<span class="splash-text-title">Cleaning <br>d'Solutions</span>
-				<span class="splash-text-sub">Solutions to griminess and messiness.</span>
-			</div>
-			<div class="d-flex justify-content-between">
-				<a
-					href="{{ url_for('home') }}#search-panel"
-					class="btn btn-primary splash-text-button "
-					>Search Article</a
-					>
-				<a
-					href="{{ url_for('home') }}#random-read"
-					class="btn  btn-primary splash-text-button  "
-					>Read Article</a
-					>
-			</div>
+        <div id="splash-text-panel" >
+            <div class="splash-text-box  d-flex flex-column justify-content-around">
+                <div class="splash-text-title mt-5">Cleaning d'Solutions</div>
+                <div class="splash-text-sub">Solutions to griminess and messiness.</div>
+                <div class="d-flex justify-content-between mb-5">
+                    <a
+                        href="{{ url_for('home') }}#search-panel"
+                        class="btn btn-primary splash-text-button "
+                        >Search Article</a
+                        >
+                    <a
+                        href="{{ url_for('home') }}#random-read"
+                        class="btn  btn-primary splash-text-button  "
+                        >Read Article</a
+                        >
+                </div>
+            </div>
 		</div>
 	</body>
 </html>

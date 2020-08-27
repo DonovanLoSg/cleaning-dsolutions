@@ -592,8 +592,12 @@ For image editing
 
 For grammer and spell check
 - Grammer Checker - Online Editor (https://grammarchecker.io/)
-- Reverso - (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
-- Typosaurus - (https://typosaur.us/)
+- Reverso (https://www.reverso.net/spell-checker/english-spelling-grammar/) -->
+- Typosaurus (https://typosaur.us/)
+
+For About and Instructions page
+- GitBook (https://www.gitbook.com/)
+
 
 <hr>
 
@@ -670,10 +674,8 @@ Check all pages. 0 missing alt tags.
 
 ### Compatibility Testing
 
-
-
-
-
+Compatibility Testing was done using Chrome DevTool's Mobile Simulation.
+The pages, graphics and tables are checked for it's responsiveness to ensure no codes are broken and no layout runs out of the screens.
 
 ### User Acceptance Testing
 
