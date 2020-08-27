@@ -5,6 +5,8 @@
 
 <hr>
 
+<img src="/readme/cleaning-dsolutions.png" style="margin: 0; width: 100%" alt="Use Case Diagram">
+
 Solutions to griminess and messiness. Crowdsourced information, guides, recipes, tips and hacks on cleaning.
 
 ## Demo
@@ -115,6 +117,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Administrators – they are the super user who are given authority to manage the users.
 
 ### Users' stories
+
 - As a general user,
     - I would like to locate a relevant article in the system, so that I can have the solutions to my cleaning problems.
 
@@ -128,14 +131,17 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - I would like to access the articles, so that I can manage or delete undesirable articles.
 
 ### Users' goals
+
 - General Users’ goals 
     - User will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags. 
+
 - Contributors’ (Members') goals
     - Contributors will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags.
     - Contributors will login to access a secure area to allow them to validate and comments on articles. 
     - Contributors will login to access a secure area to view the articles they contributed. 
     - Contributors will login to access a secure area to allow them to create, edit and delete their own articles. 
     - Contributors will login to access their own profile to change personal information and password
+
 - Administrator’s goal 
     - Administrators will search the corresponding guides, depending on the issue they want to solve, by inputting different criteria, such as: article titles, cleaning locations and tags.
     - Administrators will login to access a secure area to allow them to validate and comments on articles. 
@@ -147,13 +153,17 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - Administrators will login to manage the list of cleaning locations
 
 ### Use case diagram
+
 <img src="/readme/use-case-diagram.png" style="margin: 0; width: 100%" alt="Use Case Diagram">
+
+<hr>
 
 ## Defining the Project (Scope)
 
 ### Functional Specification
 
 #### Public Access
+
 - Get up to 5 articles from the database and display it on the homepage, allow user to click on one of these 5 default article titles to view the article.
 - Display a search panel to allow users to search using different methods: search by article titles, search by cleaning location or search by tags.
 - When a search is executed, it will return the result in a list containing article titles and cleaning locations.
@@ -166,6 +176,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Allow members and administrators to log in through a login page accepting nickname and password. If the validation is successful, redirect the user to administrators’ access area if they are administrators, else they will be redirected to a members’ access area. If the validation is unsuccessful, they will be alerted with a message and allowed to retry again.
 
 #### Member Access
+
 - Display a list of all articles the member contributed.
 - Allow member to select one of the articles by clicking on the article titles from the list to view the article.
 - Allow member to select one of the articles by clicking on the corresponding delete button.
@@ -182,6 +193,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Allow member to update their nickname or reset their password.
 
 #### Administrator Access
+
 - Display a search panel to allow administrator to search using different methods: search by article titles, search by cleaning location or search by tags.
 - When a search is executed, it will return the result in a list containing article titles and cleaning locations.
 - Allow administrator to select one of article by clicking on the article titles from the search results to view the article.
@@ -235,6 +247,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 - Records of users includes user id, nickname, email address, password and a flag indicating whether he has administration rights.
 - List of cleaning locations
 
+<hr>
+
 ## Developing the Site Structure and Organize Information (Structure)
 
 ### Information Architecture
@@ -256,6 +270,8 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 #### User Flow Diagram for Administrators
 
 <img src="/readme/user-flow-diagram-admin.png" style="margin: 0; width: 100%" alt="Administrators' Flow Diagram">
+
+<hr>
 
 ## Developing Page Structure and Organise Interactions (Skeleton)
 
@@ -411,6 +427,8 @@ _Adding and deleting cleaning location_
 An administrator can add or delete a cleaning location from a managed list.
 The list acts as a reference to the the dropdown selection in other pages.
 Deleting any entries from this list does not affect articles with the deleted location.
+
+<hr>
 
 ## Designing Graphics User Interface (Surface)
 
@@ -710,6 +728,8 @@ The pages, graphics and tables are checked for it's responsiveness to ensure no 
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
 
+<hr>
+
 ## Deployment
 
 The application is developed on GitHub, using Python, with Flask framework, deployed to Heroku and storing the database in MongDB.
@@ -802,6 +822,7 @@ Record: CNAME
 Name: { use a asterisk (*) if you are using your domain name. you can also use a subdomain name}
 Value: {pointing it to heroku by entering the DNS Target you copy earlier.}
 
+<hr>
 
 ## Credits
 
@@ -852,6 +873,7 @@ Value: {pointing it to heroku by entering the DNS Target you copy earlier.}
     - Pixabay
     - https://pixabay.com/photos/dining-room-living-room-modern-3108037/
 
+<hr>
 
 ## Acknowledgements
 
