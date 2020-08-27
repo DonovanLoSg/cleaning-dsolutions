@@ -88,7 +88,13 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
     - [App Deployment](#app-deployment)
     - [Domain Name](#domain-name)
     - [Domain Name Registrar](domain-name-registrar)
-
+- [Credits](#credits)
+    - [Codes](#codes)
+    - [Fonts](#fonts) 
+    - [Frosted Glass Effect using CSS](#frosted-glass-effect-using-css)
+    - [Face Icons](#face-icons)
+    - [Website Logo](#website-logo)
+    - [Background Image](#background-image)
 
 
 
@@ -783,11 +789,60 @@ Enter your domain name. (without the 'https://')
 You will see a DNS Target.
 Copy this string to be used to configure at your Domain NAme Registrar
 
-## Domain Name Registrar
+### Domain Name Registrar
 
 Add a new CNAME record and point it at Heroku
 Record: CNAME
 Name: { use a asterisk (*) if you are using your domain name. you can also use a subdomain name}
 Value: {pointing it to heroku by entering the DNS Target you copy earlier.}
 
+
+## Credits
+
+### Codes
+
+    - GUnicorn - Python Web Server Gateway Interface HTTP server.  
+    - Popper.js = Positioning tooltips and popovers.
+    - jQuery - a JavaScript library designed to simplify HTML DOM tree traversal and manipulation, as well as event handling, CSS animation, and Ajax. 
+    - BootStrap = CSS framework directed at responsive, mobile-first front-end web development
+    - Flask-Login - provides user session management for Flask
+    - Flask - a micro web framework written in Python
+    - Werkzeug - implements WSGI, the standard Python interface between applications and servers.
+    - Jinja is a template language that renders the pages your application serves.
+    - MarkupSafe comes with Jinja. It escapes untrusted input when rendering templates to avoid injection attacks.
+    - ItsDangerous - securely signs data to ensure its integrity. This is used to protect Flask’s session cookie.
+    - Click -  a framework for writing command line applications. It provides the flask command and allows adding custom management com
+    - DNSPython - DNS toolkit for Python
+    - PYthon-DateUtil - provides powerful extensions to the standard datetime module, available in Python.
+    - Python-dotenv - set environment variables defined in the files .env and .flaskenv
+    - PyMongo - MongoDB API Docs for python
+    - DataTables - a plug-in for the jQuery Javascript library, add advanced interaction controls to your HTML tables
+    - TinyMCE - online rich-text editor
+ 
+### Fonts
+
+    - Google Fonts - a interactive web library of free licensed font families
+
+### Frosted Glass Effect using CSS
+
+    - Jaime Contreras, Texas Creative
+    - https://texascreative.com/blog/frosted-glass-html-css-tweaks
+
+### Face icons
+
+    - Fajar Hasyim
+    - The Noun Project
+    - https://thenounproject.com/fajarhasyim.91/collection/website-icon-set/
+
+### Website Logo
+
+    - Woot1234
+    - FavPng.com
+    - https://favpng.com/png_view/clean-logo-green-cleaning-cleaner-logo-environmentally-friendly-png/sCFxe94P 
+
+### Background Image
+
+    - jeanvdmeulen
+    - Pixabay
+    - https://pixabay.com/photos/dining-room-living-room-modern-3108037/
 
