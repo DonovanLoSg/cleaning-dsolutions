@@ -64,6 +64,7 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 	- [Article Rating](#article-rating)
 	- [Tagging](#tagging)
 	- [Random Articles](#random-articles)
+    - [Responsiveness](#responsiveness)
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
     - [Automated Testing](#automated-testing)
@@ -75,8 +76,16 @@ Source code: https://github.com/DonovanLoSg/cleaningdsolutions
         - [Alt Text Checking](#alt-text-checking)
     - [Manual Testing](#maual-testing)
         - [Compatibility Testing](#compatibility-testing)
-        - [User Acceptance Testing](user-acceptance-testing)
-
+        - [User Acceptance Testing](#user-acceptance-testing)
+- [Deployment](#deployment)
+        - [GitHub](#github)
+        - [Git Bash](#git-bash)
+        - [Clone repository](#clone-repository)
+        - [MongoDB](#mongodb)
+        - [Default Administrator](#default-administrator)
+        - [Session Key](#session-key)
+        - [Heroku](#heroku)
+        - [App Deployment](#app-deployment)
 
 
 
@@ -532,6 +541,11 @@ Tags can be part of the searching criteria, helping with the accuracy of the sea
 
 To give users have a glimpse of the content of the database, up to five random articles are listed on the home page.
 
+## Responsiveness
+
+This site embrace responsive web design.
+Its layout is coded to adapt to different screen size in order to make it look good on all devices (desktops, tablets, and phones)
+ 
 <hr>
 
 # Technologies Used
@@ -682,7 +696,81 @@ The pages, graphics and tables are checked for it's responsiveness to ensure no 
 Manual User Testing are documented in this Google Sheet:
 https://docs.google.com/spreadsheets/d/1MqkRPLtFEHGlK5F9lae6MqEdbwBf8I4yXKhSMiw6JV0/edit?usp=sharing
 
+## Deployment
+
+The application is developed on GitHub, using Python, with Flask framework, deployed to Heroku and storing the database in MongDB.
+If you want to deploy your own instance of this application, here are the steps:
+
+### GitHub
+
+If you do not have a GitHub account, you can [sign up for one](https://github.com/join?source=login)
+
+### Git Bash
+
+If you do not have any have any avenue to issue Git commands, you can [download Git Bash](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+### Clone repository
+
+Navgiate to https://github.com/DonovanLoSg/cleaning-dsolutions.git
+Clone this repository.
+For instruction how to clone a repository, visit [GitHub Docs > Cloning a repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+
+### MongoDB
+
+Setup an account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+
+Go to Clusters to create a database and name it 'cleaning-dsolutions'
+Create three collections ('articles', 'cleaning-locations' and 'registered_users')
+
+Go to Database Access under Security, add a Database User with username 'root'
+
+To access a cluster, you must connect from an IP address on the Atlas project’s IP whitelist.
+You can also add the IP address from the Security tab.
+
+Go to the Clusters newly created database, click on Connect.
+Select 'Connect Your Application' .
+Click on the 'Copy' button and you will get a string similar to this 'mongodb+srv://root:<password>@cleaning-dsolutions.gu6vi.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority'
+Replace your string 'password' with your newly created user 'root's password.
+Relace the <dbname> to cleaning-dsolutions
+Safe keep this string to be used when setting up Heroku.
+
+### Default Administrator
+
+On MongoDB, Go to the cleaning-dsolutions database's registered users collection.
+Insert a document as follows:
+    email:"{replace with yhour email address}"
+    nickname: "admin"
+    password: "{replace with a password with at least 8 characters long}"
+    admin: "true"
+This will be your default admin account to the new application.
 
 
+For more information, you can visit [MongoDB Atlas > Connect to a Cluster](https://docs.atlas.mongodb.com/connect-to-cluster/)
+
+
+### Session Key
+
+Generate a random session key (preferably 504-bit WPA Key).
+You can obtain one from [RandomKeygen](https://randomkeygen.com/)
+
+### Heroku
+
+Set up an account at [Heroku](https://signup.heroku.com/）)
+Create a new app
+Go into the app, and navigate to 'Setting'
+Scroll down to Config Vars and click on Reveal Config Vars
+Key in these entries:
+    DB_ARTICLE : articles
+    DB_LOCATION : cleaning_locations
+    DB_NAME : cleaning-dsolutions
+    DB_USER : registered_users
+    MONGO_URI : {enter the string generated from MongoDB)
+    SESSION_KEY : {enter the session key you generated in the previous step.}
+
+### App Deployment
+
+On Heroku, go to Deply tab and choose a deployment method.
+Connect to Github repository you have created.
+Your app will be automaticalled deployed with the help fo 'requirements.txt' file which is in the repository ou have clone.
 
 
