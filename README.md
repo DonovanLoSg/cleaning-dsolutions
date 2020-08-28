@@ -881,8 +881,8 @@ ______________________________________________________
 
 # Acknowledgements
 
-- Mr Paul Chor - Mentor
-- Ms Chia Ching Shyan - My classmate - For sharing of articles, youtubes and notes
-- Mr Kevin Lee - My friend - For helping tedious mid project unit testing.
-- Mr Jon Tan - My friend - For helping tedious with the user acceptance testing.
+- Mr Paul Chor - Mentor.
+- Ms Chia Ching Shyan - My classmate - For sharing of articles, youtubes and notes.
+- Mr Kevin Lee - My friend - For spending time helping mid project unit testings.
+- Mr Jon Tan - My friend - For helping tedious with the user acceptance testings.
  

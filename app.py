@@ -86,8 +86,7 @@ def index():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    location_data = client[DB_NAME][DB_LOCATION].find().sort(
-        "location")
+
     random_articles = client[DB_NAME][DB_ARTICLE].aggregate(
         [{"$sample": {"size": 5}}])
     if request.method == 'POST':  # recieved as form submitted
@@ -112,6 +111,8 @@ def home():
                     flash(
                         'Please key in the words you want to search'
                         'in the article titles.', 'info')
+                    location_data = client[DB_NAME][DB_LOCATION].find().sort(
+                        "location")
                     return render_template("/home.template.html",
                                            location_data=location_data,
                                            form=form,
@@ -125,6 +126,8 @@ def home():
                 else:
                     flash('Please select the location'
                           'you want to read about.', 'info')
+                    location_data = client[DB_NAME][DB_LOCATION].find().sort(
+                        "location")
                     return render_template("/home.template.html",
                                            location_data=location_data,
                                            form=form,
@@ -139,12 +142,16 @@ def home():
                         {'tags': {'$elemMatch': {'$in': tagsArray}}})
                 else:
                     flash('Please key in the tags you looking for.', 'info')
+                    location_data = client[DB_NAME][DB_LOCATION].find().sort(
+                        "location")
                     return render_template("/home.template.html",
                                            location_data=location_data,
                                            form=form,
                                            random_articles=random_articles)
         else:
             flash('Please select at least one search criteria.', 'info')
+            location_data = client[DB_NAME][DB_LOCATION].find().sort(
+                "location")
             return render_template("/home.template.html",
                                    location_data=location_data,
                                    form=form,
@@ -157,6 +164,7 @@ def home():
                                tagsArray=tagsArray,
                                locationArray=locationArray)
     else:
+        location_data = client[DB_NAME][DB_LOCATION].find().sort("location")
         return render_template("/home.template.html",
                                location_data=location_data,
                                random_articles=random_articles,
@@ -900,4 +908,4 @@ def error_encountered():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
