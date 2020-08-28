@@ -5,7 +5,7 @@
 
 <hr>
 
-<img src="/readme/cleaning-dsolutions.png" style="margin: 0; width: 100%" alt="Use Case Diagram">
+<img src="readme/cleaning-dsolutions.png" style="margin: 0; width: 100%" alt="Cleaning d'Solutions landing page">
 
 Solutions to griminess and messiness. Crowdsourced information, guides, recipes, tips and hacks on cleaning.
 
