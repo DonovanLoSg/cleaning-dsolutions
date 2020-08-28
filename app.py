@@ -552,17 +552,17 @@ def show_article(_id):
                         if post['bad_rating']:
                             bad_rating_count = bad_rating_count + 1
             return render_template("/articles/article.template.html",
-                                    current_user=current_user,
-                                    article_data=article_data,
-                                    article_id=_id,
-                                    article_owner_id=article_owner_id,
-                                    article_owner_data=article_owner_data,
-                                    user_postings=user_postings,
-                                    good_rating_count=good_rating_count,
-                                    neutral_rating_count=neutral_rating_count,
-                                    bad_rating_count=bad_rating_count,
-                                    user_rated=user_rated,
-                                    user_comments=user_comments)
+                                   current_user=current_user,
+                                   article_data=article_data,
+                                   article_id=_id,
+                                   article_owner_id=article_owner_id,
+                                   article_owner_data=article_owner_data,
+                                   user_postings=user_postings,
+                                   good_rating_count=good_rating_count,
+                                   neutral_rating_count=neutral_rating_count,
+                                   bad_rating_count=bad_rating_count,
+                                   user_rated=user_rated,
+                                   user_comments=user_comments)
 
         else:
             flash('No such article found', category='danger')
@@ -895,8 +895,9 @@ def not_found(e):
 def error_encountered():
     return render_template('/error-encountered.template.html')
 
+
 # flask boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)

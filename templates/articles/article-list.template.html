@@ -83,21 +83,21 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for article in articles %}
+			{% for each_article in articles %}
 			<tr>
 				<td class="title px-5 align-middle">
-					{{article.article_title}}
+					{{each_article.article_title}}
 				</td>
 				<td class="align-middle">
-					{{article.cleaning_location}}
+					{{each_article.cleaning_location}}
 				</td>
 				<td class="align-middle  m-0 p-0 ">
-					<a href="{{url_for('show_article',_id=article._id)}}" class="btn btn6 btn-primary btn-md">View</a>
+					<a href="{{url_for('show_article',_id=each_article._id)}}" class="btn btn6 btn-primary btn-md">View</a>
 					{% if listtype=='my' or current_user.admin %}
                         {% if listtype=="my" %}
-                            <a href="{{url_for('delete_article',_id=article._id, listtype='my')}}" class="btn btn6 btn-warning btn-md">Delete</a>
+                            <a href="{{url_for('delete_article',_id=each_article._id, listtype='my')}}" class="btn btn6 btn-warning btn-md">Delete</a>
                         {% else %}
-					        <a href="{{url_for('delete_article',_id=article._id, listtype='list')}}" class="btn btn6 btn-warning btn-md">Delete</a>
+					        <a href="{{url_for('delete_article',_id=each_article._id, listtype='list')}}" class="btn btn6 btn-warning btn-md">Delete</a>
                         {% endif %}
 					{% endif %}
 				</td>

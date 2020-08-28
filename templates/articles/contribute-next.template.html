@@ -7,12 +7,14 @@
 {% block content %}
 <div class="container black-border blur-shadow p-3 pb-5 mb-5">
 	<div class="container">
-		<a href="{{url_for('contribute_articles')}}" class="btn btn-primary btn-md btn12">
-		Add another article
-		</a>
-		<a href="{{url_for('my_articles')}}" class="btn btn-primary btn-md btn12 mt-5">
-		Go to my article listing
-		</a>
+        <div>
+            <a href="{{url_for('contribute_articles')}}" class="btn btn-primary btn12">
+            Add another article </a>
+        </div>
+        <div>
+            <a href="{{url_for('my_articles')}}" class="btn btn-primary btn12 ">
+            Go to my article listing</a>
+        </div>
 	</div>
 </div>
 {% endblock %}

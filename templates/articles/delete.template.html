@@ -15,9 +15,9 @@
 		<div class="row">
 			<div class="col"></div>
 			<div class="col">
-				{% if (article_owner_id == current_user.id) or current_user.admin %}
+				{% if (article_owner_id == current_user._id) or current_user.admin %}
 				<!-- Confirm deletion -->
-				{% if (article_owner_id == current_user.id) or current_user.admin %}
+				{% if (article_owner_id == current_user._id) or current_user.admin %}
 				<!-- Confirm deletion -->
 				<form method="post" name="form" target="_self">
 					<button type="submit" class="btn btn-danger  btn10">Confirm Deletion</button>
@@ -128,7 +128,7 @@
 					{% endif %}
 				</div>
 				<div class="col-12 col-md-6">
-					{% if (article_owner_id == current_user.id) or current_user.admin %}
+					{% if (article_owner_id == current_user._id) or current_user.admin %}
 					<!-- Confirm deletion -->
                         <form method="post" name="form" target="_self">
                             <button type="submit" class="btn btn-danger mb-3 btn10" >Confirm Deletion</button>

@@ -15,23 +15,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in user_data %}
+                {% for each_user in user_data %}
                 <tr>
-                    <td  scope="row" class="align-middle pl-3">{{user.nickname}}</td>
-                    <td class="align-middle">{{user.email}}</td>
-                    <td class="align-middle narrow">{% if user.admin %}Yes{% else %}No{% endif %}</td>
+                    <td  scope="row" class="align-middle pl-3">{{each_user.nickname}}</td>
+                    <td class="align-middle">{{each_user.email}}</td>
+                    <td class="align-middle narrow">{% if each_user.admin %}Yes{% else %}No{% endif %}</td>
                     <td class="align-middle text-nowrap m-0 p-0 narrow">
                         <form method="post" name="form" target="_self" class="d-inline">
                             <button type="submit" class="btn btn6 btn-primary">Edit</button>
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="source" value="user-listing">
-                            <input type="hidden" name="id" value="{{user._id}}">
+                            <input type="hidden" name="id" value="{{each_user._id}}">
                         </form>
                         <form method="post" name="form" target="_self" class="d-inline">
                             <button type="submit" class="btn btn6 btn-warning">Delete</button>
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="source" value="user-listing">
-                            <input type="hidden" name="id" value="{{user._id}}">
+                            <input type="hidden" name="id" value="{{each_user._id}}">
                         </form>
                     </td>
                 </tr>
