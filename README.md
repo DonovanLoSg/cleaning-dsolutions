@@ -5,15 +5,13 @@
 
 <hr>
 
-<img src="readme/cleaning-dsolutions.png" style="margin: 0; width: 100%" alt="Cleaning d'Solutions landing page">
+![Cleaning d'Solution landing page](readme/cleaning-dsolutions.png)
 
 Solutions to griminess and messiness. Crowdsourced information, guides, recipes, tips and hacks on cleaning.
 
-## Demo
-
-Deployed project: http://cleaning.dsolutions.sg/
-
-Source code: https://github.com/DonovanLoSg/cleaningdsolutions
+> # Demo
+> Deployed project: http://cleaning.dsolutions.sg/
+> Source code: https://github.com/DonovanLoSg/cleaningdsolutions
 
 ## Contents
 

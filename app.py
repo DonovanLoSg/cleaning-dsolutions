@@ -895,7 +895,6 @@ def not_found(e):
 def error_encountered():
     return render_template('/error-encountered.template.html')
 
-
 # flask boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
